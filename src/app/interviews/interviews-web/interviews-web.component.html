@@ -1,0 +1,56 @@
+<div class="page-container">
+    <div class="header">
+        <app-header></app-header>
+    </div>
+    <div class="body-container" *ngIf="candidates.length>0">
+        <div class="body-title">
+            <h4>UpComming Streams</h4>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <th>Name</th>
+                    <th>Date & Time</th>
+                    <th>Pass Out Year</th>
+                    <th>Skills</th>
+                    <th>Action</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cand of candidates">
+                        <td>{{cand.Cand?cand.Cand.name:"--"}}</td>
+                        <td>{{cand.DateTime|date:"dd-MM-YYYY"}}&{{cand.DateTime|date:"MM:hh a"}}</td>
+                        <td>{{cand.Cand?cand.Cand.yearOfPassing:"--"}}</td>
+                        <td>
+                            <p style="width: 300px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                {{cand.Cand?cand.Cand.skills:"--"}}</p>
+                        </td>
+                        <td>
+                            <button (click)="go_live(cand)" class="go-live"
+                                *ngIf="cand.DateTime < currentTime && cand.endTime > currentTime && cand.streamStatus!='Completed'">
+                                Go Live
+                            </button>
+                            <span *ngIf="cand.DateTime > currentTime">Waiting</span>
+                            <button *ngIf="cand.endTime < currentTime || cand.streamStatus=='Completed'"
+                                (click)="candRating(cand)" class="rate-btn" type="button">
+                                <span style="padding-right: 5px;">
+                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7 1V13M13 7H1" stroke="#0a2647" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                                Rating
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="body-container" *ngIf="candidates.length==0">
+        <div class="img-empty">
+            <img src="../../../assets/emptystream.png" alt="">
+            <h4>No upcoming Stream Found</h4>
+        </div>
+    </div>
+</div>

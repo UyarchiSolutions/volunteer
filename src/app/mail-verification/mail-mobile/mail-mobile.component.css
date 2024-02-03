@@ -1,0 +1,22 @@
+.page-body {
+  padding-top: 43vh;
+}
+
+.message {
+  text-align: center;
+}
+.message h4 {
+  color: #fd841f;
+  padding-top: 30px;
+  font-family: "Raleway";
+}
+
+.message h5 {
+  font-family: "Poppins";
+  padding-top: 10px;
+}
+
+.message p {
+  padding-top: 30px;
+  font-family: "Poppins";
+}

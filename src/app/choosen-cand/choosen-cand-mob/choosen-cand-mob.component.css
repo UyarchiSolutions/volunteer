@@ -1,0 +1,46 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  .body-content {
+    width: 95%;
+    margin: auto;
+    height: 113px;
+    font-family: "Poppins";
+    margin-bottom: 10px;
+    border-bottom: 1px solid #cdcccc;
+    margin-top: 10px;
+  }
+  .body-content .first{
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+  }
+  .body-content .first .date{
+    color: #948e8e;
+    font-size: 12px;
+  }
+  .second{
+    display: flex;
+    justify-content: space-between;
+    height: 37px;
+  }
+  .second .skills{
+    width: 70%;
+    overflow: auto;
+  }
+  .third{
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+  }
+
+  .third button{
+    border: none;
+    background-color: #ffff;
+    width: 98px;
+    color: orangered;
+    height: 30px;
+    border-radius: 5px;
+  }

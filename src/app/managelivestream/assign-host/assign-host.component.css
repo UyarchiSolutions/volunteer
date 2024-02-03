@@ -1,0 +1,5 @@
+.form>div:not(.post-btn) {
+    display: flex;
+    margin: 18px 0 !important;
+    align-items: baseline;
+}

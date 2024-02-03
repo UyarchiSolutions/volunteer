@@ -1,0 +1,154 @@
+<div class="top-bar">
+    <app-mobile-top-bar></app-mobile-top-bar>
+</div>
+
+
+
+<div class="page-container">
+    <div class="page-top">
+        <p>Interviews</p>
+    </div>
+    <div class="body-container">
+        <div class="bodycontent-container" *ngFor="let cand of cand">
+            <div class="body-content">
+                <div class="first">
+                    <p>
+                        <span>
+                            <svg width="15" height="15" viewBox="0 0 11 12" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M6.08722 5.37211C7.10106 4.95391 7.81463 3.95576 7.81463 2.79095C7.81463 1.24955 6.56508 0 5.02368 0C3.48228 0 2.23273 1.24955 2.23273 2.79095C2.23273 3.95577 2.9463 4.95392 3.96015 5.37212C1.69646 5.68771 0 7.06074 0 9.69583C0 12.1585 1.48167 12.0712 3.52331 11.951C3.99713 11.923 4.5011 11.8934 5.02371 11.8934C5.54632 11.8934 6.0503 11.923 6.52411 11.951C8.56575 12.0712 10.0474 12.1585 10.0474 9.69583C10.0474 7.06073 8.35094 5.68769 6.08722 5.37211Z"
+                                    fill="#8493A3" />
+                            </svg>
+                        </span>
+
+                        <span>
+                            {{cand.Cand?cand.Cand.name:"--"}}
+                        </span>
+                    </p>
+                    <p style="font-size: 12px; color:rgba(10, 38, 71, 0.5);">
+                        09/01/2023-09,05 am
+                    </p>
+                    <p>
+                        18%
+                    </p>
+                </div>
+                <div class="second">
+                    <p>
+                        <span>
+                            <svg width="15" height="15" viewBox="0 0 11 14" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M3.72542 0.0621443C3.69938 0.0985966 3.54315 0.390218 3.38172 0.713084L3.09531 1.29112L2.89742 1.27029C2.78806 1.25987 2.49123 1.22863 2.23086 1.19738C1.62158 1.12969 1.60075 1.12969 1.5018 1.22863C1.43411 1.30153 1.41848 1.42652 1.4289 1.98893C1.4289 2.35866 1.41328 2.68153 1.39245 2.70236C1.36641 2.72319 1.05396 2.85858 0.699845 2.99919C0.251998 3.17624 0.0436975 3.2856 0.0176599 3.35851C-0.0135852 3.43662 0.0645276 3.62409 0.309281 4.08756L0.637355 4.71246L0.408224 4.97284C0.283244 5.11344 0.179093 5.25925 0.173886 5.2905C0.173886 5.31654 0.278036 5.46755 0.408224 5.61857C0.538412 5.76959 0.632148 5.91019 0.621733 5.92582C-0.0344154 7.11313 -0.0448304 7.13917 0.0332825 7.25373C0.0801502 7.32664 0.350941 7.46203 0.767543 7.62868L1.42369 7.88905V8.59727C1.42369 9.1701 1.43931 9.32112 1.5018 9.3732C1.57992 9.44089 1.90799 9.43048 2.80368 9.34716L3.11614 9.31591L3.40255 9.90436C3.70459 10.5241 3.78791 10.6334 3.93372 10.5918C3.98058 10.5761 4.28262 10.3939 4.60549 10.1804C4.92835 9.96685 5.21477 9.81063 5.24601 9.82625C5.27726 9.84708 5.53243 10.0241 5.80843 10.2168C6.15212 10.4616 6.35522 10.5709 6.43333 10.5605C6.52706 10.5501 6.64163 10.3939 6.92804 9.89395C7.25091 9.33154 7.31861 9.24301 7.42276 9.25342C7.49046 9.26384 7.7977 9.30029 8.11015 9.34716C8.89128 9.45652 8.87045 9.47735 8.87045 8.51395V7.77449L9.54743 7.52973C10.063 7.33705 10.2296 7.25373 10.2556 7.17041C10.2817 7.0923 10.1932 6.86838 9.96403 6.3997L9.63595 5.73834L9.79739 5.53004C9.89112 5.41548 9.96403 5.30091 9.96403 5.27488C9.96403 5.24884 9.89633 5.16031 9.8078 5.07699C9.72448 4.99367 9.65158 4.89993 9.65158 4.86869C9.65158 4.83744 9.79218 4.52499 9.96924 4.17088C10.2192 3.65533 10.2765 3.50432 10.2348 3.41579C10.2036 3.33768 10.0109 3.24394 9.54222 3.07209L8.89649 2.83775L8.87045 2.07225C8.85483 1.56712 8.82358 1.28591 8.78192 1.24425C8.72985 1.19218 8.56841 1.19738 8.006 1.27029C7.62064 1.32236 7.29257 1.35361 7.28736 1.34319C7.26653 1.31716 6.94367 0.733915 6.77182 0.416256C6.61559 0.129842 6.50103 -0.000346184 6.40208 -0.000346184C6.37084 -0.000346184 6.10005 0.176709 5.79801 0.390218C5.50118 0.603726 5.2356 0.780783 5.21477 0.780783C5.19394 0.780783 4.90232 0.603726 4.56383 0.390218C3.94934 -0.0055542 3.82436 -0.0524216 3.72542 0.0621443ZM5.7928 2.58259C6.70933 2.80651 7.51129 3.50432 7.82374 4.34794C8.01641 4.85827 8.06328 5.29571 7.96955 5.74355C7.61544 7.47766 5.8605 8.49312 4.18368 7.93592C3.67334 7.76407 3.3661 7.56098 2.98074 7.14438C2.61101 6.73819 2.38188 6.28513 2.26731 5.72272C2.1892 5.33737 2.1892 5.28008 2.26731 4.8791C2.3975 4.27503 2.66829 3.74907 3.06406 3.36371C3.79311 2.64508 4.83462 2.34825 5.7928 2.58259Z"
+                                    fill="#8493A3" />
+                                <path
+                                    d="M7.10516 10.0869C6.57399 11.0399 6.53754 11.0451 5.50124 10.29C5.17837 10.0609 5.16796 10.0765 5.35543 10.6598C5.42313 10.8837 5.65747 11.6804 5.87097 12.4303C6.08448 13.1854 6.28758 13.8468 6.31882 13.9093C6.36048 13.9822 6.41776 14.0082 6.51671 13.9978C6.6469 13.9822 6.68335 13.9145 6.9958 13.1386C7.18327 12.6751 7.34991 12.2793 7.36553 12.2637C7.38116 12.2533 7.59466 12.3939 7.83421 12.5918C8.70907 13.2844 8.86009 13.3937 8.97987 13.3729C9.25586 13.3312 9.27669 13.4198 8.32893 10.1807C8.14666 9.55578 8.16749 9.57661 7.64674 9.51412L7.43323 9.48808L7.10516 10.0869Z"
+                                    fill="#8493A3" />
+                                <path
+                                    d="M2.30892 9.6294L2.07979 9.66064L1.56946 11.426C1.03829 13.2799 1.02267 13.384 1.28825 13.384C1.36116 13.384 1.68923 13.1601 2.14228 12.8112C2.54326 12.4935 2.88696 12.2384 2.89737 12.2384C2.913 12.2384 3.06922 12.6237 3.25149 13.0976C3.52749 13.8267 3.60039 13.9673 3.69933 13.9881C3.82952 14.0245 4.02741 13.8892 4.02741 13.7694C4.02741 13.7017 4.40235 12.379 4.78771 11.0771C4.91269 10.6501 5.01684 10.2803 5.01684 10.2543C5.01684 10.2335 4.80333 10.3532 4.53774 10.5199C3.78786 11.0042 3.63684 10.9573 3.22024 10.1085L2.96507 9.58253L2.75156 9.59295C2.637 9.59295 2.43911 9.61378 2.30892 9.6294Z"
+                                    fill="#8493A3" />
+                            </svg>
+                        </span>
+                        <span>
+                            {{cand.Cand?cand.Cand.yearOfPassing:"--"}}
+                        </span>
+                    </p>
+                    <p>
+                        15 mins
+                    </p>
+                    <p></p>
+                </div>
+                <!-- <div class="third">
+                    <p>
+                        <span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M9.20833 16.5L12.8542 8.6875L16.5 16.5M10.25 14.4167H15.4583M4 5.82014C5.38222 5.64814 6.77378 5.56209 8.16667 5.5625M8.16667 5.5625C8.94444 5.5625 9.71736 5.58889 10.4819 5.64167M8.16667 5.5625V4M10.4819 5.64167C9.67778 9.31806 7.25694 12.3889 4 14.0708M10.4819 5.64167C11.1042 5.68403 11.7215 5.74375 12.3333 5.82014M9.14653 11.7194C8.00762 10.5615 7.10495 9.19305 6.48889 7.69028"
+                                    stroke="#8493A3" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </span>
+                        <span>
+                            {{cand.Cand.language.language}}
+                        </span>
+                    </p>
+                    <p>
+                    </p>
+                    <p></p>
+                </div> -->
+                <div class="four mt-3">
+                    <p style="max-width: 78%;"> {{cand.Cand.skills}}</p>
+                    <p>
+                        <button (click)="go_live(cand)"
+                            *ngIf="cand.DateTime < currentTime && cand.endTime > currentTime && cand.streamStatus !='Completed'">
+                            Go Live
+                        </button>
+                        <span *ngIf="cand.DateTime > currentTime">Waiting</span>
+                        <button  *ngIf="cand.endTime < currentTime || cand.streamStatus=='Completed'" (click)="candRating(cand)"
+                            style="display: flex; align-items: center; justify-content: space-between; font-family: 'Poppins';"
+                            type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom"
+                            aria-controls="offcanvasBottom">
+                            <span
+                                style="background-color: #0A2647; height: 110%; width: 29px; margin-left: -7px; display: flex; justify-content: center; align-items: center;">
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7 1V13M13 7H1" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                            Rating
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+</div>
+<div class="footer">
+    <app-mobile-menu-bar></app-mobile-menu-bar>
+</div>
+
+
+<!-- <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasBottomLabel">{{candidate?candidate.name:"--"}}</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body small" [formGroup]="profileForm">
+        <div class="skills-add">
+            <input type="text" placeholder="Enter All Skills" formControlName="skillsfron" style="width: 75%;"
+                [class.activeErr]="profileForm.get('skills').invalid">
+            <button class="add-btn" (click)="addSkill1()">Add</button>
+        </div>
+        <div class="datas" *ngIf="skills1.length>0">
+            <p class="items" *ngFor="let item of skills1">{{item}}
+                <span (click)="addSkill1Remove(item)"> <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6 12C2.6862 12 0 9.3138 0 6C0 2.6862 2.6862 0 6 0C9.3138 0 12 2.6862 12 6C12 9.3138 9.3138 12 6 12ZM6 10.8C7.27304 10.8 8.49394 10.2943 9.39411 9.39411C10.2943 8.49394 10.8 7.27304 10.8 6C10.8 4.72696 10.2943 3.50606 9.39411 2.60589C8.49394 1.70571 7.27304 1.2 6 1.2C4.72696 1.2 3.50606 1.70571 2.60589 2.60589C1.70571 3.50606 1.2 4.72696 1.2 6C1.2 7.27304 1.70571 8.49394 2.60589 9.39411C3.50606 10.2943 4.72696 10.8 6 10.8ZM6 5.1516L7.6968 3.4542L8.5458 4.3032L6.8484 6L8.5458 7.6968L7.6968 8.5458L6 6.8484L4.3032 8.5458L3.4542 7.6968L5.1516 6L3.4542 4.3032L4.3032 3.4542L6 5.1516Z"
+                            fill="#FF0000" />
+                    </svg>
+                </span>
+            </p>
+            <p><span class="star-rating">
+                <label for="rate-1" style="--i:1"><i class="fa-solid fa-star"></i></label>
+                <input type="radio" name="rating" id="rate-1" value="1">
+                <label for="rate-2" style="--i:2"><i class="fa-solid fa-star"></i></label>
+                <input type="radio" name="rating" id="rate-2" value="2">
+                <label for="rate-3" style="--i:3"><i class="fa-solid fa-star"></i></label>
+                <input type="radio" name="rating" id="rate-3" value="3">
+                <label for="rate-4" style="--i:4"><i class="fa-solid fa-star"></i></label>
+                <input type="radio" name="rating" id="rate-4" value="4">
+                <label for="rate-5" style="--i:5"><i class="fa-solid fa-star"></i></label>
+                <input type="radio" name="rating" id="rate-5" value="5">
+            </span></p>
+        </div>
+
+    </div>
+</div> -->

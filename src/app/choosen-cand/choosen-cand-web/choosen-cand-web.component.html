@@ -1,0 +1,97 @@
+<div class="page-container">
+    <div class="header">
+        <app-header></app-header>
+    </div>
+    <div class="body-container" *ngIf="Candidates.length>0">
+        <div class="body-title">
+            <h4>Choosen Candidates</h4>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <th>Name</th>
+                    <th>Date & Time</th>
+                    <th>Passed Year</th>
+                    <th>Skills</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cand of Candidates">
+                        <td>{{cand.name}}</td>
+                        <td>{{"22-12-2023"}}</td>
+                        <td>{{cand.yearOfPassing}}</td>
+                        <td>
+                            <p style="width: 300px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                {{cand.skills}}</p>
+                        </td>
+                        <td>
+                            <ng-container *ngIf="role =='HR Volunteer' ">
+                                <p *ngIf="cand.IntrestedCandidate.hrStatus =='Approved' && cand.hrClear==false  ">
+                                    {{cand.IntrestedCandidate.hrStatus =='Approved'?"Verified":"Pending" }}</p>
+                                <p *ngIf="cand.IntrestedCandidate.hrStatus =='Approved' && cand.hrClear==true  ">
+                                    {{cand.IntrestedCandidate.hrStatus =='Approved'?"Approved":"" }}</p>
+                                <p *ngIf="cand.IntrestedCandidate.hrStatus !='Approved'">
+                                    {{cand.IntrestedCandidate.hrStatus !='Approved'?"Pending":"" }}</p>
+                            </ng-container>
+                            <ng-container *ngIf="role !='HR Volunteer' && role !=null ">
+                                <p *ngIf="cand.IntrestedCandidate.status =='Approved' && cand.clear==false  ">
+                                    {{cand.IntrestedCandidate.status =='Approved'?"Verified":"Pending" }}</p>
+                                <p *ngIf="cand.IntrestedCandidate.status =='Approved' && cand.clear==true  ">
+                                    {{cand.IntrestedCandidate.status =='Approved'?"Approved":"" }}</p>
+                                <p *ngIf="cand.IntrestedCandidate.status !='Approved'">
+                                    {{cand.IntrestedCandidate.status !='Approved'?"Pending":"" }}</p>
+                            </ng-container>
+
+                        </td>
+                        <!-- <td *ngIf="Role == 'HR Volunteer' "><button (click)="intrestCandidate(cand._id, cand.slotId)"
+                                class="int-btn" *ngIf="cand.isIdInArray == false">Choose</button>
+                            <p *ngIf="cand.isIdInArray == true " class="intrested">Interested</p>
+                        </td> -->
+                        <!-- <td *ngIf="Role == 'Tech Volunteer' "><button class="int-btn"
+                                (click)="intrestCandidate(cand._id, cand.slotId)" *ngIf="cand.techIntrest ==
+                            false">Choose</button>
+                            <p *ngIf="cand.techIntrest == true " class="intrested">Interested</p>
+                        </td> -->
+                        <td>
+                            <ng-container *ngIf="role =='HR Volunteer' && role !=null ">
+                                <button class="undo-btn" (click)="undChoosen(cand._id)"
+                                    *ngIf="cand.IntrestedCandidate.hrStatus !='Approved'">
+                                    <svg width="14" height="14" viewBox="0 0 12 12" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M2.92271 2.65387C3.78181 1.89793 4.89548 1.46809 6.08052 1.46809C8.70351 1.46809 10.8274 3.56517 10.8274 6.14894C10.8274 8.7327 8.70351 10.8298 6.08052 10.8298C3.82083 10.8298 1.89499 9.50248 1.44025 7.35092H0.286184C0.85518 10.0431 3.26576 12 6.08052 12C9.34837 12 12 9.38179 12 6.14894C12 2.91609 9.34837 0.297874 6.08052 0.297874C4.58805 0.297874 3.18347 0.847351 2.10745 1.8114L0.484918 0.134699C0.259419 -0.0983268 0.071949 -0.0203437 0.0663157 0.301702L9.05991e-05 4.08787C-0.00559902 4.41313 0.257232 4.68146 0.579947 4.68708L4.37398 4.75317C4.69992 4.75885 4.77851 4.57163 4.55584 4.34152L2.92271 2.65387Z"
+                                            fill="#0A2647" />
+                                    </svg>
+                                    Undo
+                                </button>
+                                <p *ngIf="cand.IntrestedCandidate.hrStatus =='Approved'">--</p>
+                            </ng-container>
+                            <ng-container *ngIf="role !='HR Volunteer' && role !=null ">
+                                <button class="undo-btn" (click)="undChoosen(cand._id)"
+                                    *ngIf="cand.IntrestedCandidate.status !='Approved'">
+                                    <svg width="14" height="14" viewBox="0 0 12 12" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M2.92271 2.65387C3.78181 1.89793 4.89548 1.46809 6.08052 1.46809C8.70351 1.46809 10.8274 3.56517 10.8274 6.14894C10.8274 8.7327 8.70351 10.8298 6.08052 10.8298C3.82083 10.8298 1.89499 9.50248 1.44025 7.35092H0.286184C0.85518 10.0431 3.26576 12 6.08052 12C9.34837 12 12 9.38179 12 6.14894C12 2.91609 9.34837 0.297874 6.08052 0.297874C4.58805 0.297874 3.18347 0.847351 2.10745 1.8114L0.484918 0.134699C0.259419 -0.0983268 0.071949 -0.0203437 0.0663157 0.301702L9.05991e-05 4.08787C-0.00559902 4.41313 0.257232 4.68146 0.579947 4.68708L4.37398 4.75317C4.69992 4.75885 4.77851 4.57163 4.55584 4.34152L2.92271 2.65387Z"
+                                            fill="#0A2647" />
+                                    </svg>
+                                    Undo
+                                </button>
+                                <p *ngIf="cand.IntrestedCandidate.status =='Approved'">--</p>
+                            </ng-container>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="body-container" *ngIf="Candidates.length == 0">
+        <div class="img-empty">
+            <img src="../../../assets/emptypage.png" alt="">
+            <h4>No Choosen Candidates Found</h4>
+        </div>
+
+    </div>
+</div>

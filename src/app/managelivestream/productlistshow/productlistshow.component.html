@@ -1,0 +1,215 @@
+<div class="product-view" *ngIf="streamDetails !=null">
+    <div class="header">
+        <h6>{{streamDetails.streampost.name}}</h6>
+        <p class="education-detials">
+            <span>
+                <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M4.04558 6.35041C3.83398 8.04348 3.7079 9.74703 3.66785 11.454C5.88252 12.4209 8.00301 13.6084 10 15C11.9972 13.6084 14.118 12.4209 16.3329 11.454C16.2928 9.74703 16.1668 8.04348 15.9552 6.35041M15.9552 6.35041C16.6283 6.11401 17.3107 5.8953 18 5.69588C15.4894 3.85632 12.8095 2.28323 10 1C7.19049 2.2835 4.51055 3.85686 2 5.69669C2.68721 5.89497 3.36907 6.11296 4.04481 6.35041C6.09782 7.07178 8.08977 7.97064 10 9.03768C11.91 7.9707 13.9024 7.07184 15.9552 6.35041ZM5.96115 10.2527C6.11417 10.2527 6.26093 10.1891 6.36914 10.076C6.47734 9.96293 6.53813 9.80953 6.53813 9.64959C6.53813 9.48965 6.47734 9.33625 6.36914 9.22316C6.26093 9.11006 6.11417 9.04652 5.96115 9.04652C5.80813 9.04652 5.66137 9.11006 5.55316 9.22316C5.44496 9.33625 5.38417 9.48965 5.38417 9.64959C5.38417 9.80953 5.44496 9.96293 5.55316 10.076C5.66137 10.1891 5.80813 10.2527 5.96115 10.2527ZM5.96115 10.2527V7.29763C7.26646 6.44959 8.61471 5.67599 10 4.98024M4.60948 14.2675C5.03873 13.8199 5.37912 13.2881 5.61109 12.7026C5.84305 12.1171 5.96202 11.4894 5.96115 10.8557V9.64959"
+                        stroke="#0A2647" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+                <p style="width: 90%;margin: 0;text-overflow: ellipsis;white-space: normal;overflow: hidden;    height: 25px;">
+                    {{streamDetails.streampost.skills}}
+                </p>
+            </span>
+            <span>
+                <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M7.00156 15.451L2.47605 10.9255C1.58101 10.0304 0.971473 8.89002 0.724534 7.64855C0.477595 6.40707 0.604341 5.12025 1.08874 3.95081C1.57315 2.78136 2.39345 1.78183 3.44592 1.07859C4.4984 0.375351 5.73577 0 7.00156 0C8.26736 0 9.50473 0.375351 10.5572 1.07859C11.6097 1.78183 12.43 2.78136 12.9144 3.95081C13.3988 5.12025 13.5255 6.40707 13.2786 7.64855C13.0317 8.89002 12.4221 10.0304 11.5271 10.9255L7.00156 15.451ZM10.5216 9.91994C11.2177 9.22376 11.6917 8.33681 11.8837 7.37123C12.0758 6.40565 11.9772 5.40481 11.6004 4.49527C11.2236 3.58573 10.5856 2.80834 9.76701 2.2614C8.94843 1.71445 7.98605 1.42253 7.00156 1.42253C6.01707 1.42253 5.05469 1.71445 4.23611 2.2614C3.41753 2.80834 2.77952 3.58573 2.40275 4.49527C2.02598 5.40481 1.92737 6.40565 2.1194 7.37123C2.31142 8.33681 2.78546 9.22376 3.48156 9.91994L7.00156 13.4399L10.5216 9.91994ZM7.00156 7.82216C6.62437 7.82216 6.26262 7.67232 5.9959 7.4056C5.72918 7.13889 5.57934 6.77714 5.57934 6.39994C5.57934 6.02274 5.72918 5.661 5.9959 5.39428C6.26262 5.12756 6.62437 4.97772 7.00156 4.97772C7.37876 4.97772 7.74051 5.12756 8.00723 5.39428C8.27394 5.661 8.42378 6.02274 8.42378 6.39994C8.42378 6.77714 8.27394 7.13889 8.00723 7.4056C7.74051 7.67232 7.37876 7.82216 7.00156 7.82216Z"
+                        fill="#0A2647" />
+                </svg>
+                {{streamDetails.streampost.location}}
+            </span>
+        </p>
+    </div>
+    <div class="body">
+        <div class="view-details">
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <td>Skills : </td>
+                        <td>
+                            <p style="width: 200px;overflow-wrap: break-word;"> {{streamDetails.streampost.skills}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Institution name :</td>
+                        <td>{{streamDetails.streampost.Instituitionname}}</td>
+                    </tr>
+                    <tr>
+                        <td>Affiliated University :</td>
+                        <td>{{streamDetails.streampost.affiliateduniversity}}</td>
+                    </tr>
+                    <tr>
+                        <td>Education :</td>
+                        <td>{{streamDetails.streampost.Education}}</td>
+                    </tr>
+                    <tr>
+                        <td>Year Of Passed Out :</td>
+                        <td>{{streamDetails.streampost.yearOfPassing}}</td>
+                    </tr>
+                    <tr>
+                        <td>Date Of Birth :</td>
+                        <td>{{streamDetails.streampost.dob}}</td>
+                    </tr>
+                    <tr>
+                        <td>Language :</td>
+                        <td>
+                            <div *ngFor="let item of streamDetails.streampost.language; index as i">
+                                <h6>{{item.language}}</h6>
+                                <p
+                                    style="display: flex;align-items: center;justify-content: space-between;padding: 0 10px 0 0;font-size: 12px;">
+                                    <span style="display: flex;align-items: center;justify-content: space-between;">
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg" *ngIf="item.speak"
+                                            style="margin-right: 3px;">
+                                            <path
+                                                d="M7 14C3.1339 14 0 10.8661 0 7C0 3.1339 3.1339 0 7 0C10.8661 0 14 3.1339 14 7C14 10.8661 10.8661 14 7 14ZM7 12.6C8.48521 12.6 9.90959 12.01 10.9598 10.9598C12.01 9.90959 12.6 8.48521 12.6 7C12.6 5.51479 12.01 4.09041 10.9598 3.0402C9.90959 1.99 8.48521 1.4 7 1.4C5.51479 1.4 4.09041 1.99 3.0402 3.0402C1.99 4.09041 1.4 5.51479 1.4 7C1.4 8.48521 1.99 9.90959 3.0402 10.9598C4.09041 12.01 5.51479 12.6 7 12.6ZM6.3021 9.8L3.332 6.8299L4.3218 5.8401L6.3021 7.8204L10.2613 3.8605L11.2518 4.8503L6.3021 9.8Z"
+                                                fill="#00FF44" />
+                                        </svg>
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg" *ngIf="!item.speak"
+                                            style="margin-right: 3px;">
+                                            <path
+                                                d="M7 14C3.1339 14 0 10.8661 0 7C0 3.1339 3.1339 0 7 0C10.8661 0 14 3.1339 14 7C14 10.8661 10.8661 14 7 14ZM7 12.6C8.48521 12.6 9.90959 12.01 10.9598 10.9598C12.01 9.90959 12.6 8.48521 12.6 7C12.6 5.51479 12.01 4.09041 10.9598 3.0402C9.90959 1.99 8.48521 1.4 7 1.4C5.51479 1.4 4.09041 1.99 3.0402 3.0402C1.99 4.09041 1.4 5.51479 1.4 7C1.4 8.48521 1.99 9.90959 3.0402 10.9598C4.09041 12.01 5.51479 12.6 7 12.6ZM7 6.0102L8.9796 4.0299L9.9701 5.0204L7.9898 7L9.9701 8.9796L8.9796 9.9701L7 7.9898L5.0204 9.9701L4.0299 8.9796L6.0102 7L4.0299 5.0204L5.0204 4.0299L7 6.0102Z"
+                                                fill="#FF0000" />
+                                        </svg>
+                                        <span>
+                                            Speak
+                                        </span>
+
+
+                                    </span>
+                                    <span style="display: flex;align-items: center;justify-content: space-between;">
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg" *ngIf="item.read"
+                                            style="margin-right: 3px;">
+                                            <path
+                                                d="M7 14C3.1339 14 0 10.8661 0 7C0 3.1339 3.1339 0 7 0C10.8661 0 14 3.1339 14 7C14 10.8661 10.8661 14 7 14ZM7 12.6C8.48521 12.6 9.90959 12.01 10.9598 10.9598C12.01 9.90959 12.6 8.48521 12.6 7C12.6 5.51479 12.01 4.09041 10.9598 3.0402C9.90959 1.99 8.48521 1.4 7 1.4C5.51479 1.4 4.09041 1.99 3.0402 3.0402C1.99 4.09041 1.4 5.51479 1.4 7C1.4 8.48521 1.99 9.90959 3.0402 10.9598C4.09041 12.01 5.51479 12.6 7 12.6ZM6.3021 9.8L3.332 6.8299L4.3218 5.8401L6.3021 7.8204L10.2613 3.8605L11.2518 4.8503L6.3021 9.8Z"
+                                                fill="#00FF44" />
+                                        </svg>
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg" *ngIf="!item.read"
+                                            style="margin-right: 3px;">
+                                            <path
+                                                d="M7 14C3.1339 14 0 10.8661 0 7C0 3.1339 3.1339 0 7 0C10.8661 0 14 3.1339 14 7C14 10.8661 10.8661 14 7 14ZM7 12.6C8.48521 12.6 9.90959 12.01 10.9598 10.9598C12.01 9.90959 12.6 8.48521 12.6 7C12.6 5.51479 12.01 4.09041 10.9598 3.0402C9.90959 1.99 8.48521 1.4 7 1.4C5.51479 1.4 4.09041 1.99 3.0402 3.0402C1.99 4.09041 1.4 5.51479 1.4 7C1.4 8.48521 1.99 9.90959 3.0402 10.9598C4.09041 12.01 5.51479 12.6 7 12.6ZM7 6.0102L8.9796 4.0299L9.9701 5.0204L7.9898 7L9.9701 8.9796L8.9796 9.9701L7 7.9898L5.0204 9.9701L4.0299 8.9796L6.0102 7L4.0299 5.0204L5.0204 4.0299L7 6.0102Z"
+                                                fill="#FF0000" />
+                                        </svg>
+                                        <span>
+                                            Read
+                                        </span>
+
+                                    </span>
+                                    <span style="display: flex;align-items: center;justify-content: space-between;">
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg" *ngIf="item.write"
+                                            style="margin-right: 3px;">
+                                            <path
+                                                d="M7 14C3.1339 14 0 10.8661 0 7C0 3.1339 3.1339 0 7 0C10.8661 0 14 3.1339 14 7C14 10.8661 10.8661 14 7 14ZM7 12.6C8.48521 12.6 9.90959 12.01 10.9598 10.9598C12.01 9.90959 12.6 8.48521 12.6 7C12.6 5.51479 12.01 4.09041 10.9598 3.0402C9.90959 1.99 8.48521 1.4 7 1.4C5.51479 1.4 4.09041 1.99 3.0402 3.0402C1.99 4.09041 1.4 5.51479 1.4 7C1.4 8.48521 1.99 9.90959 3.0402 10.9598C4.09041 12.01 5.51479 12.6 7 12.6ZM6.3021 9.8L3.332 6.8299L4.3218 5.8401L6.3021 7.8204L10.2613 3.8605L11.2518 4.8503L6.3021 9.8Z"
+                                                fill="#00FF44" />
+                                        </svg>
+                                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg" *ngIf="!item.write"
+                                            style="margin-right: 3px;">
+                                            <path
+                                                d="M7 14C3.1339 14 0 10.8661 0 7C0 3.1339 3.1339 0 7 0C10.8661 0 14 3.1339 14 7C14 10.8661 10.8661 14 7 14ZM7 12.6C8.48521 12.6 9.90959 12.01 10.9598 10.9598C12.01 9.90959 12.6 8.48521 12.6 7C12.6 5.51479 12.01 4.09041 10.9598 3.0402C9.90959 1.99 8.48521 1.4 7 1.4C5.51479 1.4 4.09041 1.99 3.0402 3.0402C1.99 4.09041 1.4 5.51479 1.4 7C1.4 8.48521 1.99 9.90959 3.0402 10.9598C4.09041 12.01 5.51479 12.6 7 12.6ZM7 6.0102L8.9796 4.0299L9.9701 5.0204L7.9898 7L9.9701 8.9796L8.9796 9.9701L7 7.9898L5.0204 9.9701L4.0299 8.9796L6.0102 7L4.0299 5.0204L5.0204 4.0299L7 6.0102Z"
+                                                fill="#FF0000" />
+                                        </svg>
+                                        <span>Write</span>
+
+                                    </span>
+                                </p>
+
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <div class="add-reference">
+                <button (click)="toggle_reference()">
+                    <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M10.8612 14.9722V17.3328C10.1817 17.083 9.45064 16.9471 8.68895 16.9471C5.08987 16.9471 2.17224 19.9821 2.17224 23.7259H0C0 18.7341 3.89017 14.6875 8.68895 14.6875C9.43902 14.6875 10.1669 14.7863 10.8612 14.9722ZM8.68895 13.5577C5.08846 13.5577 2.17224 10.5241 2.17224 6.77883C2.17224 3.03353 5.08846 0 8.68895 0C12.2894 0 15.2057 3.03353 15.2057 6.77883C15.2057 10.5241 12.2894 13.5577 8.68895 13.5577ZM8.68895 11.2981C11.0893 11.2981 13.0334 9.2757 13.0334 6.77883C13.0334 4.28196 11.0893 2.25961 8.68895 2.25961C6.28863 2.25961 4.34447 4.28196 4.34447 6.77883C4.34447 9.2757 6.28863 11.2981 8.68895 11.2981ZM15.8419 18.0769L13.856 16.0111L15.392 14.4134L20 19.2067L15.392 24L13.856 22.4022L15.8419 20.3365H11.9473V18.0769H15.8419Z"
+                            fill="#0A2647" />
+                    </svg>
+                    <span> Add Reference</span>
+
+                </button>
+            </div>
+        </div>
+        <div class="add-reference-view" [ngClass]="reference?'show-now':''">
+            <div class="referance-header">
+                <div>
+                    <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M10.8612 14.9722V17.3328C10.1817 17.083 9.45064 16.9471 8.68895 16.9471C5.08987 16.9471 2.17224 19.9821 2.17224 23.7259H0C0 18.7341 3.89017 14.6875 8.68895 14.6875C9.43902 14.6875 10.1669 14.7863 10.8612 14.9722ZM8.68895 13.5577C5.08846 13.5577 2.17224 10.5241 2.17224 6.77883C2.17224 3.03353 5.08846 0 8.68895 0C12.2894 0 15.2057 3.03353 15.2057 6.77883C15.2057 10.5241 12.2894 13.5577 8.68895 13.5577ZM8.68895 11.2981C11.0893 11.2981 13.0334 9.2757 13.0334 6.77883C13.0334 4.28196 11.0893 2.25961 8.68895 2.25961C6.28863 2.25961 4.34447 4.28196 4.34447 6.77883C4.34447 9.2757 6.28863 11.2981 8.68895 11.2981ZM15.8419 18.0769L13.856 16.0111L15.392 14.4134L20 19.2067L15.392 24L13.856 22.4022L15.8419 20.3365H11.9473V18.0769H15.8419Z"
+                            fill="#0A2647" />
+                    </svg>
+                    <span> Add Reference</span>
+                </div>
+                <div>
+                    <a class="remove-button" (click)="toggle_reference()">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M7.75 7.75L12.25 12.25M12.25 7.75L7.75 12.25M19 10C19 11.1819 18.7672 12.3522 18.3149 13.4442C17.8626 14.5361 17.1997 15.5282 16.364 16.364C15.5282 17.1997 14.5361 17.8626 13.4442 18.3149C12.3522 18.7672 11.1819 19 10 19C8.8181 19 7.64778 18.7672 6.55585 18.3149C5.46392 17.8626 4.47177 17.1997 3.63604 16.364C2.80031 15.5282 2.13738 14.5361 1.68508 13.4442C1.23279 12.3522 1 11.1819 1 10C1 7.61305 1.94821 5.32387 3.63604 3.63604C5.32387 1.94821 7.61305 1 10 1C12.3869 1 14.6761 1.94821 16.364 3.63604C18.0518 5.32387 19 7.61305 19 10Z"
+                                stroke="#0A2647" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="referance-body">
+                <form [formGroup]="myreference">
+                    <div class="mb-3 mt-3">
+                        <label for="Name" class="form-label">Name:</label>
+                        <input type="text" class="form-control" id="Name" placeholder="Enter Name" name="Name"
+                            formControlName="name_1" [ngClass]="submited && myreference.get('name_1').invalid?'error-message':''">
+                    </div>
+                    <div class="mb-3">
+                        <label for="contact" class="form-label">Contact Number :</label>
+                        <input type="tel" class="form-control" id="contact" placeholder="Enter contact Number"
+                            name="contact" formControlName="mobile_1"
+                            [ngClass]="submited && myreference.get('mobile_1').invalid?'error-message':''">
+                    </div>
+                    <div class="mb-3">
+                        <label for="Designation" class="form-label">Designation :</label>
+                        <input type="text" class="form-control" id="Designation" placeholder="Enter Designation"
+                            name="Designation" formControlName="designation_1"
+                            [ngClass]="submited && myreference.get('designation_1').invalid?'error-message':''">
+                    </div>
+
+                    <div class="break-link" *ngIf="add">
+                        <hr> 2
+                        <hr>
+                    </div>
+
+                    <div class="mb-3 mt-3" *ngIf="add">
+                        <label for="Name" class="form-label">Name:</label>
+                        <input type="text" class="form-control" id="Name" placeholder="Enter Name" name="Name"
+                            (keyup)="change_key($event)" formControlName="name_2"
+                            [ngClass]="submited && myreference.get('name_2').invalid?'error-message':''">
+                    </div>
+                    <div class="mb-3" *ngIf="add">
+                        <label for="contact" class="form-label">Contact Number :</label>
+                        <input type="tel" class="form-control" id="contact" placeholder="Enter contact Number"
+                            name="contact" formControlName="mobile_2"
+                            [ngClass]="submited && myreference.get('mobile_2').invalid?'error-message':''">
+                    </div>
+                    <div class="mb-3" *ngIf="add">
+                        <label for="Designation" class="form-label">Designation :</label>
+                        <input type="text" class="form-control" id="Designation" placeholder="Enter Designation"
+                            name="Designation" formControlName="designation_2"
+                            [ngClass]="submited && myreference.get('designation_2').invalid?'error-message':''">
+                    </div>
+
+                    <div class="add-button">
+                        <button (click)="add_more()" type="button">{{!add?"Add":"Remove"}}</button>
+                        <button (click)="submit()">Submit</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>

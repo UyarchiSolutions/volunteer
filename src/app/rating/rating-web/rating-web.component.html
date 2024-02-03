@@ -1,0 +1,228 @@
+<div class="page-container">
+    <div class="header">
+        <app-header></app-header>
+    </div>
+    <div class="cand-name">
+        <p style="text-align: center;margin-top: 11px;font-size: 30px;">{{candidate?candidate.name:"--"}}</p>
+    </div>
+    <div class="small" [formGroup]="profileForm" *ngIf="volunteerDetail.Role == 'Tech Volunteer' ">
+        <div class="skills-add">
+            <input type="text" placeholder="Enter All Skills" formControlName="skillsfron" style="width: 75%;"
+                [ngClass]="techSubmit && skills1.length == 0?'err':'' ">
+            <button class="add-btn" (click)="addSkill1()">Add</button>
+        </div>
+        <div class="datas" *ngIf="skills1.length>0">
+            <div *ngFor="let item of skills1,index as i">
+                <p class="items">
+                    {{item.skils}}
+                    <span (click)="addSkill1Remove(item)">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6 12C2.6862 12 0 9.3138 0 6C0 2.6862 2.6862 0 6 0C9.3138 0 12 2.6862 12 6C12 9.3138 9.3138 12 6 12ZM6 10.8C7.27304 10.8 8.49394 10.2943 9.39411 9.39411C10.2943 8.49394 10.8 7.27304 10.8 6C10.8 4.72696 10.2943 3.50606 9.39411 2.60589C8.49394 1.70571 7.27304 1.2 6 1.2C4.72696 1.2 3.50606 1.70571 2.60589 2.60589C1.70571 3.50606 1.2 4.72696 1.2 6C1.2 7.27304 1.70571 8.49394 2.60589 9.39411C3.50606 10.2943 4.72696 10.8 6 10.8ZM6 5.1516L7.6968 3.4542L8.5458 4.3032L6.8484 6L8.5458 7.6968L7.6968 8.5458L6 6.8484L4.3032 8.5458L3.4542 7.6968L5.1516 6L3.4542 4.3032L4.3032 3.4542L6 5.1516Z"
+                                fill="#FF0000" />
+                        </svg>
+                    </span>
+                </p>
+                <div class="rate">
+                    <input type="radio" id="star5-{{i}}" name="rate-{{i}}" value="5"
+                        (change)="starRatingChange(item, $event)" />
+                    <label for="star5-{{i}}" title="text">5 stars</label>
+                    <input type="radio" id="star4-{{i}}" name="rate-{{i}}" value="4"
+                        (change)="starRatingChange(item,$event)" />
+                    <label for="star4-{{i}}" title="text">4 stars</label>
+                    <input type="radio" id="star3-{{i}}" name="rate-{{i}}" value="3"
+                        (change)="starRatingChange(item,$event)" />
+                    <label for="star3-{{i}}" title="text">3 stars</label>
+                    <input type="radio" id="star2-{{i}}" name="rate-{{i}}" value="2"
+                        (change)="starRatingChange(item,$event)" />
+                    <label for="star2-{{i}}" title="text">2 stars</label>
+                    <input type="radio" id="star1-{{i}}" name="rate-{{i}}" value="1"
+                        (change)="starRatingChange(item,$event)" />
+                    <label for="star1-{{i}}" title="text">1 star</label>
+                </div>
+            </div>
+        </div>
+        <div class="atributes" [formGroup]="TechReviewForms">
+            <h5>Attributes</h5>
+            <div class="forms">
+                <div class="rating">
+                    <label>Understanding</label>
+                    <input type="text" (keyup)="underStatingChange($event,'underStating')" maxlength="2"
+                        [ngClass]=" techSubmit && TechReviewForms.get('underStating')?.invalid?'err':'' ">
+                    <span>/10</span>
+                </div>
+            </div>
+            {{TechReviewForms.get('underStating').value}}
+            <div class="forms">
+                <div class="rating">
+                    <label>Logic</label>
+                    <input type="text" (keyup)="underStatingChange($event,'logic')" maxlength="2"
+                        [ngClass]=" techSubmit && TechReviewForms.get('logic')?.invalid?'err':'' "> <span>/10</span>
+                </div>
+            </div>
+            <div class="forms">
+                <div class="rating">
+                    <label>Coding</label>
+                    <input type="tel" (keyup)="underStatingChange($event,'coding')" maxlength="2"
+                        [ngClass]=" techSubmit && TechReviewForms.get('coding')?.invalid?'err':'' "> <span>/10</span>
+                </div>
+            </div>
+            <div class="forms">
+                <div class="rating">
+                    <label>Project Understanding</label>
+                    <input type="text" (keyup)="underStatingChange($event,'projectUnderStanding')" maxlength="2"
+                        [ngClass]=" techSubmit && TechReviewForms.get('projectUnderStanding')?.invalid?'err':'' ">
+                    <span>/10</span>
+                </div>
+            </div>
+            <div class="forms">
+                <div class="rating">
+                    <label>Communication</label>
+                    <input type="text" (keyup)="underStatingChange($event,'communication')" maxlength="2"
+                        [ngClass]=" techSubmit && TechReviewForms.get('communication')?.invalid?'err':'' ">
+                    <span>/10</span>
+                </div>
+            </div>
+            <div class="forms">
+                <div class="rating">
+                    <label>Individual Codes</label>
+                    <input type="text" (keyup)="underStatingChange($event,'individualCode')" maxlength="2"
+                        [ngClass]=" techSubmit && TechReviewForms.get('individualCode')?.invalid?'err':'' ">
+                    <span>/10</span>
+                </div>
+            </div>
+        </div>
+        <div class="comments" [formGroup]="TechReviewForms">
+            <label>Comments</label>
+            <textarea cols="50" rows="5" placeholder="comments...." formControlName="comments"
+                [ngClass]=" techSubmit && TechReviewForms.get('comments')?.invalid?'err':'' "></textarea>
+        </div>
+        <div class="submit-btn">
+            <button (click)="submitRating()">Submit</button>
+        </div>
+    </div>
+    <div class="small" *ngIf="volunteerDetail.Role == 'HR Volunteer' ">
+        <div class="forms-hr" [formGroup]="HrRating">
+            <div class="forms">
+                <label for="">Expected CTC :</label>
+                <input type="text" placeholder="Enter Expected CTC" formControlName="expCTC"
+                    [ngClass]="hrSubmit && HrRating.get('expCTC')?.invalid?'err':''">
+            </div>
+            <div class="forms">
+                <label for="">Current CTC :</label>
+                <input type="text" placeholder="Current CTC" formControlName="curCTC"
+                    [ngClass]="hrSubmit && HrRating.get('curCTC')?.invalid?'err':''">
+            </div>
+            <div class="forms">
+                <label for="">Notice Period :</label>
+                <input type="text" placeholder="Notice Period" formControlName="noticePeriod"
+                    [ngClass]="hrSubmit && HrRating.get('noticePeriod')?.invalid?'err':'' ">
+            </div>
+        </div>
+        <div class="skills-add" [formGroup]="HrForm">
+            <input type="text" placeholder="Enter Language" formControlName="languages" style="width: 75%;"
+                [ngClass]="hrSubmit && lang.length == 0?'err':'' ">
+            <button class="add-btn" (click)="hrlang()">Add</button>
+        </div>
+        <div class="datas" *ngIf="lang.length>0">
+            <div *ngFor="let item of lang,index as i">
+                <p class="items">
+                    {{item.lang}}
+                    <span (click)="HrLanRemove(item)">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6 12C2.6862 12 0 9.3138 0 6C0 2.6862 2.6862 0 6 0C9.3138 0 12 2.6862 12 6C12 9.3138 9.3138 12 6 12ZM6 10.8C7.27304 10.8 8.49394 10.2943 9.39411 9.39411C10.2943 8.49394 10.8 7.27304 10.8 6C10.8 4.72696 10.2943 3.50606 9.39411 2.60589C8.49394 1.70571 7.27304 1.2 6 1.2C4.72696 1.2 3.50606 1.70571 2.60589 2.60589C1.70571 3.50606 1.2 4.72696 1.2 6C1.2 7.27304 1.70571 8.49394 2.60589 9.39411C3.50606 10.2943 4.72696 10.8 6 10.8ZM6 5.1516L7.6968 3.4542L8.5458 4.3032L6.8484 6L8.5458 7.6968L7.6968 8.5458L6 6.8484L4.3032 8.5458L3.4542 7.6968L5.1516 6L3.4542 4.3032L4.3032 3.4542L6 5.1516Z"
+                                fill="#FF0000" />
+                        </svg>
+                    </span>
+                </p>
+                <div class="rate">
+                    <input type="radio" id="star5-{{i}}" name="rate-{{i}}" value="5"
+                        (change)="starRatingChange(item, $event)" />
+                    <label for="star5-{{i}}" title="text">5 stars</label>
+                    <input type="radio" id="star4-{{i}}" name="rate-{{i}}" value="4"
+                        (change)="starRatingChange(item,$event)" />
+                    <label for="star4-{{i}}" title="text">4 stars</label>
+                    <input type="radio" id="star3-{{i}}" name="rate-{{i}}" value="3"
+                        (change)="starRatingChange(item,$event)" />
+                    <label for="star3-{{i}}" title="text">3 stars</label>
+                    <input type="radio" id="star2-{{i}}" name="rate-{{i}}" value="2"
+                        (change)="starRatingChange(item,$event)" />
+                    <label for="star2-{{i}}" title="text">2 stars</label>
+                    <input type="radio" id="star1-{{i}}" name="rate-{{i}}" value="1"
+                        (change)="starRatingChange(item,$event)" />
+                    <label for="star1-{{i}}" title="text">1 star</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="attr">
+            <h3 style="margin-bottom: 20px;">Attributes</h3>
+            <div class="title-attr">
+                <label for="" style="font-size: 20px;">Attitude :</label> <br />
+                <div class="rate">
+                    <input type="radio" id="starhr1" name="starhr1" value="5"
+                        (change)="herRatingAttr('Attitude', $event)" />
+                    <label for="starhr1">5 stars</label>
+                    <input type="radio" id="starhr2" name="starhr1" value="4"
+                        (change)="herRatingAttr('Attitude',$event)" />
+                    <label for="starhr2">4 stars</label>
+                    <input type="radio" id="starhr3" name="starhr1" value="3"
+                        (change)="herRatingAttr('Attitude',$event)" />
+                    <label for="starhr3">3 stars</label>
+                    <input type="radio" id="starhr4" name="starhr1" value="2"
+                        (change)="herRatingAttr('Attitude',$event)" />
+                    <label for="starhr4">2 stars</label>
+                    <input type="radio" id="starhr5" name="starhr1" value="1"
+                        (change)="herRatingAttr('Attitude',$event)" />
+                    <label for="starhr5">1 star</label>
+                </div>
+            </div><br /><br />
+            <b *ngIf="hrSubmit && HrRating.get('attitude')?.invalid" style="color: red;">Give Rating For Attitude</b>
+
+            <div class="title-attr">
+                <label for=""
+                    style="font-size: 20px;font-size: 20px;padding: 0px;margin: 0px;text-align: left;padding-left: -22px;width: 100%;">Performance
+                    :</label>
+                <br />
+                <div class="rate">
+                    <input type="radio" id="starhrpr1" name="starhrpr1" value="5"
+                        (change)="herRatingPer('Performance', $event)"
+                        [ngClass]="hrSubmit && HrRating.get('Performance')?.invalid?'err':'' " />
+                    <label for="starhrpr1">5 stars</label>
+                    <input type="radio" id="starhrpr2" name="starhrpr1" value="4"
+                        (change)="herRatingPer('Performance',$event)"
+                        [ngClass]="hrSubmit && HrRating.get('Performance')?.invalid?'err':'' " />
+                    <label for="starhrpr2">4 stars</label>
+                    <input type="radio" id="starhrpr3" name="starhrpr1" value="3"
+                        (change)="herRatingPer('Performance',$event)"
+                        [ngClass]="hrSubmit && HrRating.get('Performance')?.invalid?'err':'' " />
+                    <label for="starhrpr3">3 stars</label>
+                    <input type="radio" id="starhrpr4" name="starhrpr1" value="2"
+                        (change)="herRatingPer('Performance',$event)"
+                        [ngClass]="hrSubmit && HrRating.get('Performance')?.invalid?'err':'' " />
+                    <label for="starhrpr4">2 stars</label>
+                    <input type="radio" id="starhrpr5" name="starhrpr1" value="1"
+                        (change)="herRatingPer('Performance',$event)"
+                        [ngClass]="hrSubmit && HrRating.get('Performance')?.invalid?'err':'' " />
+                    <label for="starhrpr5">1 star</label>
+                </div>
+            </div>
+
+            <br /><br />
+            <b *ngIf="hrSubmit && HrRating.get('performance')?.invalid" style="color: red;">Give Rating For
+                Performance</b>
+            <div class="comments" [formGroup]="HrRating">
+                <label
+                    style="font-size: 16px;font-size: 20px;padding: 0px;margin: 0px;text-align: left;padding-left: -22px;width: 100%;">Comments</label>
+                <textarea cols="50" rows="5" placeholder="comments...." formControlName="desc"
+                    [ngClass]="hrSubmit && HrRating.get('desc')?.invalid?'err':'' "></textarea>
+            </div>
+        </div>
+
+        <div class="submit-btn" style="margin-bottom: 20px;">
+            <button (click)="HrRatingSubmit()">Submit</button>
+        </div>
+
+    </div>
+</div>

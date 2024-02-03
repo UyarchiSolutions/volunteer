@@ -1,0 +1,29 @@
+<div class="page-container">
+    <div class="header">
+        <app-header></app-header>
+    </div>
+    <div class="body-container">
+        <div class="forms-container" [formGroup]="otpForm">
+            <h4>OTP Verify </h4>
+            <div class="forms">
+                <label>OTP :</label>
+                <input type="tel" placeholder="Enter OTP" formControlName="OTP" minlength="6" maxlength="6"
+                    onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57"
+                    [ngClass]="submitted && otpForm.get('OTP')?.invalid?'active-err':'' " />
+            </div>
+            <p style="width: 68%;margin: auto;text-align: end; margin-top: -16px; cursor: pointer;text-decoration: underline; "
+                *ngIf="counter == 0" (click)="resendOtp()">
+                Resend!</p>
+            <p style="width: 68%;margin: auto;text-align: end; margin-top: -16px; cursor: pointer;text-decoration: underline; "
+                *ngIf="counter>0">{{counter | otpTimer}}</p>
+            <p *ngIf="submitted && otpForm.invalid " style="text-align: center; color: red; padding-left: 11%;">
+                Enter OTP
+            </p>
+            <p *ngIf="serverErr !=null " style="text-align: center; color: red; padding-left: 11%;"> {{serverErr}} </p>
+            <div class="submit-btn">
+                <button (click)="OTPSubmit()">Verify OTP</button>
+            </div>
+
+        </div>
+    </div>
+</div>

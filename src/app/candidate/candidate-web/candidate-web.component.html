@@ -1,0 +1,51 @@
+<div class="page-container">
+    <div class="header">
+        <app-header></app-header>
+    </div>
+    <div class="body-container">
+        <div class="body-title">
+            <h4>Choose Candidates</h4>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <th>Name</th>
+                    <th>Date & Time</th>
+                    <th>Passed Year</th>
+                    <th>Skills</th>
+                    <th>Action</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cand of data">
+                        <td>{{cand.name?cand.name:"--"}}</td>
+                        <td>{{cand.slotDate}}&{{cand.slotTime}}</td>
+                        <td>{{cand.yearOfPassing}}</td>
+                        <td>
+                            <p style="width: 300px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                {{cand.skills}}</p>
+                        </td>
+                        <td *ngIf="Role == 'HR Volunteer' ">
+                            <ng-container *ngIf="checkSlotExistOrNot(cand.slotDate,cand.slotTime) ==-1 ">
+                                <button (click)="intrestCandidate(cand._id, cand.slotId)" class="int-btn"
+                                    *ngIf="cand.isIdInArray == false">Choose</button>
+                            </ng-container>
+                            <ng-container *ngIf="checkSlotExistOrNot(cand.slotDate,cand.slotTime) !=-1 ">
+                                <button class="int-btn-disabled" type="button" *ngIf="cand.isIdInArray == false"
+                                    (click)="clickDisable()">Choose</button>
+                            </ng-container>
+
+                            <p *ngIf="cand.isIdInArray == true " class="intrested">Choosen</p>
+                        </td>
+                        <td *ngIf="Role == 'Tech Volunteer' "><button class="int-btn"
+                                (click)="intrestCandidate(cand._id, cand.slotId)" *ngIf="cand.techIntrest ==
+                            false">Choose</button>
+                            <p *ngIf="cand.techIntrest == true " class="intrested">Choosen</p>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

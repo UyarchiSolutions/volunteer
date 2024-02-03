@@ -1,0 +1,107 @@
+<main class="main_content">
+    <div class="container-fluid">
+        <div class="row">
+            <h5 class="title-menu mt-2" *ngIf="streamdetails !=null">{{streamdetails.streamName}}</h5>
+            <div style="display: flex;justify-content:flex-end">
+                <button class="btn btn-success btn-sm" style="float: right;"
+                    style="padding: 3px 20px; margin-right: 10px;" (click)="download_video()">Download</button>
+                <button class="btn btn-primary btn-sm" style="float: right;" style="padding: 3px 20px;"
+                    (click)="play_video()">Play
+                    Stream</button>
+            </div>
+            <div [ngClass]="video_link==null?'col-12':'col-8'">
+                <table class="table table-borderless mt-4 table_all_orders">
+                    <thead>
+                        <tr style="border: 1px solid #484444;">
+                            <th style="border-right: 1px solid gray;">NO.</th>
+                            <th style="border-right: 1px solid gray;">Post Name</th>
+                            <th style="border-right: 1px solid gray;">Quantity</th>
+                            <th style="border-right: 1px solid gray;">Price</th>
+                            <th style="border-right: 1px solid gray;">Play Video</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="streamdetails !=null">
+                        <tr style="border: 1px solid #d8d8d8;"
+                            *ngFor="let item of streamdetails.streamrequestposts; index as i">
+                            <td style="border-right: 1px solid #d8d8d8;">{{i+1}}</td>
+                            <td style="border-right: 1px solid #d8d8d8;">{{item.productTitle}}</td>
+                            <td style="border-right: 1px solid #d8d8d8;">{{item.quantity}}</td>
+                            <td style="border-right: 1px solid #d8d8d8;">{{item.offerPrice}}</td>
+                            <td style="border-right: 1px solid #d8d8d8;">
+                                <button class="btn btn-primary btn-sm" style="padding: 3px 20px;" data-bs-toggle="modal"
+                                    (click)="view_details = item" data-bs-target="#upload-video"
+                                    *ngIf="item.newVideoUpload =='Pending' || item.newVideoUpload ==null">Set</button>
+                                <button class="btn btn-success btn-sm" style="padding: 3px 20px;"
+                                    *ngIf="item.newVideoUpload =='time'">Time</button>
+                                <button class="btn btn-success btn-sm" style="padding: 3px 20px;"
+                                    *ngIf="item.newVideoUpload =='video'">Video</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div [ngClass]="video_link==null?'col-12':'col-4'">
+                <div style="margin: 20px;">
+                    <video style="width: 100%;max-height: 500px;" *ngIf="video_link !=null" controls autoplay id="video-player" #myVideo>
+                        <source *ngFor="let item of video_link" [src]="item.convertedVideo" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<div class="modal fade" id="upload-video">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" *ngIf="view_details !=null">{{view_details.productTitle}}</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="uploadForm">
+                    <div class="form-model mt-4">
+                        <div class="radio-button">
+                            <div class="single-box">
+                                <input type="radio" name="select_type" id="SetTime" value="SetTime"
+                                    (change)="choose_method($event)" formControlName="select_type">
+                                <label for="SetTime">Set Time</label>
+                            </div>
+                            <div class="single-box">
+                                <input type="radio" name="select_type" id="UploadExclusiveVideo"
+                                    value="UploadExclusiveVideo" formControlName="select_type"
+                                    (change)="choose_method($event)">
+                                <label for="UploadExclusiveVideo">UploadExclusiveVideo</label>
+                            </div>
+                            <div>{{uploadProgress}}%</div>
+
+                        </div>
+                    </div>
+
+                    <div class="text-field mt-4" *ngIf="uploadForm.get('select_type')?.value=='SetTime'">
+                        <label for="">Start Time :</label>
+                        <input type="text" class="" formControlName="videoStart">
+                    </div>
+                    <div class="text-field mt-4" *ngIf="uploadForm.get('select_type')?.value=='SetTime'">
+                        <label for="">End Time :</label>
+                        <input type="text" class="" formControlName="videoEnd">
+                    </div>
+                    <div class="text-field mt-4" *ngIf="uploadForm.get('select_type')?.value=='UploadExclusiveVideo'">
+                        <label for="">Video :</label>
+                        <input type="file" id="choose-file" style="display: none;" (change)="choose_video($event)">
+                        <label for="choose-file" class="btn btn-primary btn-sm"
+                            style="padding: 4px 30px; width: 60%;">Choose Video</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)="uploadForm_submit(Close)" class="btn btn-success"
+                    style="padding: 4px 15px;">Save</button>
+                <button type="button" class="btn btn-danger" style="padding: 4px 15px;" data-bs-dismiss="modal"
+                    #Close>Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>

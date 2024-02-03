@@ -1,0 +1,33 @@
+<div class="page-container">
+    <div class="header">
+        <app-header></app-header>
+    </div>
+    <div class="body-container">
+        <div class="forms-container" [formGroup]="loginForm">
+            <h4>Login Here!</h4>
+            <div class="forms">
+                <label>Email ID :</label>
+                <input type="email" placeholder="Enter Your Email ID" formControlName="email"
+                    [ngClass]="submitted && loginForm.get('email')?.invalid? 'active-err':'' ">
+            </div>
+            <div class="forms">
+                <label>Password :</label>
+                <input type="password" placeholder="Enter Password" formControlName="password"
+                    [ngClass]="submitted && loginForm.get('password')?.invalid? 'active-err':'' ">
+            </div>
+            <p *ngIf="submitted && loginForm.invalid " style="text-align: center; color: red; padding-left: 11%;"> *Fill
+                All The Required Fields </p>
+            <p *ngIf="serverErr !=null " style="text-align: center; color: red; padding-left: 11%;"> {{serverErr}} </p>
+
+
+            <div class="submit-btn">
+                <button (click)="login()">Login</button>
+            </div>
+
+        </div>
+        <div class="signup">
+            <p>Don't have an account? <span style="color: #FD841F;cursor: pointer;" (click)="signUp()">Sign up</span>
+            </p>
+        </div>
+    </div>
+</div>

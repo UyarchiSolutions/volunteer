@@ -1,0 +1,182 @@
+.cand-name {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.skills-add input {
+  width: 84%;
+  border: none;
+  background-color: #ffff;
+  box-shadow: 0px 0px 4px 0px #00000040;
+  padding-left: 10px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+.skills-add input:focus-visible {
+  outline: none;
+}
+.skills-add button {
+  height: 40px;
+  box-shadow: 0px 0px 4px 0px #00000040;
+  border: none;
+  color: #e7e9ed;
+  border-radius: 5px;
+  background-color: #0a2647;
+  width: 13%;
+}
+.datas {
+  display: flex;
+  /* gap: 5px; */
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+.items {
+  background-color: #a6a6a69e;
+  padding: 4px;
+  border-radius: 5px;
+  width: max-content;
+  margin-bottom: -3px;
+}
+
+.rate {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+}
+.rate:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+}
+.rate:not(:checked) > label {
+  float: right;
+  width: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 30px;
+  color: #ccc;
+}
+.rate:not(:checked) > label:before {
+  content: "★ ";
+}
+.rate > input:checked ~ label {
+  color: #0a2647;
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+  color: #0a2647;
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+  color: #0a2647;
+}
+
+.small {
+  width: 95%;
+  margin: auto;
+}
+
+.atributes {
+  width: 90%;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.atributes h6 {
+  color: #0a2647;
+}
+.rating input {
+  width: 50px;
+  border: none;
+  box-shadow: 0px 0px 4px 0px #00000040;
+  background: #ffff;
+  height: 30px;
+  text-align: center;
+  border-radius: 5px;
+}
+.rating input:focus-visible {
+  outline: none;
+}
+
+.rating span {
+  font-size: 19px;
+  padding-left: 6px;
+}
+
+.rating label {
+  width: 60%;
+  font-family: "Poppins";
+  font-size: 14px;
+  color: #0a2647;
+  font-weight: 600;
+}
+.forms {
+  margin-bottom: 10px;
+}
+
+.comments label {
+  font-family: "Poppins";
+  font-size: 14px;
+  color: #0a2647;
+  font-weight: 600;
+}
+.comments textarea {
+  width: 95%;
+  margin: auto;
+  border: none;
+  background-color: #ffff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px 0px #00000040;
+  padding-left: 5px;
+}
+
+.comments textarea:focus-visible {
+  outline: none;
+}
+
+.submit-btn {
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.submit-btn button {
+  width: 40%;
+  height: 35px;
+  border: none;
+  background-color: #0a2647;
+  color: #ffff;
+  border-radius: 5px;
+}
+
+.forms-hr .forms {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+}
+
+.forms-hr .forms input {
+  border: none;
+  background-color: #ffff;
+  box-shadow: 0px 0px 4px 0px #00000040;
+  padding-left: 10px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+.forms-hr .forms input:focus-visible {
+  outline: none;
+}
+.forms-hr .forms label {
+  /* font-family: "Heebo"; */
+  color: #0a2647;
+  padding-left: 10px;
+  font-size: 16px;
+}
+
+.err {
+  border: 1px solid red !important;
+}
