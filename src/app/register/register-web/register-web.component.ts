@@ -33,12 +33,12 @@ export class RegisterWebComponent implements OnInit {
 
   currentYear = new Date().getFullYear();
   yearsArray: number[] = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
     22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
     41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
   ];
 
-  monthsArray: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  monthsArray: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   tabs: any = 'HR Volunteer';
   indianLanguages = [
@@ -111,7 +111,7 @@ export class RegisterWebComponent implements OnInit {
     coreExperienceTo: new FormControl('', [Validators.required]),
     // skillsfron: new FormControl(null),
     // currentSkillfron: new FormControl(null),
-    skills: new FormControl([], [Validators.required]),
+    skills: this.fb.array([], [Validators.required]),
     // currentSkill: new FormControl([], [Validators.required]),
     // evalutionSkill: new FormControl('', [Validators.required]),
     // DOB: new FormControl('', [Validators.required]),
@@ -174,6 +174,7 @@ export class RegisterWebComponent implements OnInit {
   submittedForm: any = false;
   serErr: any = null;
   submitForm() {
+    console.log(this.profileForm.value)
     this.submittedForm = true;
     if (this.tabs == 'HR Volunteer') {
       this.profileForm.get('skills')?.setErrors(null);
@@ -195,13 +196,14 @@ export class RegisterWebComponent implements OnInit {
     if (this.queryId == null) {
       if (this.profileForm.valid) {
         this.Api.loader = true;
-        console.log(this.profileForm.value, 'Edite Check');
+        console.log(this.profileForm.value, 'Edit Check');
         this.Api.volunteerReg(this.profileForm.value).subscribe(
           (e: any) => {
             if (this.fileName != '') {
               this.fileUploadtoServer(e._id);
             }
             this.Api.loader = false;
+            console.log(this.queryId, "111111");
             if (this.queryId != null) {
               this.route.navigateByUrl('/profile');
             } else {
@@ -382,15 +384,22 @@ export class RegisterWebComponent implements OnInit {
   skills1: any = [];
 
   addSkill1(e: any) {
-    let findInd = this.skills1.findIndex((s: any) => {
+    let findInd = this.addSkills.value.findIndex((s: any) => {
       return s == e.target.value;
     });
     if (findInd == -1) {
-      this.skills1.push(e.target.value);
+      // this.skills1.push(e.target.value);
+      this.addSkills.push(new FormControl(e.target.value));
     } else {
-      this.skills1.splice(findInd, 1);
+      // this.skills1.splice(findInd, 1);
+      this.addSkills.value.splice(findInd,1);
     }
-    this.submittedForm.get('skillsfron').setValue(null);
+    // this.profileForm.get('skillsfron').setValue(null);
+    
+    // this.profileForm.get('skills').setValue(this.skills1);
+
+    // this.addSkills.push(new FormControl(''))
+
   }
 
   addSkill1Remove(item: any) {
@@ -425,6 +434,8 @@ export class RegisterWebComponent implements OnInit {
       return e == item;
     });
     this.skills2.splice(ind, 1);
+    this.profileForm.get('skills').splice(ind, 1);
+    console.log(this.profileForm.get('skills'));
     console.log(this.skills2);
   }
 
@@ -435,11 +446,11 @@ export class RegisterWebComponent implements OnInit {
       this.tabs = e.Role;
       this.selectedFile = e.profileImage;
       this.skills1 = e.skills;
-      this.profileForm.get('experiencefrom').setValue(e.experiencefrom);
-      this.profileForm.get('experienceTo').setValue(e.experienceTo);
       this.profileForm.patchValue(e);
-      
-      console.log(this.profileForm.value);
+      e.skills.forEach((x:any)=>{
+        this.addSkills.push(new FormControl(x));
+      })
+      // console.log(this.profileForm.value,"11");
       e.language.forEach((element: any) => {
         let data: any = this.fb.group({
           language: new FormControl(element.language),
@@ -452,7 +463,14 @@ export class RegisterWebComponent implements OnInit {
       this.Api.loader = false;
     });
   }
+
+  get addSkills(){
+    return this.profileForm.get('skills') as FormArray;
+  }
+
 }
+
+
 
 @Pipe({
   name: 'checked',
@@ -460,10 +478,11 @@ export class RegisterWebComponent implements OnInit {
 export class checkedForm implements PipeTransform {
   constructor() {}
   transform(form: any, value: any): Boolean {
-    console.log(form, 'FOrms');
+    console.log(form, 'Forms');
 
-    let index = form.findIndex((a: any) => a.language == value);
+    let index = form.findIndex((a: any) => a == value);
     if (index != -1) {
+      console.log("Hello?");
       return true;
     }
     return false;

@@ -18,7 +18,7 @@
                             style="padding-right: 5px;">
                         </span> + Add Profile Picture</label>
                     <input style="display: none" id="image" type="file" (change)="fileUpload($event)" />
-                </div>
+                </div> 
                 <div class="view-ima" *ngIf="selectedFile != null">
                     <img [src]="selectedFile" alt="">
                     <p (click)="removeFile()">
@@ -59,12 +59,12 @@
                 <div class="sub-input">
                     <select formControlName="experiencefrom"
                         [class.activeErr]="submittedForm && profileForm.get('experiencefrom').invalid">
-                        <option [value]="null">Year</option>
+                        <option [value]="null" hidden selected>Year</option>
                         <option *ngFor="let year of yearsArray">{{year}}</option>
                     </select>
                     <select formControlName="experienceTo" style="margin-left: 6%;"
                         [class.activeErr]="submittedForm && profileForm.get('experienceTo').invalid">
-                        <option [value]="null">Month</option>
+                        <option [value]="null" hidden selected>Month</option>
                         <option *ngFor="let month of monthsArray">{{month}}</option>
                     </select>
                 </div>
@@ -75,13 +75,13 @@
                 <div class="sub-input">
                     <select formControlName="hrExperienceFrom"
                         [class.activeErr]="submittedForm && profileForm.get('hrExperienceFrom').invalid">
-                        <option [value]="null">Year</option>
-                        <option *ngFor="let year of yearsArray">{{year}}</option>
+                        <option [value]="null" selected hidden>Year</option>
+                        <option *ngFor="let year of yearsArray" value="{{year}}">{{year}}</option>
                     </select>
                     <select formControlName="hrExperienceTo" style="margin-left: 6%;"
                         [class.activeErr]="submittedForm && profileForm.get('hrExperienceTo').invalid">
-                        <option [value]="null">Month</option>
-                        <option *ngFor="let month of monthsArray">{{month}}</option>
+                        <option [value]="null" selected hidden>Month</option>
+                        <option *ngFor="let month of monthsArray" value="{{month}}">{{month}}</option>
                     </select>
                 </div>
             </div>
@@ -91,13 +91,13 @@
                 <div class="sub-input">
                     <select formControlName="coreExperienceFrom"
                         [class.activeErr]="submittedForm && profileForm.get('coreExperienceFrom').invalid">
-                        <option [value]="null">Year</option>
-                        <option *ngFor="let year of yearsArray">{{year}}</option>
+                        <option [value]="null" selected hidden>Year</option>
+                        <option *ngFor="let year of yearsArray" value="{{year}}">{{year}}</option>
                     </select>
                     <select formControlName="coreExperienceTo" style="margin-left:6%;"
                         [class.activeErr]="submittedForm && profileForm.get('coreExperienceTo').invalid">
-                        <option [value]="null">Month</option>
-                        <option *ngFor="let month of monthsArray">{{month}}</option>
+                        <option [value]="null" selected hidden>Month</option>
+                        <option *ngFor="let month of monthsArray" value="{{month}}">{{month}}</option>
                     </select>
                 </div>
             </div>
@@ -114,14 +114,15 @@
                         </ul>
                     </div>
                 </div> -->
+                <!-- <p>{{profileForm.get('skills')?.value}}</p> -->
                 <button type="button" class="multi-check" data-bs-toggle="dropdown"
-                    [class.active-err]="profileForm.get('skills')?.invalid && submitted?'error-message':''">
-                    Select Skills
+                    [class.activeErr]="profileForm.get('skills')?.invalid && submittedForm?'error-message':''">
+                    Select Skills 
                 </button>
                 <ul class="dropdown-menu dropdown-option dropdown-option-lan" onclick="event.stopPropagation()">
                     <li *ngFor="let lang of skillsArr "><a class="dropdown-item" style="width: 100%;"><label
                                 for="{{lang}}" class="lang-align"><input (change)="addSkill1($event)" type="checkbox" 
-                                    value="{{lang}}" name="" [checked]="profileForm.get('language').value|checked:lang"
+                                    value="{{lang}}" name="" [checked]="addSkills.value|checked:lang"
                                     id="{{lang}}">
                                 {{lang}}</label></a></li>
                 </ul>
@@ -130,7 +131,7 @@
                 <!-- <button class="add-btn" (click)="addSkill1()">Add</button> -->
             </div>
             <div class="datas" *ngIf="skills1.length>0">
-                <p class="items" *ngFor="let item of skills1">{{item}}
+                <p class="items" *ngFor="let item of addSkills.value">{{item}}
                     <!-- <span (click)="addSkill1Remove(item)"> <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -256,7 +257,7 @@
         <p class="err" *ngIf="submittedForm && profileForm.invalid"> * Fill All The Required Files </p>
         <p class="err" *ngIf="serErr != null">{{serErr}}</p>
         <div class="reg-btn">
-            <button (click)="submitForm()">Submit</button>
+            <button (click)="submitForm()" type="submit">Submit</button>
         </div>
     </div>
 

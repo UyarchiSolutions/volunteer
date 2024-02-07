@@ -8,6 +8,9 @@ import { VolunteerServiceService } from 'src/app/volunteer-service.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
+
+  vname!:string;
+
   constructor(private api: VolunteerServiceService, private route: Router) {}
 
   ngOnInit(): void {
@@ -22,6 +25,8 @@ export class HeaderComponent implements OnInit {
     this.api.getVolunteerDetails().subscribe((e: any) => {
       localStorage.setItem('volunteerprofileImage', e.profileImage);
       localStorage.setItem('volunteername', e.name);
+      this.vname=e.name;
+      console.log(e)
     });
   }
   showMenu: any = true;

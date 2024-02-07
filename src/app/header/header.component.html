@@ -28,22 +28,23 @@
             </div>
             <div class="right" *ngIf="showMenu == true ">
                 <a routerLink="/choosen-cand" routerLinkActive="active-link">
-                    Choosen candidates
+                    Chosen candidates
                     <span style="width: 123px; margin-right: 10px;"></span> </a>
                 <a routerLink="/candidate" routerLinkActive="active-link" style="margin-left: 25px;">
                     Choose
                     <span style="width: 43px; margin-left: 10px;"></span> </a>
                 <a style="margin-left: 30px;" routerLink="/interview" routerLinkActive="active-link">
-                    Upcomming Streams
+                    Upcoming Streams
                     <span style="width: 137px;"></span>
                 </a>
-                <div style="margin-left: 60px;display: flex; " class="profile"> <img [src]="profImg " alt=""
-                        style="margin-right: 5px;">
-                    <span style="padding-top: 21px;">{{name?name:"--"}} </span>
+
+                <div style="margin-left: 60px;display: flex; " class="profile">
+                    <img [src]="profImg" onError="this.onerror=null;this.src='../../assets/profileImage.png';" style="margin-right: 10px;">
+                    <span style="padding-top: 21px;">{{vname}}</span>
                     <div class="show-drop">
-                        <button class="active-nav" routerLink="/profile">
-                            <img [src]="profImg ">
-                            <span style="padding-top: 21px;">{{name?name:"--"}} </span>
+                        <button class="active-nav" routerLink="/profile" style="padding-bottom: 5px;">
+                            <img [src]="profImg" onError="this.onerror=null;this.src='../../assets/profileImage.png';">
+                            <span style="padding-top: 5px;">{{vname}} </span>
                         </button>
                         <button (click)="logout()">
                             <svg _ngcontent-xoi-c13="" width="20" height="18" viewBox="0 0 20 18" fill="none"

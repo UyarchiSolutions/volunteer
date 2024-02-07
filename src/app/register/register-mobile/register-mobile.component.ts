@@ -447,6 +447,7 @@ export class RegisterMobileComponent implements OnInit {
     this.skills2.splice(ind, 1);
     console.log(this.skills2);
   }
+  
   edit() {
     this.Api.loader = true;
     this.Api.getVolunteerDetails().subscribe((e: any) => {
@@ -475,7 +476,7 @@ export class RegisterMobileComponent implements OnInit {
 export class checkedForm implements PipeTransform {
   constructor() {}
   transform(form: any, value: any): Boolean {
-    let index = form.findIndex((a: any) => a.language == value);
+    let index = form.findIndex((a: any) => a == value);
     if (index != -1) {
       return true;
     }
