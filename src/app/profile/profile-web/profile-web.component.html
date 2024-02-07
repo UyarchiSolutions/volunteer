@@ -47,6 +47,11 @@
                     <p>{{data.hrExperienceFrom?data.hrExperienceFrom:'--'}}Y
                         {{data.hrExperienceTo?data.hrExperienceTo:"--"}}M</p>
                 </div>
+                <div class="fields" *ngIf="Role == 'Tech Volunteer' ">
+                    <label>Core Experience :</label>
+                    <p>{{data.coreExperienceFrom?data.coreExperienceFrom:'--'}}Y
+                        {{data.coreExperienceTo?data.coreExperienceTo:"--"}}M</p>
+                </div>
                 <div class="fields">
                     <label>Work Status :</label>
                     <p>{{data.workStatus?data.workStatus:'--'}}</p>

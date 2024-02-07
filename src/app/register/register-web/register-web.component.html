@@ -60,12 +60,12 @@
                     <select formControlName="experiencefrom"
                         [class.activeErr]="submittedForm && profileForm.get('experiencefrom').invalid">
                         <option [value]="null" hidden selected>Year</option>
-                        <option *ngFor="let year of yearsArray">{{year}}</option>
+                        <option *ngFor="let year of yearsArray" value="{{year}}">{{year}}</option>
                     </select>
                     <select formControlName="experienceTo" style="margin-left: 6%;"
                         [class.activeErr]="submittedForm && profileForm.get('experienceTo').invalid">
                         <option [value]="null" hidden selected>Month</option>
-                        <option *ngFor="let month of monthsArray">{{month}}</option>
+                        <option *ngFor="let month of monthsArray" value="{{month}}">{{month}}</option>
                     </select>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                     <select formControlName="hrExperienceTo" style="margin-left: 6%;"
                         [class.activeErr]="submittedForm && profileForm.get('hrExperienceTo').invalid">
                         <option [value]="null" selected hidden>Month</option>
-                        <option *ngFor="let month of monthsArray" value="{{month}}">{{month}}</option>
+                        <option *ngFor="let month of monthsArray"  value="{{month}}">{{month}}</option>
                     </select>
                 </div>
             </div>
@@ -130,7 +130,7 @@
                     [class.activeErr]="submittedForm && profileForm.get('skills').invalid"> -->
                 <!-- <button class="add-btn" (click)="addSkill1()">Add</button> -->
             </div>
-            <div class="datas" *ngIf="skills1.length>0">
+            <div class="datas" *ngIf="skills1.length>0 && tabs=='Tech Volunteer'" >
                 <p class="items" *ngFor="let item of addSkills.value">{{item}}
                     <!-- <span (click)="addSkill1Remove(item)"> <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
                             xmlns="http://www.w3.org/2000/svg">

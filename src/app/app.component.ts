@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
     } else {
       this.viweOption = 'lap';
     }
-    console.log(event.target.innerWidth);
+    // console.log(event.target.innerWidth);
     this.service.view_option = this.viweOption;
   }
 }

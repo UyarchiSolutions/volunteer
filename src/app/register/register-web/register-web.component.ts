@@ -38,7 +38,7 @@ export class RegisterWebComponent implements OnInit {
     41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
   ];
 
-  monthsArray: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  monthsArray: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
   tabs: any = 'HR Volunteer';
   indianLanguages = [
@@ -89,6 +89,7 @@ export class RegisterWebComponent implements OnInit {
   get FormControls() {
     return this.profileForm.control;
   }
+
   profileForm: any = this.fb.group({
     name: new FormControl('', [Validators.required]),
     Role: new FormControl('HR Volunteer', [Validators.required]),
@@ -173,28 +174,62 @@ export class RegisterWebComponent implements OnInit {
   }
   submittedForm: any = false;
   serErr: any = null;
-  submitForm() {
-    console.log(this.profileForm.value)
+
+  submitForm() 
+  {
     this.submittedForm = true;
     if (this.tabs == 'HR Volunteer') {
       this.profileForm.get('skills')?.setErrors(null);
-      // this.profileForm.get('currentSkill')?.setErrors(null);
-      // this.profileForm.get('evalutionSkill')?.setErrors(null);
       this.profileForm.get('coreExperienceFrom')?.setErrors(null);
       this.profileForm.get('coreExperienceTo')?.setErrors(null);
       this.profileForm.get('currentDepartment')?.setErrors(null);
       this.profileForm.get('currentIntestry')?.setErrors(null);
-    } else {
+
+      if(this.profileForm.get('experiencefrom').value<this.profileForm.get('hrExperienceFrom').value)
+      {
+        this.profileForm.get('hrExperienceFrom').setErrors({'incorrect':true});
+        this.profileForm.get('hrExperienceTo').setErrors({'incorrect':true});
+      }
+      else if(this.profileForm.get('experiencefrom').value==this.profileForm.get('hrExperienceFrom').value && this.profileForm.get('experienceTo').value<this.profileForm.get('hrExperienceTo').value)
+      {
+        this.profileForm.get('hrExperienceFrom').setErrors({'incorrect':true});
+        this.profileForm.get('hrExperienceTo').setErrors({'incorrect':true});
+      }
+      else{
+        this.profileForm.get('hrExperienceFrom').setErrors({'incorrect':false});
+        this.profileForm.get('hrExperienceTo').setErrors({'incorrect':false});
+      }
+    } 
+    else {
       this.profileForm.get('hrExperienceFrom')?.setErrors(null);
       this.profileForm.get('hrExperienceTo')?.setErrors(null);
-      this.profileForm.get('skills')?.setValue(this.skills1);
+      // this.profileForm.get('skills')?.setValue(this.skills1);
       this.profileForm.get('currentSkill')?.setValue(this.skills2);
+
+      if(this.profileForm.get('experiencefrom').value<this.profileForm.get('coreExperienceFrom').value)
+      {
+        this.profileForm.get('coreExperienceFrom').setErrors({'incorrect':true});
+        this.profileForm.get('coreExperienceTo').setErrors({'incorrect':true});
+        console.log("Hi")
+      }
+      else if(this.profileForm.get('experiencefrom').value==this.profileForm.get('coreExperienceFrom').value && this.profileForm.get('experienceTo').value<this.profileForm.get('coreExperienceTo').value)
+      {
+        this.profileForm.get('coreExperienceFrom').setErrors({'incorrect':true});
+        this.profileForm.get('coreExperienceTo').setErrors({'incorrect':true});
+        console.log("Hello")
+      }
+      else{
+        this.profileForm.get('coreExperienceFrom').setErrors(null);
+        this.profileForm.get('coreExperienceTo').setErrors(null);
+        console.log("Yes")
+      }
     }
 
-    console.log(this.profileForm.value);
-    console.log(this.profileForm.valid);
+    // console.log(this.profileForm.value, "Wilder");
+    // console.log(this.profileForm.valid);
     if (this.queryId == null) {
-      if (this.profileForm.valid) {
+      if (this.profileForm.valid) 
+      {
         this.Api.loader = true;
         console.log(this.profileForm.value, 'Edit Check');
         this.Api.volunteerReg(this.profileForm.value).subscribe(
@@ -218,17 +253,17 @@ export class RegisterWebComponent implements OnInit {
         );
       }
     } else {
+      
       if (this.profileForm.valid) {
         this.Api.loader = true;
-        this.Api.updateVolunteer(
-          this.queryId,
-          this.profileForm.value
-        ).subscribe((e: any) => {
+        this.Api.updateVolunteer(this.queryId,this.profileForm.value).subscribe((e: any) => {
           if (this.fileName != '') {
             this.fileUploadtoServer(e._id);
+            
           }
           this.Api.loader = false;
           this.route.navigateByUrl('/profile');
+
         });
       }
     }
@@ -482,7 +517,6 @@ export class checkedForm implements PipeTransform {
 
     let index = form.findIndex((a: any) => a == value);
     if (index != -1) {
-      console.log("Hello?");
       return true;
     }
     return false;
