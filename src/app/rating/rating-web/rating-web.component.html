@@ -52,7 +52,8 @@
                             <p *ngFor="let langs in lang">{{langs?langs:"Tamil "}}</p>
                             <p *ngIf="lang.length==0" style="text-align: left; font-size: 16px;">Tamil</p>
                         </h5>
-                        <p style="text-align: right; color: gray;">{{candidate.date?candidate.date:"Date"}}</p>
+                        <p style="text-align: right; color: gray;" *ngIf="candidate.date!=null">{{candidate.date|date}}</p>
+                        <p style="text-align: right; color: gray;" *ngIf="candidate.date==null">Date</p>
                     </span>
                 </div>
             </div>
@@ -257,7 +258,7 @@
             <button (click)="submitRating()">Submit</button>
         </div>
     </div>
-    <div class="small" *ngIf="volunteerDetail.Role == 'HR Volunteer' ">
+    <div class="small" *ngIf="volunteerDetail.Role == 'HR Volunteer' " ng-app="">
         <div class="forms-hr" [formGroup]="HrRating">
             <div class="forms">
                 <label for="">Expected CTC :</label>
@@ -269,24 +270,25 @@
                 <input type="text" placeholder="Current CTC" formControlName="curCTC"
                     [ngClass]="hrSubmit && HrRating.get('curCTC')?.invalid?'err':''"
                     style="width: 40%; margin-right: 15px;">
-                <input type="checkbox" id="fresher"
+                <input type="checkbox" id="fresher" [(ngModel)]="fresher" ng-model="fresher" [value]=true
                     style="width: fit-content; height: 15px; width: 15px; margin-right: 5px;">
-                <label for="fresher" style="width: fit-content;">Fresher</label>
+                <label for="fresher" style="width: fit-content;" >Fresher</label>
             </div>
             <div class="forms">
                 <label for="">Notice Period :</label>
                 <input type="text" placeholder="Notice Period" formControlName="noticePeriod"
                     [ngClass]="hrSubmit && HrRating.get('noticePeriod')?.invalid?'err':'' "
                     style="width: 40%; margin-right: 15px;">
-                <input type="checkbox" id="fresher"
+                <input type="checkbox" id="fresher" [checked]="fresher" value="true"
                     style="width: fit-content; height: 15px; width: 15px; margin-right: 5px;">
-                <label for="fresher" style="width: fit-content;">Fresher</label>
+                <label for="fresher" style="width: fit-content;" >Fresher</label>
+                <p *ngIf="fresher"></p>
             </div>
         </div>
         <div class="skills-add" [formGroup]="HrForm">
             <label for="" style="width: 30%;color: #0a2647;font-family: 'Poppins';font-size: 18px;">Language:</label>
             <input type="text" placeholder="Enter Language" formControlName="languages"
-                style="width: 40%; margin-right: 20px;" [ngClass]="hrSubmit && lang.length == 0?'err':'' ">
+                style="width: 40%; margin-right: 20px;" [ngClass]="hrSubmit && lang.length == 0?'err':'' " >
             <button class="add-btn" (click)="hrlang()">+ Add</button>
         </div>
         <div class="datas" *ngIf="lang.length>0">

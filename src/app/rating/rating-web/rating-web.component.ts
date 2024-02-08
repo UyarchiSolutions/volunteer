@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VolunteerServiceService } from 'src/app/volunteer-service.service';
@@ -8,6 +8,7 @@ import { VolunteerServiceService } from 'src/app/volunteer-service.service';
   styleUrls: ['./rating-web.component.css'],
 })
 export class RatingWebComponent implements OnInit {
+  fresher:boolean=false;
   constructor(
     private api: VolunteerServiceService,
     private Aroute: ActivatedRoute,
@@ -180,6 +181,10 @@ export class RatingWebComponent implements OnInit {
   hrSubmit: any = false;
   HrRatingSubmit() {
     this.hrSubmit = true;
+    if(this.fresher){
+      this.HrForm.get('curCTC').setErrors(null);
+      this.HrForm.get('noticePeriod').setErrors(null);
+    }
     let values = this.HrRating.value;
     if (this.HrRating.valid) {
       this.hrSubmit = false;
@@ -202,5 +207,18 @@ export class RatingWebComponent implements OnInit {
         }
       );
     }
+  }
+}
+
+@Pipe({
+  name: 'checked',
+})
+export class checkedForm implements PipeTransform {
+  constructor() {}
+  transform(value: any): Boolean {
+    if(value){
+      return true;
+    }
+    return false;
   }
 }

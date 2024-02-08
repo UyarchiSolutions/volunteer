@@ -52,6 +52,11 @@
                     <p>{{data.coreExperienceFrom?data.coreExperienceFrom:'--'}}Y
                         {{data.coreExperienceTo?data.coreExperienceTo:"--"}}M</p>
                 </div>
+                <div class="fields" *ngIf="Role == 'Tech Volunteer'">
+                    <label>Core Skills:</label>
+                    <div class="col"><p *ngFor="let skill of data.skills, let i=index" style="margin-bottom: 10px;">{{i+1}}. {{skill}}</p></div>
+                    
+                </div>
                 <div class="fields">
                     <label>Work Status :</label>
                     <p>{{data.workStatus?data.workStatus:'--'}}</p>
