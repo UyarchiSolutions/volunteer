@@ -48,13 +48,17 @@ export class RatingWebComponent implements OnInit {
         return s.lang == e;
       });
       if (findInd == -1) {
-        this.lang.push({ lang: e, rating: 0 });
+        this.lang.push({ lang: e, rating: "" });
+        // this.lang.push({lang: "Norsk", rating: "Excellent"});
       } else {
         // this.skills1.splice(findInd, 1);
       }
-      console.log(this.lang);
-      this.HrForm.get('languages').setValue(null);
+      // console.log(this.lang, "My Languages");
+      this.HrForm.get('languages').patchValue(this.lang);
+      console.log(this.HrForm.get('languages').value, "Should work.");
+      // this.HrForm.get('languages').setValue(null);
     }
+    console.log(this.lang, "Please.")
   }
   HrLanRemove(item: any) {
     console.log(item);
@@ -154,13 +158,16 @@ export class RatingWebComponent implements OnInit {
     communication: new FormControl('', Validators.required),
     individualCode: new FormControl('', Validators.required),
     comments: new FormControl('', Validators.required),
+    ratings: new FormControl('', Validators.required)
   });
 
   techSubmit: any = false;
+
   submitRating() {
     let values = this.TechReviewForms.value;
     this.techSubmit = true;
     if (this.TechReviewForms.valid) {
+      console.log(this.TechReviewForms.value);
       let val = {
         values,
         ...{
@@ -180,11 +187,15 @@ export class RatingWebComponent implements OnInit {
 
   hrSubmit: any = false;
   HrRatingSubmit() {
+    console.log(this.HrForm.value);
+    // console.log("Fresher", this.fresher);
     this.hrSubmit = true;
-    if(this.fresher){
-      this.HrForm.get('curCTC').setErrors(null);
-      this.HrForm.get('noticePeriod').setErrors(null);
+    if(this.fresher==true){
+      // console.log("Fresher!!!", this.fresher);
+      this.HrRating.get('curCTC').setErrors(null);
+      this.HrRating.get('noticePeriod').setErrors(null);
     }
+    
     let values = this.HrRating.value;
     if (this.HrRating.valid) {
       this.hrSubmit = false;
@@ -210,7 +221,7 @@ export class RatingWebComponent implements OnInit {
   }
 }
 
-@Pipe({
+/* @Pipe({
   name: 'checked',
 })
 export class checkedForm implements PipeTransform {
@@ -221,4 +232,4 @@ export class checkedForm implements PipeTransform {
     }
     return false;
   }
-}
+} */

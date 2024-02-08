@@ -49,7 +49,7 @@
                                     stroke="#0A2647" stroke-width="1.5" stroke-linecap="round"
                                     stroke-linejoin="round" />
                             </svg>
-                            <p *ngFor="let langs in lang">{{langs?langs:"Tamil "}}</p>
+                            <p *ngFor="let langs of lang">{{langs?langs:"Tamil "}}</p>
                             <p *ngIf="lang.length==0" style="text-align: left; font-size: 16px;">Tamil</p>
                         </h5>
                         <p style="text-align: right; color: gray;" *ngIf="candidate.date!=null">{{candidate.date|date}}</p>
@@ -133,7 +133,7 @@
                     <!-- <span>/10</span> -->
                 </div>
             </div>
-            {{TechReviewForms.get('underStating').value}}
+            <!-- {{TechReviewForms.get('underStating').value}} -->
             <div class="forms">
                 <div class="row">
                     <div class="col-4">
@@ -270,7 +270,7 @@
                 <input type="text" placeholder="Current CTC" formControlName="curCTC"
                     [ngClass]="hrSubmit && HrRating.get('curCTC')?.invalid?'err':''"
                     style="width: 40%; margin-right: 15px;">
-                <input type="checkbox" id="fresher" [(ngModel)]="fresher" ng-model="fresher" [value]=true
+                <input type="checkbox" id="fresher" [checked]="fresher == true" (click)="fresher = true"
                     style="width: fit-content; height: 15px; width: 15px; margin-right: 5px;">
                 <label for="fresher" style="width: fit-content;" >Fresher</label>
             </div>
@@ -279,7 +279,7 @@
                 <input type="text" placeholder="Notice Period" formControlName="noticePeriod"
                     [ngClass]="hrSubmit && HrRating.get('noticePeriod')?.invalid?'err':'' "
                     style="width: 40%; margin-right: 15px;">
-                <input type="checkbox" id="fresher" [checked]="fresher" value="true"
+                <input type="checkbox" id="fresher" [checked]="fresher" value="true" formControlName="fresher"
                     style="width: fit-content; height: 15px; width: 15px; margin-right: 5px;">
                 <label for="fresher" style="width: fit-content;" >Fresher</label>
                 <p *ngIf="fresher"></p>
