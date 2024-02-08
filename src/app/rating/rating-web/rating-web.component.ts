@@ -32,6 +32,7 @@ export class RatingWebComponent implements OnInit {
     skillsfron: new FormControl(''),
     skills: new FormControl([], [Validators.required]),
     comments: new FormControl(''),
+    ratings: new FormControl('', Validators.required)
   });
 
   lang: any = [];
@@ -88,7 +89,7 @@ export class RatingWebComponent implements OnInit {
     this.skills1.splice(ind, 1);
     console.log(this.skills1);
   }
-  starRatingChange(item: any, e: any) {
+  ratingChange(item: any, e: any) {
     let rating = e.target.value;
     item.rating = rating;
     console.log(item, e.target.value, this.skills1);

@@ -1,9 +1,13 @@
+.page-container{
+  font-family: "Poppins";
+}
+
 .cand-name {
   text-align: center;
   margin-top: 10px;
 }
 
-.skills-add input {
+/* .skills-add  */input, select {
   width: 40%;
   border: none;
   background-color: #ffff;
@@ -11,6 +15,7 @@
   padding-left: 10px;
   height: 40px;
   margin-bottom: 10px;
+  border-radius: 5px;
 }
 .skills-add input:focus-visible {
   outline: none;
@@ -80,9 +85,9 @@
 
 .atributes {
   width: 90%;
-  margin: auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 20px 0px;
+  /* margin-top: 20px;
+  margin-bottom: 20px; */
 }
 
 .atributes h6 {
@@ -159,7 +164,8 @@
   font-size: 18px;
 }
 
-.forms-hr .forms input {
+.forms-hr .forms input,
+.forms-hr .forms select {
   width: 58%;
   border: none;
   background-color: #ffff;
@@ -177,3 +183,17 @@
 .err {
   border: 1px solid red !important;
 }
+
+.col-4 label,
+.col-3 label{
+  padding-top: 5px;
+  font-family: "Poppins";
+  font-size: 14px;
+  color: #0a2647;
+  font-weight: 600;
+}
+
+.col-8{
+  padding-right: 0;
+}
+
