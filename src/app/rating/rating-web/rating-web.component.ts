@@ -143,6 +143,7 @@ export class RatingWebComponent implements OnInit {
     curCTC: new FormControl('', Validators.required),
     noticePeriod: new FormControl('', Validators.required),
     desc: new FormControl('', Validators.required),
+    rating: new FormControl('', Validators.required)
   });
 
   herRatingAttr(item: any, e: any) {

@@ -373,8 +373,8 @@
                     <label for="" style="font-size: 20px; width: 30%; color: #0a2647;font-family: 'Poppins';font-size: 18px;">Rating:</label>
                 </div>
                 <div class="col-8">
-                    <input type="number" (keyup)="underStatingChange($event,'ratings')" min="0" max="5"
-                        [ngClass]=" hrSubmit && profileForm.get('ratings')?.invalid?'err':'' "
+                    <input type="number" (keyup)="underStatingChange($event,'rating')" min="0" max="5"
+                        [ngClass]=" hrSubmit && profileForm.get('rating')?.invalid?'err':'' "
                         style="width: min-content;">
                     <span style="margin-left: 10px;">/5</span>
                 </div>
