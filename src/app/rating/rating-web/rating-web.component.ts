@@ -25,6 +25,7 @@ export class RatingWebComponent implements OnInit {
     this.Aroute.queryParams.subscribe((e: any) => {
       console.log(e);
       this.api.getCandidateById(e.id).subscribe((e: any) => {
+        console.log(e,768907)
         this.candidate = e;
       });
     });
