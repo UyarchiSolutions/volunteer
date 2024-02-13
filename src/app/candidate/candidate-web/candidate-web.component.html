@@ -34,12 +34,12 @@
                                     (click)="clickDisable()">Choose</button>
                             </ng-container>
 
-                            <p *ngIf="cand.isIdInArray == true " class="intrested">Choosen</p>
+                            <p *ngIf="cand.isIdInArray == true " class="intrested">Chosen</p>
                         </td>
                         <td *ngIf="Role == 'Tech Volunteer' "><button class="int-btn"
                                 (click)="intrestCandidate(cand._id, cand.slotId)" *ngIf="cand.techIntrest ==
                             false">Choose</button>
-                            <p *ngIf="cand.techIntrest == true " class="intrested">Choosen</p>
+                            <p *ngIf="cand.techIntrest == true " class="intrested">Chosen</p>
                         </td>
 
                     </tr>

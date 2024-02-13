@@ -23,7 +23,7 @@
                         style="height: 118px; border-radius: 10px; float: right;">
                 </div>
                 <div class="col-8" style="height: fit-content;">
-                    <h4 style="margin-bottom: 14px;">{{candidate.name?candidate.name:"John Doe"}}</h4>
+                    <h4 style="margin-bottom: 14px;">{{candidate.name?candidate.name:"--"}}</h4>
                     <p>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -37,11 +37,11 @@
                                 d="M8.5 9.83398H11.5V10.0007C11.5 10.8291 10.8284 11.5007 10 11.5007C9.17157 11.5007 8.5 10.8291 8.5 10.0007V9.83398Z"
                                 fill="white" stroke="#0A2647" />
                         </svg>
-                        {{candidate.workStatus?candidate.workStatus:"Employed"}}
+                        {{candidate.course?candidate.course:"--"}}
                     </p>
                     <span
                         style="display: inline-flex; flex-wrap: wrap; flex-direction: row; width: 80%; justify-content: space-between;">
-                        
+                        <p>
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -49,11 +49,16 @@
                                     stroke="#0A2647" stroke-width="1.5" stroke-linecap="round"
                                     stroke-linejoin="round" />
                             </svg>
-                            
-                            <!-- <p style="display: inline;" *ngFor="let langs of lang">{{langs|json}}</p> -->
-                            
+                            <span *ngFor="let item of candidate.language, index as i">
+                                {{item.language}}
+                                <span *ngIf="i!=candidate.language.length-1">,</span>
+                            </span>
+
+                        </p>
+                        <!-- <p style="display: inline;" *ngFor="let langs of lang">{{langs|json}}</p> -->
+
                         <!-- <p style="text-align: right; color: gray;" *ngIf="candidate.date!=null">{{candidate.date|date}}</p> -->
-                        <p style="text-align: right; color: gray;" *ngIf="candidate.date==null">Date</p>
+                        <p style="text-align: right; color: gray;">{{candidate.hrDate|date:"dd-MM-yyyy hh:mm"}}</p>
                     </span>
                 </div>
             </div>
@@ -62,9 +67,9 @@
 
     <div class="cand-name">
 
-        <p style="text-align: center;margin-top: 11px;font-size: 30px;">{{candidate?candidate.name:"--"}}</p>
+        <!-- <p style="text-align: center;margin-top: 11px;font-size: 30px;">{{candidate?candidate.name:"--"}}</p> -->
     </div>
-    <div class="small" [formGroup]="profileForm" *ngIf="volunteerDetail.Role == 'Tech Volunteer' ">
+    <div class="small" [formGroup]="TechReviewForms" *ngIf="volunteerDetail.Role == 'Tech Volunteer' ">
         <div class="skills-add">
             <div class="row">
                 <div class="col-4">
@@ -72,23 +77,18 @@
                 </div>
                 <div class="col-8"><input type="text" id="addSkills" class="input" placeholder="Enter All Skills"
                         formControlName="skillsfron" style="width: 68%;"
-                        
-                        [ngClass]=" techSubmit && profileForm.get('skillsfron')?.invalid?'err':'' ">
+                        [ngClass]=" techSubmit && TechReviewForms.get('skillsfron')?.invalid?'err':'' ">
                     <button class="add-btn" (click)="addSkill1()" style="margin-left: 15px; width: fit-content ;">+
                         Add</button>
                 </div>
             </div>
         </div>
-        <!-- [ngClass]="techSubmit && skills1.length == 0?'err':'' "
-            <div class="row">
-            <div class="col"><h6 style="padding-top: 10px;">Figma:</h6></div>
-        </div> -->
-        <div class="datas" *ngIf="skills1.length>0">
-            <div class="row" *ngFor="let item of skills1,index as i">
-                <!-- <div *ngFor="let item of skills1,index as i"> -->
+
+        <div class="datas" formArrayName="skillsrated">
+            <div class="row" *ngFor="let item of AddSkills.controls;index as i" [formGroupName]="i">
                 <div class="col-4">
                     <p class="items">
-                        {{item.skills}}
+                        {{item.get('skills')?.value}}
                         <span (click)="addSkill1Remove(item)">
                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -99,21 +99,21 @@
                         </span>
                     </p>
                 </div>
-                <div class="col-9">
-                    <select name="" class="input" (change)="techRatingChange(item, $event)" style="width: 100%;" formControlName="skillsrated"
-                        [ngClass]=" techSubmit && profileForm.get('skillsrated')?.invalid?'err':'' ">
+                <div class="col-9" style="margin-left:20px">
+                    <select name="" class="input" style="width: 100%;" formControlName="rating"
+                        (change)="techRatingChange(item, $event)"
+                        [ngClass]=" techSubmit && item.get('rating')?.invalid?'err':'' ">
                         <option [value]="null" hidden selected>Select</option>
                         <option value="Poor">Poor</option>
                         <option value="Average">Average</option>
                         <option value="Good">Good</option>
                         <option value="Very Good">Very Good</option>
                     </select>
-                    
                 </div>
                 <!-- </div> -->
             </div>
         </div>
-        <div class="atributes" [formGroup]="TechReviewForms">
+        <div class="atributes">
             <h5>Attributes</h5>
             <div class="forms">
                 <div class="row">
@@ -121,10 +121,7 @@
                         <label style="padding-top: 5px;">Understanding:</label>
                     </div>
                     <div class="col-8" style="padding-right: 0;">
-                        <!-- <input type="text" (keyup)="underStatingChange($event,'underStating')" maxlength="2"
-                        [ngClass]=" techSubmit && TechReviewForms.get('underStating')?.invalid?'err':'' "> -->
                         <select name="" class="input" (change)="underStatingChange($event,'underStating')"
-                        
                             style="width: 100%;"
                             [ngClass]=" techSubmit && TechReviewForms.get('underStating')?.invalid?'err':'' ">
                             <option [value]="null" hidden selected>Select</option>
@@ -134,18 +131,14 @@
                             <option value="Very Good">Very Good</option>
                         </select>
                     </div>
-                    <!-- <span>/10</span> -->
                 </div>
             </div>
-            <!-- {{TechReviewForms.get('underStating').value}} -->
             <div class="forms">
                 <div class="row">
                     <div class="col-4">
                         <label style="padding-top: 5px;">Logic</label>
                     </div>
                     <div class="col-8" style="padding-right: 0;">
-                        <!-- <input type="text" (keyup)="underStatingChange($event,'logic')" maxlength="2"
-                        [ngClass]=" techSubmit && TechReviewForms.get('logic')?.invalid?'err':'' "> -->
                         <select name="" class="input" (change)="underStatingChange($event,'logic')" style="width: 100%;"
                             [ngClass]=" techSubmit && TechReviewForms.get('logic')?.invalid?'err':'' ">
                             <option [value]="null" hidden selected>Select</option>
@@ -164,8 +157,6 @@
                         <label>Coding</label>
                     </div>
                     <div class="col-8">
-                        <!-- <input type="tel" (keyup)="underStatingChange($event,'coding')" maxlength="2"
-                        [ngClass]=" techSubmit && TechReviewForms.get('coding')?.invalid?'err':'' "> -->
                         <select name="" class="input" (change)="underStatingChange($event,'coding')"
                             style="width: 100%;"
                             [ngClass]=" techSubmit && TechReviewForms.get('coding')?.invalid?'err':'' ">
@@ -185,8 +176,6 @@
                         <label>Project Understanding</label>
                     </div>
                     <div class="col-8">
-                        <!-- <input type="text" (keyup)="underStatingChange($event,'projectUnderStanding')" maxlength="2"
-                        [ngClass]=" techSubmit && TechReviewForms.get('projectUnderStanding')?.invalid?'err':'' "> -->
                         <select name="" class="input" (change)="underStatingChange($event,'projectUnderStanding')"
                             style="width: 100%;"
                             [ngClass]=" techSubmit && TechReviewForms.get('projectUnderStanding')?.invalid?'err':'' ">
@@ -206,8 +195,6 @@
                         <label>Communication</label>
                     </div>
                     <div class="col-8">
-                        <!-- <input type="text" (keyup)="underStatingChange($event,'communication')" maxlength="2"
-                        [ngClass]=" techSubmit && TechReviewForms.get('communication')?.invalid?'err':'' "> -->
                         <select name="" class="input" (change)="underStatingChange($event,'communication')"
                             style="width: 100%;"
                             [ngClass]=" techSubmit && TechReviewForms.get('communication')?.invalid?'err':'' ">
@@ -241,11 +228,11 @@
                 </div>
             </div>
         </div>
-        <div class="comments" [formGroup]="TechReviewForms" style="margin-bottom: 20px;">
+        <div class="comments" style="margin-bottom: 20px;">
             <label>Comments</label>
             <textarea cols="50" rows="5" placeholder="Type comments here." formControlName="comments"
                 [ngClass]=" techSubmit && TechReviewForms.get('comments')?.invalid?'err':'' "></textarea>
-                <p>{{TechReviewForms.get('comments')?.value}}</p>
+
         </div>
         <div class="row">
             <div class="col-4">
@@ -253,7 +240,7 @@
             </div>
             <div class="col-8">
                 <input type="number" (keyup)="underStatingChange($event,'ratings')" min="0" max="5"
-                    [ngClass]=" techSubmit && profileForm.get('ratings')?.invalid?'err':'' "
+                    [ngClass]=" techSubmit && TechReviewForms.get('ratings')?.invalid?'err':'' "
                     style="width: min-content;">
                 <span style="margin-left: 10px;">/5</span>
             </div>
@@ -277,7 +264,7 @@
                     style="width: 40%; margin-right: 15px;">
                 <input type="checkbox" id="fresher" [checked]="fresher" (click)="fresherToggle()"
                     style="width: fit-content; height: 15px; width: 15px; margin-right: 5px;">
-                <label for="fresher" style="width: fit-content;" >Fresher</label>
+                <label for="fresher" style="width: fit-content;">Fresher</label>
             </div>
             <div class="forms">
                 <label for="">Notice Period :</label>
@@ -286,44 +273,46 @@
                     style="width: 40%; margin-right: 15px;">
                 <input type="checkbox" id="fresher" [checked]="fresher" value="true" formControlName="fresher"
                     style="width: fit-content; height: 15px; width: 15px; margin-right: 5px;">
-                <label for="fresher" style="width: fit-content;" >Fresher</label>
+                <label for="fresher" style="width: fit-content;">Fresher</label>
             </div>
         </div>
         <div class="skills-add" [formGroup]="HrForm">
             <label for="" style="width: 30%;color: #0a2647;font-family: 'Poppins';font-size: 18px;">Language:</label>
-            <input type="text" placeholder="Enter Language" formControlName="languages"
-                style="width: 40%; margin-right: 20px;" [ngClass]="hrSubmit && lang.length == 0?'err':'' " >
+            <input type="text" placeholder="Enter Language" formControlName="langs"
+                style="width: 40%; margin-right: 20px;"
+                [ngClass]="hrSubmit && HrForm.get('languages').length == 0?'err':'' ">
             <button class="add-btn" (click)="hrlang()">+ Add</button>
-        </div>
-        <div class="datas" *ngIf="lang.length>0">
-            <div class="row" *ngFor="let item of lang,index as i">
-                <div class="col-5">
-                    <p class="items">
-                        {{item.lang}}
-                        <span (click)="HrLanRemove(item)" style="width: 30%;">
-                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M6 12C2.6862 12 0 9.3138 0 6C0 2.6862 2.6862 0 6 0C9.3138 0 12 2.6862 12 6C12 9.3138 9.3138 12 6 12ZM6 10.8C7.27304 10.8 8.49394 10.2943 9.39411 9.39411C10.2943 8.49394 10.8 7.27304 10.8 6C10.8 4.72696 10.2943 3.50606 9.39411 2.60589C8.49394 1.70571 7.27304 1.2 6 1.2C4.72696 1.2 3.50606 1.70571 2.60589 2.60589C1.70571 3.50606 1.2 4.72696 1.2 6C1.2 7.27304 1.70571 8.49394 2.60589 9.39411C3.50606 10.2943 4.72696 10.8 6 10.8ZM6 5.1516L7.6968 3.4542L8.5458 4.3032L6.8484 6L8.5458 7.6968L7.6968 8.5458L6 6.8484L4.3032 8.5458L3.4542 7.6968L5.1516 6L3.4542 4.3032L4.3032 3.4542L6 5.1516Z"
-                                    fill="#FF0000" />
-                            </svg>
-                        </span>
-                    </p>
-                </div>
-                <div class="col-7">
-                    <select name="" class="input" (change)="ratingChange(item, $event)" style="width: 58%;"
-                        [ngClass]=" hrSubmit && HrForm.get('languages')?.invalid?'err':'' ">
-                        <option [value]="null" hidden selected>Select</option>
-                        <option value="Poor">Poor</option>
-                        <option value="Average">Average</option>
-                        <option value="Good">Good</option>
-                        <option value="Very Good">Very Good</option>
-                    </select>
+
+            <div class="datas" formArrayName="languages" *ngIf="AddLanguages.length!=0">
+                <div class="row" *ngFor="let item of AddLanguages.controls; index as i" [formGroupName]="i">
+                    <div class="col-5">
+                        <p class="items">
+                            {{item.get('lang')?.value}}
+                            <span (click)="addSkill1Remove(item)" style="width: 30%;">
+                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M6 12C2.6862 12 0 9.3138 0 6C0 2.6862 2.6862 0 6 0C9.3138 0 12 2.6862 12 6C12 9.3138 9.3138 12 6 12ZM6 10.8C7.27304 10.8 8.49394 10.2943 9.39411 9.39411C10.2943 8.49394 10.8 7.27304 10.8 6C10.8 4.72696 10.2943 3.50606 9.39411 2.60589C8.49394 1.70571 7.27304 1.2 6 1.2C4.72696 1.2 3.50606 1.70571 2.60589 2.60589C1.70571 3.50606 1.2 4.72696 1.2 6C1.2 7.27304 1.70571 8.49394 2.60589 9.39411C3.50606 10.2943 4.72696 10.8 6 10.8ZM6 5.1516L7.6968 3.4542L8.5458 4.3032L6.8484 6L8.5458 7.6968L7.6968 8.5458L6 6.8484L4.3032 8.5458L3.4542 7.6968L5.1516 6L3.4542 4.3032L4.3032 3.4542L6 5.1516Z"
+                                        fill="#FF0000" />
+                                </svg>
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="col-7">
+                        <select name="" class="input" (change)="hrRatingChange(item, $event)" style="width: 58%;"
+                            [ngClass]=" hrSubmit && item.get('rating')?.invalid?'err':'' " formControlName="rating">
+                            <option [value]="null" hidden selected>Select</option>
+                            <option value="Poor">Poor</option>
+                            <option value="Average">Average</option>
+                            <option value="Good">Good</option>
+                            <option value="Very Good">Very Good</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="attr">
+        <div class="attr" [formGroup]="HrRating">
             <h3 style="margin-bottom: 20px;">Attributes</h3>
             <div class="forms-hr">
                 <div class="forms">
@@ -336,6 +325,7 @@
                         <option value="Good">Good</option>
                         <option value="Very Good">Very Good</option>
                     </select>
+                    <br>
                     <b *ngIf="hrSubmit && HrRating.get('attitude')?.invalid" style="color: red;">Give Rating For
                         Attitude</b>
                 </div><br /><br />
@@ -356,12 +346,13 @@
                         </select>
                     </div>
                 </div>
+                <br>
                 <b *ngIf="hrSubmit && HrRating.get('performance')?.invalid" style="color: red;">Give Rating For
                     Performance</b>
             </div>
             <br /><br />
 
-            <div class="comments" [formGroup]="HrRating">
+            <div class="comments">
                 <label
                     style="font-size: 16px;font-size: 20px;padding: 0px;margin: 0px;text-align: left;padding-left: -22px;width: 100%;">Comments</label>
                 <textarea cols="50" rows="5" placeholder="Comments" formControlName="desc"
@@ -370,18 +361,19 @@
 
             <div class="row" style="margin-top: 20px;">
                 <div class="col-4">
-                    <label for="" style="font-size: 20px; width: 30%; color: #0a2647;font-family: 'Poppins';font-size: 18px;">Rating:</label>
+                    <label for=""
+                        style="font-size: 20px; width: 30%; color: #0a2647;font-family: 'Poppins';font-size: 18px;">Rating:</label>
                 </div>
                 <div class="col-8">
                     <input type="number" (keyup)="underStatingChange($event,'rating')" min="0" max="5"
-                        [ngClass]=" hrSubmit && profileForm.get('rating')?.invalid?'err':'' "
+                        [ngClass]=" hrSubmit && HrRating.get('rating')?.invalid?'err':'' "
                         style="width: min-content;">
                     <span style="margin-left: 10px;">/5</span>
                 </div>
-    
-            </div>
 
+            </div>
         </div>
+
 
         <div class="submit-btn" style="margin-bottom: 20px;">
             <button (click)="HrRatingSubmit()">Submit</button>

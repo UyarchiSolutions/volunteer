@@ -40,26 +40,29 @@ export class RatingMobileComponent implements OnInit {
   skills1: any = [];
 
   addSkill1() {
-    let e = this.profileForm.get('skillsfron').value;
-    if (e != '') {
-      let findInd = this.skills1.findIndex((s: any) => {
-        return s.skills == e;
-      });
-      if (findInd == -1) {
-        this.skills1.push({ skills: e, rating: "" });
-      } else {
-      }
-      console.log(this.skills1);
-      this.profileForm.get('skillsfron').setValue(null);
+    let rating = this.TechReviewForms.get('skillsfron').value;
+    let find = this.AddSkills.value.findIndex(
+      (a: any) => a.skills == rating);
+    if (find != -1) {
+      console.log("Already added.");
     }
+    else {
+      let data: any = this.fb.group({
+        skills: new FormControl(rating),
+        rating: new FormControl(null, [Validators.required]),
+      });
+      this.AddSkills.push(data);
+    }
+    this.TechReviewForms.get('skillsfron').setValue(null);
+    console.log(this.AddSkills.value);
   }
 
   addSkill1Remove(item: any) {
     console.log(item);
-    let ind = this.skills1.findIndex((e: any) => {
+    let ind = this.AddSkills.controls.findIndex((e: any) => {
       return e == item;
     });
-    this.skills1.splice(ind, 1);
+    this.AddSkills.value.splice(ind, 1);
     console.log(this.skills1);
   }
 
@@ -71,25 +74,12 @@ export class RatingMobileComponent implements OnInit {
 
   techRatingChange(item:any, e:any)
   {
-    
-    let rating=e.target.value;
-    let data:any = this.fb.group({
-      skills: new FormControl(item.skills),
-      rating: new FormControl(rating),
-    });
-    let find = this.AddSkills.value.findIndex(
-      (a: any) => a.skills == item.skills
-    );
-    if (find != -1) 
-      {
-        console.log("Already added.");
-      }
-      else
-      {
-        console.log(data.value);
-        this.AddSkills.push(data);
-      }
-      console.log(this.AddSkills.value);
+    let rating1 = e.target.value;
+    for(let x of this.AddSkills.value)
+    {
+      x.rating=rating1;
+    }
+    console.log(this.AddSkills.value);
   }
 
   get AddSkills(){
@@ -143,7 +133,9 @@ export class RatingMobileComponent implements OnInit {
     communication: new FormControl('', Validators.required),
     individualCode: new FormControl('', Validators.required),
     comments: new FormControl('', Validators.required),
-    ratings: new FormControl('', Validators.required)
+    ratings: new FormControl('', Validators.required),
+    skillsrated: this.fb.array([], [Validators.required]),
+    skillsfron: new FormControl('')
   });
 
   techSubmit: any = false;
