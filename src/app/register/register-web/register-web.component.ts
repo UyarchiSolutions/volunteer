@@ -28,6 +28,7 @@ export class RegisterWebComponent implements OnInit {
     });
     if (this.queryId != null) {
       this.edit();
+      console.log(this.dataCtrls.controls, "Data Controls")
     }
   }
 
@@ -108,6 +109,7 @@ export class RegisterWebComponent implements OnInit {
     currentCTC: new FormControl('', [Validators.required]),
     currentLocation: new FormControl('', [Validators.required]),
     language: this.fb.array([], [Validators.required]),
+    //languagesKnown: this.fb.array([], [Validators.required]),
     coreExperienceFrom: new FormControl('', [Validators.required]),
     coreExperienceTo: new FormControl('', [Validators.required]),
     // skillsfron: new FormControl(null),
@@ -123,8 +125,18 @@ export class RegisterWebComponent implements OnInit {
     charges: new FormControl('', [Validators.required]),
   });
 
+  //languages:[]=[];
+
   add_form_control(event: any) {
     console.log(event.target.checked, 'asdf');
+    
+    /* for(let lang of this.dataCtrls.value)
+    {
+      if(lang.language==event.target.value)
+      this.addSkills.push(new FormControl(e.target.value));
+      event=null;
+    } */
+    console.log(this.dataCtrls.value);
     let value = event.target.value;
     let action = event.target.checked;
     let data: any = this.fb.group({
@@ -134,13 +146,24 @@ export class RegisterWebComponent implements OnInit {
       write: new FormControl(false),
     });
     if (action) {
-      this.dataCtrls.push(data);
+      let find = this.dataCtrls.value.findIndex(
+        (a: any) => a.language == value
+      );
+      // console.log(find, "Found.");
+      if (find != -1) 
+      {
+        console.log("Already added.");
+      }
+      else
+      {
+        this.dataCtrls.push(data);
+      }
     } else {
       console.log(this.dataCtrls.value);
       let find = this.dataCtrls.value.findIndex(
         (a: any) => a.language == value
       );
-      console.log(find);
+      console.log(find, "Found.");
       if (find != -1) {
         this.dataCtrls.removeAt(find);
       }
@@ -148,8 +171,11 @@ export class RegisterWebComponent implements OnInit {
     }
   }
   get dataCtrls() {
+    //console.log(this.profileForm.controls['language'].value);
     return this.profileForm.controls['language'] as FormArray;
+    
   }
+
   remove_controls(i: any) {
     this.dataCtrls.removeAt(i);
   }
@@ -189,15 +215,18 @@ export class RegisterWebComponent implements OnInit {
       {
         this.profileForm.get('hrExperienceFrom').setErrors({'incorrect':true});
         this.profileForm.get('hrExperienceTo').setErrors({'incorrect':true});
+        console.log("Hello1");
       }
       else if(this.profileForm.get('experiencefrom').value==this.profileForm.get('hrExperienceFrom').value && this.profileForm.get('experienceTo').value<this.profileForm.get('hrExperienceTo').value)
       {
         this.profileForm.get('hrExperienceFrom').setErrors({'incorrect':true});
         this.profileForm.get('hrExperienceTo').setErrors({'incorrect':true});
+        console.log("Hello2");
       }
       else{
-        this.profileForm.get('hrExperienceFrom').setErrors({'incorrect':false});
-        this.profileForm.get('hrExperienceTo').setErrors({'incorrect':false});
+        this.profileForm.get('hrExperienceFrom').setErrors(null);
+        this.profileForm.get('hrExperienceTo').setErrors(null);
+        console.log("Hello3");
       }
     } 
     else {
@@ -225,11 +254,10 @@ export class RegisterWebComponent implements OnInit {
       }
     }
 
-    // console.log(this.profileForm.value, "Wilder");
-    // console.log(this.profileForm.valid);
     if (this.queryId == null) {
       if (this.profileForm.valid) 
       {
+        
         this.Api.loader = true;
         console.log(this.profileForm.value, 'Edit Check');
         this.Api.volunteerReg(this.profileForm.value).subscribe(
@@ -255,6 +283,11 @@ export class RegisterWebComponent implements OnInit {
     } else {
       
       if (this.profileForm.valid) {
+        let language:any=[];
+        this.profileForm.get('language').value.forEach((element: any) => {
+          console.log(element.language, 234237468273)
+          language.push(element.language)
+        });
         this.Api.loader = true;
         this.Api.updateVolunteer(this.queryId,this.profileForm.value).subscribe((e: any) => {
           if (this.fileName != '') {
@@ -476,15 +509,18 @@ export class RegisterWebComponent implements OnInit {
 
   edit() {
     this.Api.loader = true;
+    //console.log(this.dataCtrls.value);
     this.Api.getVolunteerDetails().subscribe((e: any) => {
       console.log(e);
       this.tabs = e.Role;
       this.selectedFile = e.profileImage;
       this.skills1 = e.skills;
+      this.profileForm.get('language').value=e.language;
+      console.log(this.profileForm.get('language').value);
       this.profileForm.patchValue(e);
       e.skills.forEach((x:any)=>{
         this.addSkills.push(new FormControl(x));
-      })
+      });
       // console.log(this.profileForm.value,"11");
       e.language.forEach((element: any) => {
         let data: any = this.fb.group({
@@ -494,9 +530,13 @@ export class RegisterWebComponent implements OnInit {
           write: new FormControl(element.write),
         });
         this.dataCtrls.push(data);
+        console.log(this.dataCtrls.value);
+        
       });
       this.Api.loader = false;
+      console.log(this.dataCtrls.value);
     });
+    console.log(this.dataCtrls.value);
   }
 
   get addSkills(){
@@ -505,17 +545,28 @@ export class RegisterWebComponent implements OnInit {
 
 }
 
-
-
 @Pipe({
   name: 'checked',
 })
 export class checkedForm implements PipeTransform {
   constructor() {}
   transform(form: any, value: any): Boolean {
-    console.log(form, 'Forms');
-
     let index = form.findIndex((a: any) => a == value);
+    if (index != -1) {
+      console.log(true, "It's true.")
+      return true;
+    }
+    return false;
+  }
+}
+
+@Pipe({
+  name: 'langchecked',
+})
+export class checkedForm1 implements PipeTransform {
+  constructor() {}
+  transform(form: any, value: any): Boolean {
+    let index = form.findIndex((a: any) => a.language == value);
     if (index != -1) {
       return true;
     }

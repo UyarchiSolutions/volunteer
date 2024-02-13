@@ -41,7 +41,7 @@
                     </p>
                     <span
                         style="display: inline-flex; flex-wrap: wrap; flex-direction: row; width: 80%; justify-content: space-between;">
-                        <h5>
+                        
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -49,10 +49,10 @@
                                     stroke="#0A2647" stroke-width="1.5" stroke-linecap="round"
                                     stroke-linejoin="round" />
                             </svg>
-                            <p *ngFor="let langs of lang">{{langs?langs:"Tamil "}}</p>
-                            <p *ngIf="lang.length==0" style="text-align: left; font-size: 16px;">Tamil</p>
-                        </h5>
-                        <p style="text-align: right; color: gray;" *ngIf="candidate.date!=null">{{candidate.date|date}}</p>
+                            
+                            <!-- <p style="display: inline;" *ngFor="let langs of lang">{{langs|json}}</p> -->
+                            
+                        <!-- <p style="text-align: right; color: gray;" *ngIf="candidate.date!=null">{{candidate.date|date}}</p> -->
                         <p style="text-align: right; color: gray;" *ngIf="candidate.date==null">Date</p>
                     </span>
                 </div>
@@ -67,26 +67,28 @@
     <div class="small" [formGroup]="profileForm" *ngIf="volunteerDetail.Role == 'Tech Volunteer' ">
         <div class="skills-add">
             <div class="row">
-                <div class="col-3">
-                    <label for="">Skills:</label>
+                <div class="col-4">
+                    <label for="" style="padding-top: 5px;">Skills:</label>
                 </div>
-                <div class="col-9"><input type="text" id="addSkills" class="input" placeholder="Enter All Skills"
-                        formControlName="skillsfron" style="width: 80%;"
-                        [ngClass]="techSubmit && skills1.length == 0?'err':'' ">
+                <div class="col-8"><input type="text" id="addSkills" class="input" placeholder="Enter All Skills"
+                        formControlName="skillsfron" style="width: 68%;"
+                        
+                        [ngClass]=" techSubmit && profileForm.get('skillsfron')?.invalid?'err':'' ">
                     <button class="add-btn" (click)="addSkill1()" style="margin-left: 15px; width: fit-content ;">+
                         Add</button>
                 </div>
             </div>
         </div>
-        <!-- <div class="row">
+        <!-- [ngClass]="techSubmit && skills1.length == 0?'err':'' "
+            <div class="row">
             <div class="col"><h6 style="padding-top: 10px;">Figma:</h6></div>
         </div> -->
         <div class="datas" *ngIf="skills1.length>0">
             <div class="row" *ngFor="let item of skills1,index as i">
                 <!-- <div *ngFor="let item of skills1,index as i"> -->
-                <div class="col-3">
+                <div class="col-4">
                     <p class="items">
-                        {{item.skils}}
+                        {{item.skills}}
                         <span (click)="addSkill1Remove(item)">
                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -98,14 +100,15 @@
                     </p>
                 </div>
                 <div class="col-9">
-                    <select name="" class="input" (change)="ratingChange(item, $event)" style="width: 100%;"
-                        [ngClass]=" techSubmit && profileForm.get('skills')?.invalid?'err':'' ">
+                    <select name="" class="input" (change)="techRatingChange(item, $event)" style="width: 100%;" formControlName="skillsrated"
+                        [ngClass]=" techSubmit && profileForm.get('skillsrated')?.invalid?'err':'' ">
                         <option [value]="null" hidden selected>Select</option>
                         <option value="Poor">Poor</option>
                         <option value="Average">Average</option>
                         <option value="Good">Good</option>
                         <option value="Very Good">Very Good</option>
                     </select>
+                    
                 </div>
                 <!-- </div> -->
             </div>
@@ -121,6 +124,7 @@
                         <!-- <input type="text" (keyup)="underStatingChange($event,'underStating')" maxlength="2"
                         [ngClass]=" techSubmit && TechReviewForms.get('underStating')?.invalid?'err':'' "> -->
                         <select name="" class="input" (change)="underStatingChange($event,'underStating')"
+                        
                             style="width: 100%;"
                             [ngClass]=" techSubmit && TechReviewForms.get('underStating')?.invalid?'err':'' ">
                             <option [value]="null" hidden selected>Select</option>
@@ -241,6 +245,7 @@
             <label>Comments</label>
             <textarea cols="50" rows="5" placeholder="Type comments here." formControlName="comments"
                 [ngClass]=" techSubmit && TechReviewForms.get('comments')?.invalid?'err':'' "></textarea>
+                <p>{{TechReviewForms.get('comments')?.value}}</p>
         </div>
         <div class="row">
             <div class="col-4">
@@ -268,21 +273,20 @@
             <div class="forms">
                 <label for="">Current CTC :</label>
                 <input type="text" placeholder="Current CTC" formControlName="curCTC"
-                    [ngClass]="hrSubmit && HrRating.get('curCTC')?.invalid?'err':''"
+                    [ngClass]="hrSubmit && fresher==false && HrRating.get('curCTC')?.invalid?'err':''"
                     style="width: 40%; margin-right: 15px;">
-                <input type="checkbox" id="fresher" [checked]="fresher == true" (click)="fresher = true"
+                <input type="checkbox" id="fresher" [checked]="fresher" (click)="fresherToggle()"
                     style="width: fit-content; height: 15px; width: 15px; margin-right: 5px;">
                 <label for="fresher" style="width: fit-content;" >Fresher</label>
             </div>
             <div class="forms">
                 <label for="">Notice Period :</label>
                 <input type="text" placeholder="Notice Period" formControlName="noticePeriod"
-                    [ngClass]="hrSubmit && HrRating.get('noticePeriod')?.invalid?'err':'' "
+                    [ngClass]="hrSubmit && !fresher && HrRating.get('noticePeriod')?.invalid?'err':'' "
                     style="width: 40%; margin-right: 15px;">
                 <input type="checkbox" id="fresher" [checked]="fresher" value="true" formControlName="fresher"
                     style="width: fit-content; height: 15px; width: 15px; margin-right: 5px;">
                 <label for="fresher" style="width: fit-content;" >Fresher</label>
-                <p *ngIf="fresher"></p>
             </div>
         </div>
         <div class="skills-add" [formGroup]="HrForm">
@@ -308,7 +312,7 @@
                 </div>
                 <div class="col-7">
                     <select name="" class="input" (change)="ratingChange(item, $event)" style="width: 58%;"
-                        [ngClass]=" hrSubmit && profileForm.get('skills')?.invalid?'err':'' ">
+                        [ngClass]=" hrSubmit && HrForm.get('languages')?.invalid?'err':'' ">
                         <option [value]="null" hidden selected>Select</option>
                         <option value="Poor">Poor</option>
                         <option value="Average">Average</option>
@@ -342,7 +346,7 @@
                 <div class="forms-hr">
                     <div class="forms">
                         <label for="" style="font-size: 20px;">Performance :</label>
-                        <select name="" class="input" (change)="herRatingAttr('performance', $event)"
+                        <select name="" class="input" (change)="herRatingPer('performance', $event)"
                             [ngClass]=" hrSubmit && HrRating.get('performance')?.invalid?'err':'' ">
                             <option [value]="null" hidden selected>Select</option>
                             <option value="Poor">Poor</option>

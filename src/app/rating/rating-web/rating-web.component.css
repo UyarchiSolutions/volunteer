@@ -157,15 +157,15 @@
   border-radius: 5px;
 }
 
-.forms-hr .forms label {
+.forms label {
   width: 30%;
   color: #0a2647;
   font-family: "Poppins";
   font-size: 18px;
 }
-
-.forms-hr .forms input,
-.forms-hr .forms select {
+/* forms-hr */
+.forms input,
+ .forms select {
   width: 58%;
   border: none;
   background-color: #ffff;
@@ -176,7 +176,18 @@
   font-family: "Poppins";
 }
 
-.forms-hr .forms input:focus-visible {
+.input{
+  width: 58%;
+  border: none;
+  background-color: #ffff;
+  box-shadow: 0px 0px 4px 0px #00000040;
+  padding-left: 10px;
+  height: 40px;
+  margin-bottom: 10px;
+  font-family: "Poppins";
+}
+
+.forms input:focus-visible {
   outline: none;
 }
 

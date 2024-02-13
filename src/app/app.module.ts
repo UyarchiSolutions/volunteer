@@ -11,7 +11,7 @@ import {
   RegisterMobileComponent,
   checkedForm,
 } from './register/register-mobile/register-mobile.component';
-import { RegisterWebComponent } from './register/register-web/register-web.component';
+import { RegisterWebComponent, checkedForm1 } from './register/register-web/register-web.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
 import { SetPasswordComponent } from './set-password/set-password.component';
@@ -80,6 +80,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     InterviewsMobileComponent,
     InterviewsWebComponent,
     checkedForm,
+    checkedForm1,
     MailVerificationComponent,
     MailMobileComponent,
     MailWebComponent,

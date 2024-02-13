@@ -5,13 +5,13 @@
     <div class="small" [formGroup]="profileForm" *ngIf="volunteerDetail.Role == 'Tech Volunteer' ">
         <div class="skills-add">
             <input type="text" placeholder="Enter All Skills" formControlName="skillsfron" style="width: 75%;"
-            [ngClass]="techSubmit && skills1.length == 0?'err':'' ">
-            <button class="add-btn" (click)="addSkill1()">Add</button>
+                [ngClass]="techSubmit && skills1.length == 0?'err':'' ">
+            <button class="add-btn" (click)="addSkill1()">+ Add</button>
         </div>
         <div class="datas" *ngIf="skills1.length>0">
-            <div *ngFor="let item of skills1,index as i">
-                <p class="items">
-                    {{item.skils}}
+            <div *ngFor="let item of skills1,index as i" class="row" style="padding: 20px;">
+                <div class="col-3 items" style="height: fit-content;">
+                    {{item.skills}}
                     <span (click)="addSkill1Remove(item)"> <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -19,80 +19,122 @@
                                 fill="#FF0000" />
                         </svg>
                     </span>
-                </p>
-                <div class="rate">
-                    <input type="radio" id="star5-{{i}}" name="rate-{{i}}" value="5"
-                        (change)="starRatingChange(i, $event)" />
-                    <label for="star5-{{i}}" title="text">5 stars</label>
-                    <input type="radio" id="star4-{{i}}" name="rate-{{i}}" value="4"
-                        (change)="starRatingChange(i,$event)" />
-                    <label for="star4-{{i}}" title="text">4 stars</label>
-                    <input type="radio" id="star3-{{i}}" name="rate-{{i}}" value="3"
-                        (change)="starRatingChange(i,$event)" />
-                    <label for="star3-{{i}}" title="text">3 stars</label>
-                    <input type="radio" id="star3-{{i}}" name="rate-{{i}}" value="2"
-                        (change)="starRatingChange(i,$event)" />
-                    <label for="star2-{{i}}" title="text">2 stars</label>
-                    <input type="radio" id="star2-{{i}}" name="rate-{{i}}" value="1"
-                        (change)="starRatingChange(i,$event)" />
-                    <label for="star2-{{i}}" title="text">1 star</label>
+                </div>
+                <div class="col-9" style="margin-left: 20px;">
+                    <select name="" class="input" (change)="techRatingChange(item, $event)" style="width: 80%;"
+                        formControlName="skillsrated"
+                        [ngClass]=" techSubmit && profileForm.get('skillsrated')?.invalid?'err':'' ">
+                        <option [value]="null" hidden selected>Select</option>
+                        <option value="Poor">Poor</option>
+                        <option value="Average">Average</option>
+                        <option value="Good">Good</option>
+                        <option value="Very Good">Very Good</option>
+                    </select>
+
                 </div>
             </div>
+
         </div>
         <div class="atributes" [formGroup]="TechReviewForms">
             <h5>Attributes</h5>
             <div class="forms">
                 <div class="rating">
                     <label>Understanding</label>
-                    <input type="text" (keyup)="underStatingChange($event,'underStating')" maxlength="2"
+                    <!-- <input type="text" (keyup)="underStatingChange($event,'underStating')" maxlength="2"
+                        [ngClass]=" techSubmit && TechReviewForms.get('underStating')?.invalid?'err':'' "> -->
+                    <select name="" class="input" (change)="underStatingChange($event,'underStating')"
                         [ngClass]=" techSubmit && TechReviewForms.get('underStating')?.invalid?'err':'' ">
-                    <span>/10</span>
+                        <option [value]="null" hidden selected>Select</option>
+                        <option value="Poor">Poor</option>
+                        <option value="Average">Average</option>
+                        <option value="Good">Good</option>
+                        <option value="Very Good">Very Good</option>
+                    </select>
                 </div>
             </div>
             <div class="forms">
                 <div class="rating">
                     <label>Logic</label>
-                    <input type="text" (keyup)="underStatingChange($event,'logic')" maxlength="2"
-                        [ngClass]=" techSubmit && TechReviewForms.get('logic')?.invalid?'err':'' "> <span>/10</span>
+                    <select name="" class="input" (change)="underStatingChange($event,'logic')"
+                            [ngClass]=" techSubmit && TechReviewForms.get('logic')?.invalid?'err':'' ">
+                            <option [value]="null" hidden selected>Select</option>
+                            <option value="Poor">Poor</option>
+                            <option value="Average">Average</option>
+                            <option value="Good">Good</option>
+                            <option value="Very Good">Very Good</option>
+                        </select>
                 </div>
             </div>
             <div class="forms">
                 <div class="rating">
                     <label>Coding</label>
-                    <input type="text" (keyup)="underStatingChange($event,'coding')" maxlength="2"
-                        [ngClass]=" techSubmit && TechReviewForms.get('coding')?.invalid?'err':'' "> <span>/10</span>
+                    <select name="" class="input" (change)="underStatingChange($event,'coding')"
+                            [ngClass]=" techSubmit && TechReviewForms.get('coding')?.invalid?'err':'' ">
+                            <option [value]="null" hidden selected>Select</option>
+                            <option value="Poor">Poor</option>
+                            <option value="Average">Average</option>
+                            <option value="Good">Good</option>
+                            <option value="Very Good">Very Good</option>
+                        </select>
                 </div>
             </div>
             <div class="forms">
                 <div class="rating">
                     <label>Project Understanding</label>
-                    <input type="text" (keyup)="underStatingChange($event,'projectUnderStanding')" maxlength="2"
-                        [ngClass]=" techSubmit && TechReviewForms.get('projectUnderStanding')?.invalid?'err':'' ">
-                    <span>/10</span>
+                    <select name="" class="input" (change)="underStatingChange($event,'projectUnderStanding')"
+                            [ngClass]=" techSubmit && TechReviewForms.get('projectUnderStanding')?.invalid?'err':'' ">
+                            <option [value]="null" hidden selected>Select</option>
+                            <option value="Poor">Poor</option>
+                            <option value="Average">Average</option>
+                            <option value="Good">Good</option>
+                            <option value="Very Good">Very Good</option>
+                        </select>
                 </div>
             </div>
             <div class="forms">
                 <div class="rating">
                     <label>Communication</label>
-                    <input type="text" (keyup)="underStatingChange($event,'communication')" maxlength="2"
-                        [ngClass]=" techSubmit && TechReviewForms.get('communication')?.invalid?'err':'' ">
-                    <span>/10</span>
+                    <select name="" class="input" (change)="underStatingChange($event,'communication')"
+                            [ngClass]=" techSubmit && TechReviewForms.get('communication')?.invalid?'err':'' ">
+                            <option [value]="null" hidden selected>Select</option>
+                            <option value="Poor">Poor</option>
+                            <option value="Average">Average</option>
+                            <option value="Good">Good</option>
+                            <option value="Very Good">Very Good</option>
+                        </select>
                 </div>
             </div>
             <div class="forms">
                 <div class="rating">
                     <label>Individual Codes</label>
-                    <input type="text" (keyup)="underStatingChange($event,'individualCode')" maxlength="2"
-                        [ngClass]=" techSubmit && TechReviewForms.get('individualCode')?.invalid?'err':'' ">
-                    <span>/10</span>
+                    <select name="" class="input" (change)="underStatingChange($event,'individualCode')"
+                            [ngClass]=" techSubmit && TechReviewForms.get('individualCode')?.invalid?'err':'' ">
+                            <option [value]="null" hidden selected>Select</option>
+                            <option value="Poor">Poor</option>
+                            <option value="Average">Average</option>
+                            <option value="Good">Good</option>
+                            <option value="Very Good">Very Good</option>
+                        </select>
                 </div>
             </div>
+            <div class="comments">
+                <label>Comments</label>
+                <textarea cols="50" rows="5" placeholder="Comments" formControlName="comments"
+                    [ngClass]=" techSubmit && TechReviewForms.get('comments')?.invalid?'err':'' "></textarea>
+                    <p>{{TechReviewForms.get('comments').value}}</p>
+            </div>
+            <div class="forms">
+                <div class="rating">
+                    <label for="">Rating: </label>
+                <input type="number" (keyup)="underStatingChange($event,'ratings')" min="0" max="5"
+                        [ngClass]=" techSubmit && profileForm.get('ratings')?.invalid?'err':'' ">
+                    <span>/5</span>
+                    <p>{{TechReviewForms.get('ratings').value}}</p>
+                </div>
+                
+            </div>
         </div>
-        <div class="comments">
-            <label>Comments</label>
-            <textarea cols="50" rows="5" placeholder="comments...." formControlName="comments"
-                [ngClass]=" techSubmit && TechReviewForms.get('comments')?.invalid?'err':'' "></textarea>
-        </div>
+        
         <div class="submit-btn">
             <button (click)="submitRating()">Submit</button>
         </div>
@@ -107,12 +149,18 @@
             <div class="forms">
                 <label for="">Current CTC :</label>
                 <input type="text" placeholder="Current CTC" formControlName="curCTC"
-                    [ngClass]="hrSubmit && HrRating.get('curCTC')?.invalid?'err':''">
+                    [ngClass]="hrSubmit && fresher==false && HrRating.get('curCTC')?.invalid?'err':''">
+                <input type="checkbox" id="fresher" [checked]="fresher" (click)="fresherToggle()"
+                    style="width: fit-content; height: 15px; width: 15px; margin-right: 5px;">
+                <label for="fresher" style="width: fit-content;">Fresher</label>
             </div>
             <div class="forms">
                 <label for="">Notice Period :</label>
                 <input type="text" placeholder="Notice Period" formControlName="noticePeriod"
-                    [ngClass]="hrSubmit && HrRating.get('noticePeriod')?.invalid?'err':'' ">
+                    [ngClass]="hrSubmit && fresher==false && HrRating.get('noticePeriod')?.invalid?'err':'' ">
+                <input type="checkbox" id="fresher" [checked]="fresher" value="true" formControlName="fresher"
+                    style="width: fit-content; height: 15px; width: 15px; margin-right: 5px;">
+                <label for="fresher" style="width: fit-content;">Fresher</label>
             </div>
         </div>
         <div class="skills-add" [formGroup]="HrForm">
@@ -132,23 +180,7 @@
                         </svg>
                     </span>
                 </p>
-                <div class="rate">
-                    <input type="radio" id="star5-{{i}}" name="rate-{{i}}" value="5"
-                        (change)="starRatingChange(item, $event)" />
-                    <label for="star5-{{i}}" title="text">5 stars</label>
-                    <input type="radio" id="star4-{{i}}" name="rate-{{i}}" value="4"
-                        (change)="starRatingChange(item,$event)" />
-                    <label for="star4-{{i}}" title="text">4 stars</label>
-                    <input type="radio" id="star3-{{i}}" name="rate-{{i}}" value="3"
-                        (change)="starRatingChange(item,$event)" />
-                    <label for="star3-{{i}}" title="text">3 stars</label>
-                    <input type="radio" id="star2-{{i}}" name="rate-{{i}}" value="2"
-                        (change)="starRatingChange(item,$event)" />
-                    <label for="star2-{{i}}" title="text">2 stars</label>
-                    <input type="radio" id="star1-{{i}}" name="rate-{{i}}" value="1"
-                        (change)="starRatingChange(item,$event)" />
-                    <label for="star1-{{i}}" title="text">1 star</label>
-                </div>
+
             </div>
         </div>
 
@@ -156,23 +188,7 @@
             <h3 style="margin-bottom: 20px;">Attributes</h3>
             <div class="title-attr">
                 <label for="" style="font-size: 20px;">Attitude :</label> <br />
-                <div class="rate">
-                    <input type="radio" id="starhr1" name="starhr1" value="5"
-                        (change)="herRatingAttr('Attitude', $event)" />
-                    <label for="starhr1">5 stars</label>
-                    <input type="radio" id="starhr2" name="starhr1" value="4"
-                        (change)="herRatingAttr('Attitude',$event)" />
-                    <label for="starhr2">4 stars</label>
-                    <input type="radio" id="starhr3" name="starhr1" value="3"
-                        (change)="herRatingAttr('Attitude',$event)" />
-                    <label for="starhr3">3 stars</label>
-                    <input type="radio" id="starhr4" name="starhr1" value="2"
-                        (change)="herRatingAttr('Attitude',$event)" />
-                    <label for="starhr4">2 stars</label>
-                    <input type="radio" id="starhr5" name="starhr1" value="1"
-                        (change)="herRatingAttr('Attitude',$event)" />
-                    <label for="starhr5">1 star</label>
-                </div>
+
             </div>
             <br /><br />
             <b *ngIf="hrSubmit && HrRating.get('attitude')?.invalid"
@@ -184,23 +200,7 @@
                     :</label>
                 <br />
 
-                <div class="rate">
-                    <input type="radio" id="starhrpr1" name="starhrpr1" value="5"
-                        (change)="herRatingPer('Performance', $event)" />
-                    <label for="starhrpr1">5 stars</label>
-                    <input type="radio" id="starhrpr2" name="starhrpr1" value="4"
-                        (change)="herRatingPer('Performance',$event)" />
-                    <label for="starhrpr2">4 stars</label>
-                    <input type="radio" id="starhrpr3" name="starhrpr1" value="3"
-                        (change)="herRatingPer('Performance',$event)" />
-                    <label for="starhrpr3">3 stars</label>
-                    <input type="radio" id="starhrpr4" name="starhrpr1" value="2"
-                        (change)="herRatingPer('Performance',$event)" />
-                    <label for="starhrpr4">2 stars</label>
-                    <input type="radio" id="starhrpr5" name="starhrpr1" value="1"
-                        (change)="herRatingPer('Performance',$event)" />
-                    <label for="starhrpr5">1 star</label>
-                </div>
+
             </div>
             <br /><br />
             <b *ngIf="hrSubmit && HrRating.get('performance')?.invalid"
@@ -212,7 +212,14 @@
                 <textarea cols="50" rows="5" placeholder="comments...." formControlName="desc"
                     [ngClass]="hrSubmit && HrRating.get('desc')?.invalid?'err':'' "></textarea>
             </div>
+            <div>
+                <label for="">Rating: </label>
+                <input type="number" (keyup)="underStatingChange($event,'ratings')" maxlength="2"
+                        [ngClass]=" hrSubmit && profileForm.get('ratings')?.invalid?'err':'' ">
+                    <span>/10</span>
+            </div>
         </div>
+
 
         <div class="submit-btn" style="margin-bottom: 20px;">
             <button (click)="HrRatingSubmit()">Submit</button>

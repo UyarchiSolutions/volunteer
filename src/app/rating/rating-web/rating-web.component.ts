@@ -1,5 +1,5 @@
 import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VolunteerServiceService } from 'src/app/volunteer-service.service';
 @Component({
@@ -12,7 +12,8 @@ export class RatingWebComponent implements OnInit {
   constructor(
     private api: VolunteerServiceService,
     private Aroute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder,
   ) {}
   ngOnInit(): void {
     this.getIdFromParams();
@@ -22,7 +23,7 @@ export class RatingWebComponent implements OnInit {
   candidate: any = {};
   getIdFromParams() {
     this.Aroute.queryParams.subscribe((e: any) => {
-      console.log(e.id);
+      console.log(e);
       this.api.getCandidateById(e.id).subscribe((e: any) => {
         this.candidate = e;
       });
@@ -32,7 +33,8 @@ export class RatingWebComponent implements OnInit {
   profileForm: any = new FormGroup({
     skillsfron: new FormControl(''),
     skills: new FormControl([], [Validators.required]),
-    comments: new FormControl(''),
+    skillsrated: this.fb.array([], [Validators.required]),
+    //comments: new FormControl(''),
     ratings: new FormControl('', Validators.required)
   });
 
@@ -40,6 +42,12 @@ export class RatingWebComponent implements OnInit {
   HrForm: any = new FormGroup({
     languages: new FormControl(''),
   });
+
+
+
+  get AddSkills(){
+    return this.profileForm.controls['skillsrated'] as FormArray;
+  }
 
   hrlang() {
     let e = this.HrForm.get('languages').value;
@@ -50,15 +58,13 @@ export class RatingWebComponent implements OnInit {
       if (findInd == -1) {
         this.lang.push({ lang: e, rating: "" });
         // this.lang.push({lang: "Norsk", rating: "Excellent"});
-      } else {
-        // this.skills1.splice(findInd, 1);
       }
-      // console.log(this.lang, "My Languages");
-      this.HrForm.get('languages').patchValue(this.lang);
-      console.log(this.HrForm.get('languages').value, "Should work.");
+      this.HrForm.get('languages').push(this.lang);
+      this.HrForm.get('languages').reset();
+      console.log(this.HrForm.get('languages').value);
+      console.log(21576444);
       // this.HrForm.get('languages').setValue(null);
     }
-    console.log(this.lang, "Please.")
   }
   HrLanRemove(item: any) {
     console.log(item);
@@ -73,15 +79,19 @@ export class RatingWebComponent implements OnInit {
 
   addSkill1() {
     let e = this.profileForm.get('skillsfron').value;
-    if (e != '') {
+    if (e != '' ) {
+      /* console.log(regex.test("               "));
+      console.log(regex.test("hihello123 yes")); */
       let findInd = this.skills1.findIndex((s: any) => {
-        return s.skils == e;
+        return s.skills == e;
       });
       if (findInd == -1) {
-        this.skills1.push({ skils: e, rating: 0 });
+        this.skills1.push({ skills: e, rating: "" });
       } else {
       }
       console.log(this.skills1);
+      //this.profileForm.get('skills').push(this.skills1);
+      //console.log(this.profileForm.get('skills'));
       this.profileForm.get('skillsfron').setValue(null);
     }
   }
@@ -94,11 +104,37 @@ export class RatingWebComponent implements OnInit {
     this.skills1.splice(ind, 1);
     console.log(this.skills1);
   }
+
   ratingChange(item: any, e: any) {
     let rating = e.target.value;
     item.rating = rating;
+    this.skills1.push(item);
     console.log(item, e.target.value, this.skills1);
   }
+
+  techRatingChange(item:any, e:any)
+  {
+    
+    let rating=e.target.value;
+    let data:any = this.fb.group({
+      skills: new FormControl(item.skills),
+      rating: new FormControl(rating),
+    });
+    let find = this.AddSkills.value.findIndex(
+      (a: any) => a.skills == item.skills
+    );
+    if (find != -1) 
+      {
+        console.log("Already added.");
+      }
+      else
+      {
+        this.AddSkills.push(data);
+      }
+      console.log(this.AddSkills.value);
+  }
+
+  
 
   HrRating: any = new FormGroup({
     attitude: new FormControl('', Validators.required),
@@ -115,8 +151,9 @@ export class RatingWebComponent implements OnInit {
   }
   herRatingPer(item: any, e: any) {
     let rating = e.target.value;
+    console.log(rating);
     this.HrRating.get('performance').setValue(rating);
-    this.HrRating.setValue(rating);
+    //this.HrRating.setValue(rating);
   }
   volunteerDetail: any = {};
 
@@ -164,7 +201,30 @@ export class RatingWebComponent implements OnInit {
   techSubmit: any = false;
 
   submitRating() {
+    console.log(this.profileForm.value);
+    if(this.skills1.length==0)
+    {
+      this.profileForm.get('skillsfron').setErrors({'incorrect':true});
+    }
+    /* else{
+      this.profileForm.get('skillsrated').setValue(this.skills1);
+    } */
+    
+    //console.log(this.AddSkills.value);
+    for(let skill of this.skills1)
+    {
+      if(skill.rating==null || skill.rating=='')
+      {
+        console.log(skill.skills);
+        this.profileForm.get('skillsrated').setErrors({'incorrect':true});
+      }
+      
+    }
     let values = this.TechReviewForms.value;
+    if(this.TechReviewForms.get('ratings').value>5 || this.TechReviewForms.get('ratings').value<0)
+    {
+      this.TechReviewForms.get('ratings').setErrors({'incorrect':true});
+    }
     this.techSubmit = true;
     if (this.TechReviewForms.valid) {
       console.log(this.TechReviewForms.value);
@@ -188,10 +248,18 @@ export class RatingWebComponent implements OnInit {
   hrSubmit: any = false;
   HrRatingSubmit() {
     console.log(this.HrForm.value);
-    // console.log("Fresher", this.fresher);
+    let language:any=[];
+    language=this.HrForm.get('languages');
+    /* for(let l of language)
+    {
+      if(l.rating==null)
+      {
+        this.HrForm.get('languages').setErrors({'incorrect':true});
+      }
+    } */
+    console.log(this.HrRating.value);
     this.hrSubmit = true;
-    if(this.fresher==true){
-      // console.log("Fresher!!!", this.fresher);
+    if(this.fresher){
       this.HrRating.get('curCTC').setErrors(null);
       this.HrRating.get('noticePeriod').setErrors(null);
     }
@@ -219,17 +287,10 @@ export class RatingWebComponent implements OnInit {
       );
     }
   }
+
+  fresherToggle(){
+    this.fresher?this.fresher=false:this.fresher=true;
+  }
 }
 
-/* @Pipe({
-  name: 'checked',
-})
-export class checkedForm implements PipeTransform {
-  constructor() {}
-  transform(value: any): Boolean {
-    if(value){
-      return true;
-    }
-    return false;
-  }
-} */
+

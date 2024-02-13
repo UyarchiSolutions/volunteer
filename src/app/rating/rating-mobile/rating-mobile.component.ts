@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VolunteerServiceService } from 'src/app/volunteer-service.service';
 
@@ -9,10 +9,12 @@ import { VolunteerServiceService } from 'src/app/volunteer-service.service';
   styleUrls: ['./rating-mobile.component.css'],
 })
 export class RatingMobileComponent implements OnInit {
+  fresher:boolean=false;
   constructor(
     private api: VolunteerServiceService,
     private Aroute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder,
   ) {}
   ngOnInit(): void {
     this.getIdFromParams();
@@ -31,6 +33,8 @@ export class RatingMobileComponent implements OnInit {
   profileForm: any = new FormGroup({
     skillsfron: new FormControl(''),
     skills: new FormControl([], [Validators.required]),
+    skillsrated: this.fb.array([], [Validators.required]),
+    ratings: new FormControl('', Validators.required)
   });
 
   skills1: any = [];
@@ -39,10 +43,10 @@ export class RatingMobileComponent implements OnInit {
     let e = this.profileForm.get('skillsfron').value;
     if (e != '') {
       let findInd = this.skills1.findIndex((s: any) => {
-        return s.skils == e;
+        return s.skills == e;
       });
       if (findInd == -1) {
-        this.skills1.push({ skils: e, rating: 0 });
+        this.skills1.push({ skills: e, rating: "" });
       } else {
       }
       console.log(this.skills1);
@@ -59,10 +63,37 @@ export class RatingMobileComponent implements OnInit {
     console.log(this.skills1);
   }
 
-  starRatingChange(item: any, e: any) {
+  ratingChange(item: any, e: any) {
     let rating = e.target.value;
     item.rating = rating;
     console.log(item, e.target.value, this.skills1);
+  }
+
+  techRatingChange(item:any, e:any)
+  {
+    
+    let rating=e.target.value;
+    let data:any = this.fb.group({
+      skills: new FormControl(item.skills),
+      rating: new FormControl(rating),
+    });
+    let find = this.AddSkills.value.findIndex(
+      (a: any) => a.skills == item.skills
+    );
+    if (find != -1) 
+      {
+        console.log("Already added.");
+      }
+      else
+      {
+        console.log(data.value);
+        this.AddSkills.push(data);
+      }
+      console.log(this.AddSkills.value);
+  }
+
+  get AddSkills(){
+    return this.profileForm.controls['skillsrated'] as FormArray;
   }
 
   HrRating: any = new FormGroup({
@@ -112,13 +143,23 @@ export class RatingMobileComponent implements OnInit {
     communication: new FormControl('', Validators.required),
     individualCode: new FormControl('', Validators.required),
     comments: new FormControl('', Validators.required),
+    ratings: new FormControl('', Validators.required)
   });
 
   techSubmit: any = false;
   submitRating() {
+    for(let x of this.AddSkills.value)
+    {
+      if(x.rating==null || x.rating=="")
+      {
+        this.profileForm.get('skillsrated').setErrors({'incorrect':true});
+      }
+    }
     let values = this.TechReviewForms.value;
     this.techSubmit = true;
     if (this.TechReviewForms.valid) {
+      console.log(this.profileForm.get('skillsrated').value);
+      console.log(this.TechReviewForms.value);
       let val = {
         values,
         ...{
@@ -171,6 +212,10 @@ export class RatingMobileComponent implements OnInit {
     let values = this.HrRating.value;
     if (this.HrRating.valid) {
       this.hrSubmit = false;
+      if(this.fresher){
+        this.HrRating.get('curCTC').setErrors(null);
+        this.HrRating.get('noticePeriod').setErrors(null);
+      }
       let datas = {
         volunteerId: this.volunteerDetail._id,
         candId: this.candidate._id,
@@ -190,5 +235,9 @@ export class RatingMobileComponent implements OnInit {
         }
       );
     }
+  }
+
+  fresherToggle(){
+    this.fresher?this.fresher=false:this.fresher=true;
   }
 }

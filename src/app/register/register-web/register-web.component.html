@@ -104,17 +104,6 @@
 
             <div *ngIf="tabs == 'Tech Volunteer' " class="Fields-div">
                 <p>All Skills :</p>
-                <!-- <div class="auto-suggetion">
-                    <input type="text" placeholder="All Key Skills" (keyup)="getSkill($event)" [formControl]="skils"
-                        [ngClass]="submitted && profileForm.get('skills')?.invalid? 'error-active': '' " />
-                    <div class="list-option">
-                        <ul>
-                            <li *ngFor="let data of skilldata" (click)="select_skils(data)">{{data.Skill_Title}}
-                            </li>
-                        </ul>
-                    </div>
-                </div> -->
-                <!-- <p>{{profileForm.get('skills')?.value}}</p> -->
                 <button type="button" class="multi-check" data-bs-toggle="dropdown"
                     [class.activeErr]="profileForm.get('skills')?.invalid && submittedForm?'error-message':''">
                     Select Skills 
@@ -126,60 +115,11 @@
                                     id="{{lang}}">
                                 {{lang}}</label></a></li>
                 </ul>
-                <!-- <input type="text" placeholder="Enter All Skills" formControlName="skillsfron" style="width: 85%;"
-                    [class.activeErr]="submittedForm && profileForm.get('skills').invalid"> -->
-                <!-- <button class="add-btn" (click)="addSkill1()">Add</button> -->
             </div>
             <div class="datas" *ngIf="skills1.length>0 && tabs=='Tech Volunteer'" >
-                <p class="items" *ngFor="let item of addSkills.value">{{item}}
-                    <!-- <span (click)="addSkill1Remove(item)"> <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M6 12C2.6862 12 0 9.3138 0 6C0 2.6862 2.6862 0 6 0C9.3138 0 12 2.6862 12 6C12 9.3138 9.3138 12 6 12ZM6 10.8C7.27304 10.8 8.49394 10.2943 9.39411 9.39411C10.2943 8.49394 10.8 7.27304 10.8 6C10.8 4.72696 10.2943 3.50606 9.39411 2.60589C8.49394 1.70571 7.27304 1.2 6 1.2C4.72696 1.2 3.50606 1.70571 2.60589 2.60589C1.70571 3.50606 1.2 4.72696 1.2 6C1.2 7.27304 1.70571 8.49394 2.60589 9.39411C3.50606 10.2943 4.72696 10.8 6 10.8ZM6 5.1516L7.6968 3.4542L8.5458 4.3032L6.8484 6L8.5458 7.6968L7.6968 8.5458L6 6.8484L4.3032 8.5458L3.4542 7.6968L5.1516 6L3.4542 4.3032L4.3032 3.4542L6 5.1516Z"
-                                fill="#FF0000" />
-                        </svg>
-                    </span> -->
-                </p>
+                <p class="items" *ngFor="let item of addSkills.value">{{item}}</p>
             </div>
-            <!-- <div style="margin-top: 10px;height: auto;" *ngIf=" profileForm.get('skills')?.value.length > 0">
-                <div class="output" *ngIf="profileForm.get('skills')?.valid">
-                    <ol style=" display: flex;flex-wrap: wrap;width: 100%;height: auto;">
-                        <li *ngFor="let item of profileForm.get('skills')?.value">
-                            <p><span style="color: rgb(255 8 8);cursor: pointer;padding-right: 4px;"
-                                    (click)="removeKeyskill(item)">X</span>{{item}}</p>
-                        </li>
-                    </ol>
-                </div>
-            </div> -->
-
-            <!-- <div *ngIf="tabs == 'Tech Volunteer' ">
-                <p>Evaluation Skills :</p>
-                <input type="text" placeholder="Enter Current Skills" formControlName="currentSkillfron"
-                    style="width: 85%;" [class.activeErr]="submittedForm && profileForm.get('currentSkill').invalid" />
-                <button class="add-btn" (click)="addSkill2()">Add</button>
-            </div>
-            <div class="datas" *ngIf="skills2.length>0">
-                <p class="items" *ngFor="let item of skills2">{{item}}
-                    <span (click)="addSkill2Remove(item)"> <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M6 12C2.6862 12 0 9.3138 0 6C0 2.6862 2.6862 0 6 0C9.3138 0 12 2.6862 12 6C12 9.3138 9.3138 12 6 12ZM6 10.8C7.27304 10.8 8.49394 10.2943 9.39411 9.39411C10.2943 8.49394 10.8 7.27304 10.8 6C10.8 4.72696 10.2943 3.50606 9.39411 2.60589C8.49394 1.70571 7.27304 1.2 6 1.2C4.72696 1.2 3.50606 1.70571 2.60589 2.60589C1.70571 3.50606 1.2 4.72696 1.2 6C1.2 7.27304 1.70571 8.49394 2.60589 9.39411C3.50606 10.2943 4.72696 10.8 6 10.8ZM6 5.1516L7.6968 3.4542L8.5458 4.3032L6.8484 6L8.5458 7.6968L7.6968 8.5458L6 6.8484L4.3032 8.5458L3.4542 7.6968L5.1516 6L3.4542 4.3032L4.3032 3.4542L6 5.1516Z"
-                                fill="#FF0000" />
-                        </svg>
-                    </span>
-                </p>
-            </div> -->
-            <!-- <div style="margin-top: 10px;height: auto;" *ngIf=" profileForm.get('currentSkill')?.value.length > 0">
-                <p class="label"></p>
-                <div class="output" *ngIf="profileForm.get('currentSkill')?.valid">
-                    <ol style=" display: flex;flex-wrap: wrap;width: 100%;height: auto;">
-                        <li *ngFor="let item of profileForm.get('currentSkill')?.value">
-                            <p><span style="padding-left: 5px; color: rgb(253, 6, 6);cursor: pointer;"
-                                    (click)="removeCorekill(item)">X</span>{{item}}</p>
-                        </li>
-                    </ol>
-                </div>
-            </div> -->
+            
             <div class="Fields-div">
                 <p>Work Status :</p>
                 <input type="text" id="WS" placeholder="Enter Work Status" formControlName="workStatus"
@@ -216,12 +156,12 @@
                     <button type="button" class=" multi-check" data-bs-toggle="dropdown" style="width: 72%;"
                         [class.activeErr]="submittedForm && profileForm.get('language').invalid">
                         Select
-                    </button>
+                    </button>  
                     <ul class="dropdown-menu dropdown-option" onclick="event.stopPropagation()" style="margin: 0px;">
                         <li *ngFor="let lang of indianLanguages "><a class="dropdown-item">
                                 <label for="{{lang}}">
                                     <input (change)="add_form_control($event)" type="checkbox" value="{{lang}}" name=""
-                                        [checked]="profileForm.get('language').value|checked:lang" id="{{lang}}">
+                                        [checked]="dataCtrls.value|langchecked:lang" id="{{lang}}">
                                     {{lang}}
                                 </label>
                             </a>
@@ -233,7 +173,7 @@
                 <div class="selected-language" formArrayName="language" *ngIf="dataCtrls.controls.length !=0"
                     style="width: 45%;margin-left: 30%;">
                     <div class="language" *ngFor="let item of dataCtrls.controls; index as i" [formGroupName]="i">
-                        <p class="selected-language-name">{{item.get('language')?.value}} <span style="cursor: pointer;"
+                        <p class="selected-language-name">{{item.get('language')?.value}}<span style="cursor: pointer;"
                                 (click)="remove_controls(i)">
                                 <svg width="8" height="8" viewBox="0 0 8 8" fill="red"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -243,11 +183,9 @@
                             </span>
                         </p>
                         <div class="options">
-                            <label><input formControlName="speak" type="checkbox">
-                                Speak</label>
+                            <label><input formControlName="speak" type="checkbox">Speak</label>
                             <label><input formControlName="read" type="checkbox"> Read</label>
-                            <label><input formControlName="write" type="checkbox">
-                                Write</label>
+                            <label><input formControlName="write" type="checkbox">Write</label>
                         </div>
                     </div>
                 </div>
