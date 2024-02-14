@@ -43,7 +43,7 @@ export class RatingWebComponent implements OnInit {
 
   lang: any = [];
   language: any;
-  HrForm: any = new FormGroup({
+  HrForm: any = this.fb.group({
     langs: new FormControl(''),
     languages: this.fb.array([], [Validators.required])
   });
@@ -90,12 +90,9 @@ export class RatingWebComponent implements OnInit {
   skills1: any = [];
 
   addSkill1() {
-
     let rating = this.TechReviewForms.get('skillsfron').value;
-
     let find = this.AddSkills.value.findIndex(
-      (a: any) => a.skills == rating
-    );
+      (a: any) => a.skills == rating);
     if (find != -1) {
       console.log("Already added.");
     }
@@ -113,21 +110,14 @@ export class RatingWebComponent implements OnInit {
   addSkill1Remove(item: any) {
     if (this.volunteerDetail.Role == 'HR Volunteer') {
       console.log(item);
-      let ind = this.AddLanguages.controls.findIndex((e: any) => {
-        return e == item;
-      });
-      this.AddLanguages.value.splice(ind, 1);
+      let ind = this.AddLanguages.removeAt(item);
       console.log(this.AddLanguages.value);
     }
     else {
       console.log(item);
-      let ind = this.AddSkills.controls.findIndex((e: any) => {
-        return e == item;
-      });
-      this.AddSkills.value.splice(ind, 1);
+      let ind = this.AddSkills.removeAt(item);
       console.log(this.AddSkills.value);
     }
-
   }
 
   ratingChange(item: any, e: any) {
@@ -292,6 +282,7 @@ export class RatingWebComponent implements OnInit {
         values: values,
       };
       this.api.loader = true;
+      console.log("????")
       this.api.Rating(datas).subscribe(
         (res: any) => {
           this.router.navigateByUrl('/candidate');

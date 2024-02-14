@@ -58,7 +58,16 @@
                         <!-- <p style="display: inline;" *ngFor="let langs of lang">{{langs|json}}</p> -->
 
                         <!-- <p style="text-align: right; color: gray;" *ngIf="candidate.date!=null">{{candidate.date|date}}</p> -->
-                        <p style="text-align: right; color: gray;">{{candidate.hrDate|date:"dd-MM-yyyy hh:mm"}}</p>
+                        <p style="text-align: right; color: gray;"
+                            *ngIf="candidate.hrDate!=null && volunteerDetail.Role=='Hr Volunteer'">
+                            {{candidate.hrDate|date:"dd-MM-yyyy hh:mm"}}</p>
+                        <p style="text-align: right; color: gray;"
+                            *ngIf="candidate.hrDate==null  && volunteerDetail.Role=='Hr Volunteer'">--</p>
+                        <p style="text-align: right; color: gray;"
+                            *ngIf="candidate.techDate!=null && volunteerDetail.Role=='Tech Volunteer'">
+                            {{candidate.techDate|date:"dd-MM-yyyy hh:mm"}}</p>
+                        <p style="text-align: right; color: gray;"
+                            *ngIf="candidate.techDate==null  && volunteerDetail.Role=='Tech Volunteer'">--</p>
                     </span>
                 </div>
             </div>
@@ -89,7 +98,7 @@
                 <div class="col-4">
                     <p class="items">
                         {{item.get('skills')?.value}}
-                        <span (click)="addSkill1Remove(item)">
+                        <span (click)="addSkill1Remove(i)">
                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -271,7 +280,7 @@
                 <input type="text" placeholder="Notice Period" formControlName="noticePeriod"
                     [ngClass]="hrSubmit && !fresher && HrRating.get('noticePeriod')?.invalid?'err':'' "
                     style="width: 40%; margin-right: 15px;">
-                <input type="checkbox" id="fresher" [checked]="fresher" value="true" formControlName="fresher"
+                <input type="checkbox" id="fresher" [checked]="fresher" value="true" formControlName="fresher" (click)="fresherToggle()"
                     style="width: fit-content; height: 15px; width: 15px; margin-right: 5px;">
                 <label for="fresher" style="width: fit-content;">Fresher</label>
             </div>
@@ -283,7 +292,7 @@
                 [ngClass]="hrSubmit && HrForm.get('languages').length == 0?'err':'' ">
             <button class="add-btn" (click)="hrlang()">+ Add</button>
 
-            <div class="datas" formArrayName="languages" *ngIf="AddLanguages.length!=0">
+            <div class="datas" formArrayName="languages" *ngIf="AddLanguages.controls.length!=0">
                 <div class="row" *ngFor="let item of AddLanguages.controls; index as i" [formGroupName]="i">
                     <div class="col-5">
                         <p class="items">
@@ -300,7 +309,7 @@
                     </div>
 
                     <div class="col-7">
-                        <select name="" class="input" (change)="hrRatingChange(item, $event)" style="width: 58%;"
+                        <select name="" class="input" (change)="hrRatingChange(item, $event)" style="width: 48%;"
                             [ngClass]=" hrSubmit && item.get('rating')?.invalid?'err':'' " formControlName="rating">
                             <option [value]="null" hidden selected>Select</option>
                             <option value="Poor">Poor</option>
@@ -366,8 +375,7 @@
                 </div>
                 <div class="col-8">
                     <input type="number" (keyup)="underStatingChange($event,'rating')" min="0" max="5"
-                        [ngClass]=" hrSubmit && HrRating.get('rating')?.invalid?'err':'' "
-                        style="width: min-content;">
+                        [ngClass]=" hrSubmit && HrRating.get('rating')?.invalid?'err':'' " style="width: min-content;">
                     <span style="margin-left: 10px;">/5</span>
                 </div>
 
