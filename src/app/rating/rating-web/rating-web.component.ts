@@ -146,8 +146,7 @@ export class RatingWebComponent implements OnInit {
     console.log(this.AddSkills.value);
   }
 
-  hrRatingChange(item:any, e:any)
-  {
+  hrRatingChange(item: any, e: any) {
     let rating1 = e.target.value;
     for (let x of this.AddLanguages.value) {
       x.rating = rating1;
@@ -195,14 +194,13 @@ export class RatingWebComponent implements OnInit {
       e.preventDefault();
     } else {
     }
-    if(this.volunteerDetail.Role=='Tech Volunteer')
-    {
+    if (this.volunteerDetail.Role == 'Tech Volunteer') {
       this.TechReviewForms.get(formControl).setValue(e.target.value);
     }
-    else{
+    else {
       this.HrRating.get(formControl).setValue(e.target.value);
     }
-    
+
   }
 
   heypress(e: any) {
@@ -276,9 +274,8 @@ export class RatingWebComponent implements OnInit {
       this.HrRating.get('curCTC').setErrors(null);
       this.HrRating.get('noticePeriod').setErrors(null);
     }
-    if(this.AddLanguages.controls.length==0)
-    {
-      this.HrForm.get('langs').setErrors({'incorrect':true});
+    if (this.AddLanguages.controls.length == 0) {
+      this.HrForm.get('langs').setErrors({ 'incorrect': true });
     }
 
     let values = this.HrRating.value;

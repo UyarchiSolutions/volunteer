@@ -324,7 +324,7 @@ export class GolivestreamComponentMobile implements OnInit, OnDestroy, DoCheck {
     if (answer) {
       this.agora.end_stream(this.id).subscribe((res: any) => {
         this.dash.feedback.next(true);
-        this.router.navigateByUrl(`/cand-rating?id=${this.id}`,{replaceUrl:true})
+        this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true })
       })
     }
   }
@@ -366,7 +366,7 @@ export class GolivestreamComponentMobile implements OnInit, OnDestroy, DoCheck {
   }
   back_button() {
     // window.history.back();
-    window.location.replace("/");
+    this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
     // this.router.navigateByUrl("/dashboard/livestream")
   }
   leave_subhost(item: any) {
@@ -427,7 +427,7 @@ export class GolivestreamComponentMobile implements OnInit, OnDestroy, DoCheck {
     this.countDown = timer(0, 1000).subscribe(() => {
       --this.counter;
       if (this.counter == 0) {
-        this.router.navigateByUrl(`/cand-rating?id=${this.id}`,{replaceUrl:true});
+        this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
       }
     });
   }

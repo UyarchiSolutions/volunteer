@@ -321,7 +321,7 @@ export class GolivestreamComponent implements OnInit, OnDestroy, DoCheck {
     var answer = confirm("Are you sure you want to End this Live Streaming")
     if (answer) {
       this.agora.end_stream(this.id).subscribe((res: any) => {
-        this.router.navigateByUrl(`/cand-rating?id=${this.id}`,{replaceUrl:true});
+        this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
       })
     }
 
@@ -360,7 +360,8 @@ export class GolivestreamComponent implements OnInit, OnDestroy, DoCheck {
   }
   back_button() {
     // window.history.back();
-    window.location.replace("/")
+    // window.location.replace("/")
+    this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
   }
   leave_subhost(item: any) {
     let data = {
@@ -373,7 +374,6 @@ export class GolivestreamComponent implements OnInit, OnDestroy, DoCheck {
       this.streamDetails.temptokens_sub[index].mainhostLeave = !item.mainhostLeave
     }
     this.controlsView = 'setting';
-    // 
     this.web.leave_subhost(data)
   }
   expiered: any = false;
@@ -423,7 +423,7 @@ export class GolivestreamComponent implements OnInit, OnDestroy, DoCheck {
     this.countDown = timer(0, 1000).subscribe(() => {
       --this.counter;
       if (this.counter == 0) {
-        this.router.navigateByUrl(`/cand-rating?id=${this.id}`,{replaceUrl:true});
+        this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
       }
     });
   }
