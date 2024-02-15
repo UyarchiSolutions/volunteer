@@ -105,7 +105,6 @@
                 </div>
             </div>
         </div>
-        <p>{{techSubmit}} hello {{this.TechReviewForms.get('skillsrated').value==null}}</p>
         <div class="atributes">
             <h5>Attributes</h5>
             <div class="forms">
@@ -123,6 +122,7 @@
                     </select>
                 </div>
             </div>
+           
             <div class="forms">
                 <div class="rating">
                     <label>Logic</label>
@@ -253,7 +253,7 @@
             <button class="add-btn" (click)="hrlang()">+ Add</button>
 
             <div class="datas" formArrayName="languages" *ngIf="AddLanguages.controls.length!=0">
-                <div *ngFor="let item of AddLanguages.controls, index as i">
+                <div *ngFor="let item of AddLanguages.controls, index as i" [formGroupName]="i">
                     <p class="items">
                         {{item.get('lang')?.value}}
                         <span (click)="addSkill1Remove(i)">
@@ -284,7 +284,7 @@
             <h4 style="margin-bottom: 20px;">Attributes</h4>
             <div class="title-attr">
                 <label for="" style="font-size: 20px;">Attitude :</label> <br />
-                <select name="" class="input" (change)="herRatingAttr('Attitude', $event)"
+                <select name="" class="input" (change)="herRatingAttr('Attitude', $event)" formControlName="attitude"
                 [ngClass]=" hrSubmit && HrRating.get('attitude')?.invalid?'err':'' ">
                             <option [value]="null" hidden selected>Select</option>
                             <option value="Poor">Poor</option>
@@ -301,7 +301,7 @@
                 <label for=""
                     style="font-size: 20px;font-size: 20px;padding: 0px;margin: 0px;text-align: left;padding-left: -22px;width: 100%;">Performance
                     :</label>
-                    <select name="" class="input" (change)="herRatingPer('performance', $event)"
+                    <select name="" class="input" (change)="herRatingPer('performance', $event)" formControlName="performance"
                     [ngClass]=" hrSubmit && HrRating.get('performance')?.invalid?'err':'' ">
                             <option [value]="null" hidden selected>Select</option>
                             <option value="Poor">Poor</option>

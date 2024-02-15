@@ -96,7 +96,7 @@ export class RatingMobileComponent implements OnInit {
   }
 
   get AddSkills(){
-    return this.profileForm.controls['skillsrated'] as FormArray;
+    return this.TechReviewForms.controls['skillsrated'] as FormArray;
   }
 
   get AddLanguages() {
@@ -121,7 +121,7 @@ export class RatingMobileComponent implements OnInit {
   herRatingPer(item: any, e: any) {
     let rating = e.target.value;
     this.HrRating.get('performance').setValue(rating);
-    this.HrRating.setValue(rating);
+    //this.HrRating.setValue(rating);
   }
   volunteerDetail: any = {};
 
@@ -160,13 +160,14 @@ export class RatingMobileComponent implements OnInit {
     individualCode: new FormControl('', Validators.required),
     comments: new FormControl('', Validators.required),
     ratings: new FormControl('', Validators.required),
-    skillsrated: this.fb.array([], [Validators.required]),
+    skillsrated: this.fb.array([]),
     skillsfron: new FormControl('')
   });
 
   techSubmit: any = false;
   submitRating() {
     //this.techSubmit = true;
+    console.log(this.TechReviewForms.get('skillsrated').controls.errors);
       if(this.TechReviewForms.get('skillsrated').value==null)
       {
         this.TechReviewForms.get('skillsfron').setErrors({'incorrect':true});
@@ -174,12 +175,21 @@ export class RatingMobileComponent implements OnInit {
       else{
         console.log("nulled");
         this.TechReviewForms.get('skillsfron').setErrors(null);
+        this.TechReviewForms.get('skillsrated').setErrors(null);
       }
     
     let values = this.TechReviewForms.value;
     this.techSubmit = true;
+    const invalid = [];
+        const controls = this.TechReviewForms.controls;
+        for (const name in controls) {
+            if (controls[name].invalid) {
+                invalid.push(name);
+            }
+        }
+        console.log(invalid, 1234567890987654321, this.TechReviewForms.get('skillsrated').value);
     if (this.TechReviewForms.valid) {
-      console.log(this.profileForm.get('skillsrated').value);
+      console.log(this.TechReviewForms.get('skillsrated').value);
       console.log(this.TechReviewForms.value);
       let val = {
         values,
@@ -243,17 +253,19 @@ export class RatingMobileComponent implements OnInit {
   HrRatingSubmit() {
     
     let values = this.HrRating.value;
+    if(this.fresher){
+      this.HrRating.get('curCTC').setErrors(null);
+      this.HrRating.get('noticePeriod').setErrors(null);
+    }
+    if(this.AddLanguages.controls.length==0)
+  {
+    this.HrForm.get('langs').setErrors({'incorrect':true});
+  }
     if (this.HrRating.valid) {
       //this.hrSubmit = false;
-      if(this.fresher){
-        this.HrRating.get('curCTC').setErrors(null);
-        this.HrRating.get('noticePeriod').setErrors(null);
-      }
-      if(this.AddLanguages.controls.length==0)
-    {
-      this.HrForm.get('langs').setErrors({'incorrect':true});
-    }
+      
     this.hrSubmit = true;
+    
       let datas = {
         volunteerId: this.volunteerDetail._id,
         candId: this.candidate._id,
