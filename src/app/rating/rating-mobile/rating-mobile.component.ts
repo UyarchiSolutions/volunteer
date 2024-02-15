@@ -23,7 +23,7 @@ export class RatingMobileComponent implements OnInit {
   candidate: any;
   getIdFromParams() {
     this.Aroute.queryParams.subscribe((e: any) => {
-      console.log(e.id);
+      console.log(e);
       this.api.getCandidateById(e.id).subscribe((e: any) => {
         this.candidate = e;
       });
@@ -58,12 +58,16 @@ export class RatingMobileComponent implements OnInit {
   }
 
   addSkill1Remove(item: any) {
-    console.log(item);
-    let ind = this.AddSkills.controls.findIndex((e: any) => {
-      return e == item;
-    });
-    this.AddSkills.value.splice(ind, 1);
-    console.log(this.skills1);
+    if (this.volunteerDetail.Role == 'HR Volunteer') {
+      console.log(item);
+      let ind = this.AddLanguages.removeAt(item);
+      console.log(this.AddLanguages.value);
+    }
+    else {
+      console.log(item);
+      let ind = this.AddSkills.removeAt(item);
+      console.log(this.AddSkills.value);
+    }
   }
 
   ratingChange(item: any, e: any) {
@@ -82,8 +86,21 @@ export class RatingMobileComponent implements OnInit {
     console.log(this.AddSkills.value);
   }
 
+  hrRatingChange(item:any, e:any)
+  {
+    let rating1 = e.target.value;
+    for (let x of this.AddLanguages.value) {
+      x.rating = rating1;
+    }
+    console.log(this.AddLanguages.value);
+  }
+
   get AddSkills(){
-    return this.profileForm.controls['skillsrated'] as FormArray;
+    return this.TechReviewForms.controls['skillsrated'] as FormArray;
+  }
+
+  get AddLanguages() {
+    return this.HrForm.controls['languages'] as FormArray;
   }
 
   HrRating: any = new FormGroup({
@@ -93,16 +110,18 @@ export class RatingMobileComponent implements OnInit {
     curCTC: new FormControl('', Validators.required),
     noticePeriod: new FormControl('', Validators.required),
     desc: new FormControl('', Validators.required),
+    rating: new FormControl('', Validators.required)
   });
 
   herRatingAttr(item: any, e: any) {
     let rating = e.target.value;
     this.HrRating.get('attitude').setValue(rating);
   }
+
   herRatingPer(item: any, e: any) {
     let rating = e.target.value;
     this.HrRating.get('performance').setValue(rating);
-    this.HrRating.setValue(rating);
+    //this.HrRating.setValue(rating);
   }
   volunteerDetail: any = {};
 
@@ -118,11 +137,18 @@ export class RatingMobileComponent implements OnInit {
   underStatingChange(e: any, formControl: any) {
     let cval: any = parseInt(e.target.value);
     if (cval > 10) {
+      console.log(cval, 87665);
       e.target.value = cval.toString().slice(0, 1);
       e.preventDefault();
     } else {
     }
-    this.TechReviewForms.get(formControl).setValue(e.target.value);
+    if(this.volunteerDetail.Role=='Tech Volunteer')
+    {
+      this.TechReviewForms.get(formControl).setValue(e.target.value);
+    }
+    else{
+      this.HrRating.get(formControl).setValue(e.target.value);
+    }
   }
 
   TechReviewForms: any = new FormGroup({
@@ -134,23 +160,36 @@ export class RatingMobileComponent implements OnInit {
     individualCode: new FormControl('', Validators.required),
     comments: new FormControl('', Validators.required),
     ratings: new FormControl('', Validators.required),
-    skillsrated: this.fb.array([], [Validators.required]),
+    skillsrated: this.fb.array([]),
     skillsfron: new FormControl('')
   });
 
   techSubmit: any = false;
   submitRating() {
-    for(let x of this.AddSkills.value)
-    {
-      if(x.rating==null || x.rating=="")
+    //this.techSubmit = true;
+    console.log(this.TechReviewForms.get('skillsrated').controls.errors);
+      if(this.TechReviewForms.get('skillsrated').value==null)
       {
-        this.profileForm.get('skillsrated').setErrors({'incorrect':true});
+        this.TechReviewForms.get('skillsfron').setErrors({'incorrect':true});
       }
-    }
+      else{
+        console.log("nulled");
+        this.TechReviewForms.get('skillsfron').setErrors(null);
+        this.TechReviewForms.get('skillsrated').setErrors(null);
+      }
+    
     let values = this.TechReviewForms.value;
     this.techSubmit = true;
+    const invalid = [];
+        const controls = this.TechReviewForms.controls;
+        for (const name in controls) {
+            if (controls[name].invalid) {
+                invalid.push(name);
+            }
+        }
+        console.log(invalid, 1234567890987654321, this.TechReviewForms.get('skillsrated').value);
     if (this.TechReviewForms.valid) {
-      console.log(this.profileForm.get('skillsrated').value);
+      console.log(this.TechReviewForms.get('skillsrated').value);
       console.log(this.TechReviewForms.value);
       let val = {
         values,
@@ -161,34 +200,46 @@ export class RatingMobileComponent implements OnInit {
           rating: this.skills1,
         },
       };
+      console.log("valid.")
       this.api.Rating(val).subscribe((res: any) => {
         console.log(res);
         this.router.navigateByUrl('/candidate');
       });
       this.techSubmit = false;
     }
+    else
+    {
+      console.log(this.TechReviewForms.value);
+    }
   }
 
   lang: any = [];
-  HrForm: any = new FormGroup({
-    languages: new FormControl(''),
+  language: any;
+  HrForm: any = this.fb.group({
+    langs: new FormControl(''),
+    languages: this.fb.array([], [Validators.required])
   });
 
   hrlang() {
-    let e = this.HrForm.get('languages').value;
-    if (e != '') {
-      let findInd = this.lang.findIndex((s: any) => {
-        return s.lang == e;
-      });
-      if (findInd == -1) {
-        this.lang.push({ lang: e, rating: 0 });
-      } else {
-        // this.skills1.splice(findInd, 1);
-      }
-      console.log(this.lang);
-      this.HrForm.get('languages').setValue(null);
+    let langx = this.HrForm.get('langs').value;
+
+    let find = this.AddLanguages.value.findIndex(
+      (a: any) => a.lang == langx
+    );
+    if (find != -1) {
+      console.log("Already added.");
     }
+    else {
+      let data: any = this.fb.group({
+        lang: new FormControl(langx),
+        rating: new FormControl(null, [Validators.required]),
+      });
+      this.AddLanguages.push(data);
+    }
+    this.HrForm.get('langs').setValue(null);
+    console.log(this.AddLanguages.value);
   }
+
   HrLanRemove(item: any) {
     console.log(item);
     let ind = this.lang.findIndex((e: any) => {
@@ -200,14 +251,21 @@ export class RatingMobileComponent implements OnInit {
 
   hrSubmit: any = false;
   HrRatingSubmit() {
-    this.hrSubmit = true;
+    
     let values = this.HrRating.value;
+    if(this.fresher){
+      this.HrRating.get('curCTC').setErrors(null);
+      this.HrRating.get('noticePeriod').setErrors(null);
+    }
+    if(this.AddLanguages.controls.length==0)
+  {
+    this.HrForm.get('langs').setErrors({'incorrect':true});
+  }
     if (this.HrRating.valid) {
-      this.hrSubmit = false;
-      if(this.fresher){
-        this.HrRating.get('curCTC').setErrors(null);
-        this.HrRating.get('noticePeriod').setErrors(null);
-      }
+      //this.hrSubmit = false;
+      
+    this.hrSubmit = true;
+    
       let datas = {
         volunteerId: this.volunteerDetail._id,
         candId: this.candidate._id,

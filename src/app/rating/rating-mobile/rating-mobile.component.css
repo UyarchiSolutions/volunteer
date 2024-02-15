@@ -3,8 +3,14 @@
   margin-top: 10px;
 }
 
+.skills-add{
+  width: 100%;
+  /* margin-left: 20px; */
+  justify-content: center;
+}
+
 .skills-add input {
-  width: 84%;
+  width: 74%;
   border: none;
   background-color: #ffff;
   box-shadow: 0px 0px 4px 0px #00000040;
@@ -22,7 +28,7 @@
   color: #e7e9ed;
   border-radius: 5px;
   background-color: #0a2647;
-  width: 13%;
+  width: 18%;
 }
 .datas {
   display: flex;
@@ -76,7 +82,6 @@
 
 .small {
   width: 95%;
-  margin: auto;
 }
 
 .atributes {
@@ -180,3 +185,11 @@
 .err {
   border: 1px solid red !important;
 }
+
+select{
+  border: lightgray 2px solid;
+  border-radius: 5px;
+  padding: 8px;
+  width: 30%;
+}
+
