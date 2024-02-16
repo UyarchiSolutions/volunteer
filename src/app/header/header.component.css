@@ -46,7 +46,7 @@
   width: 55px;
   height: 2px;
   background-color: #ffff;
-  margin-left: 22px;
+  /* margin-left: 22px; */
 }
 .profile:hover .show-drop {
   display: flex;

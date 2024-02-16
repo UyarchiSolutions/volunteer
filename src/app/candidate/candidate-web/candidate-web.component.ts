@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./candidate-web.component.css'],
 })
 export class CandidateWebComponent implements OnInit {
-  constructor(private api: VolunteerServiceService, private route: Router,private toastr: ToastrService) {}
+  constructor(private api: VolunteerServiceService, private route: Router, private toastr: ToastrService) { }
   ngOnInit(): void {
     this.candidateMatch();
     this.getCandidates();
@@ -83,11 +83,11 @@ export class CandidateWebComponent implements OnInit {
   }
 
   checkSlotExistOrNot(date: any, time: any) {
-    let val = this.choosenData.findIndex((x:any) => x.date === date && x.time === time);
+    let val = this.choosenData.findIndex((x: any) => x.date === date && x.time === time);
     return val
   }
 
-  clickDisable(){
+  clickDisable() {
     this.toastr.error('You have already chosen this slot with some other candidates. If you wish to interview other people in the same slot, Go to the chosen module and undo the candidate in the same slot.');
   }
 

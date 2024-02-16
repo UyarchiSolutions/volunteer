@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./interviews-web.component.css'],
 })
 export class InterviewsWebComponent implements OnInit {
-  constructor(private api: VolunteerServiceService, private route: Router) {}
+  constructor(private api: VolunteerServiceService, private route: Router) { }
   currentTime: any = new Date().getTime();
   timeun: any;
   ngOnInit(): void {
@@ -20,12 +20,13 @@ export class InterviewsWebComponent implements OnInit {
   }
 
   candidates: any;
+  pending: any = false;
   getInterviewCand() {
     this.api.loader = true;
     this.api.getInterViewCandidates().subscribe((e: any) => {
-      this.candidates = e;
+      this.candidates = e.candidates;
       this.api.loader = false;
-
+      this.pending = e.pending;
       console.log(this.candidates);
     });
   }
@@ -41,5 +42,13 @@ export class InterviewsWebComponent implements OnInit {
   candRating(data: any) {
     console.log(data);
     this.route.navigateByUrl(`/cand-rating?id=${data.candId}`);
+  }
+
+  toast: any = false;
+  toast_message() {
+    this.toast = true;
+    setTimeout(() => {
+      this.toast = false;
+    }, 3000)
   }
 }
