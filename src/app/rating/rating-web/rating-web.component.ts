@@ -49,7 +49,6 @@ export class RatingWebComponent implements OnInit {
   });
 
 
-
   get AddSkills() {
     return this.TechReviewForms.controls['skillsrated'] as FormArray;
   }

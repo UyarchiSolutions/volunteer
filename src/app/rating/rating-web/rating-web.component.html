@@ -108,8 +108,8 @@
                         </span>
                     </p>
                 </div>
-                <div class="col-9" style="margin-left:20px">
-                    <select name="" class="input" style="width: 100%;" formControlName="rating"
+                <div class="col-8">
+                    <select name="" class="input" style="width: 89%;" formControlName="rating"
                         (change)="techRatingChange(item, $event)"
                         [ngClass]=" techSubmit && item.get('rating')?.invalid?'err':'' ">
                         <option [value]="null" hidden selected>Select</option>
@@ -145,7 +145,7 @@
             <div class="forms">
                 <div class="row">
                     <div class="col-4">
-                        <label style="padding-top: 5px;">Logic</label>
+                        <label style="padding-top: 5px;">Logic:</label>
                     </div>
                     <div class="col-8" style="padding-right: 0;">
                         <select name="" class="input" (change)="underStatingChange($event,'logic')" style="width: 100%;"
@@ -163,7 +163,7 @@
             <div class="forms">
                 <div class="row">
                     <div class="col-4">
-                        <label>Coding</label>
+                        <label>Coding:</label>
                     </div>
                     <div class="col-8">
                         <select name="" class="input" (change)="underStatingChange($event,'coding')"
@@ -182,7 +182,7 @@
             <div class="forms">
                 <div class="row">
                     <div class="col-4">
-                        <label>Project Understanding</label>
+                        <label>Project Understanding:</label>
                     </div>
                     <div class="col-8">
                         <select name="" class="input" (change)="underStatingChange($event,'projectUnderStanding')"
@@ -201,7 +201,7 @@
             <div class="forms">
                 <div class="row">
                     <div class="col-4">
-                        <label>Communication</label>
+                        <label>Communication:</label>
                     </div>
                     <div class="col-8">
                         <select name="" class="input" (change)="underStatingChange($event,'communication')"
@@ -238,7 +238,7 @@
             </div>
         </div>
         <div class="comments" style="margin-bottom: 20px;">
-            <label>Comments</label>
+            <label>Comments:</label>
             <textarea cols="50" rows="5" placeholder="Type comments here." formControlName="comments"
                 [ngClass]=" techSubmit && TechReviewForms.get('comments')?.invalid?'err':'' "></textarea>
         </div>
@@ -279,8 +279,8 @@
                 <input type="text" placeholder="Notice Period" formControlName="noticePeriod"
                     [ngClass]="hrSubmit && !fresher && HrRating.get('noticePeriod')?.invalid?'err':'' "
                     style="width: 40%; margin-right: 15px;">
-                <input type="checkbox" id="fresher" [checked]="fresher" value="true" formControlName="fresher" (click)="fresherToggle()"
-                    style="width: fit-content; height: 15px; width: 15px; margin-right: 5px;">
+                <input type="checkbox" id="fresher" [checked]="fresher" value="true" formControlName="fresher"
+                    (click)="fresherToggle()" style="width: fit-content; height: 15px; width: 15px; margin-right: 5px;">
                 <label for="fresher" style="width: fit-content;">Fresher</label>
             </div>
         </div>

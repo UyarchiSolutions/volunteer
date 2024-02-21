@@ -49,6 +49,7 @@ import { ChoosenCandWebComponent } from './choosen-cand/choosen-cand-web/choosen
 import { ChoosenCandMobComponent } from './choosen-cand/choosen-cand-mob/choosen-cand-mob.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ChoosenCandComponent,
     ChoosenCandWebComponent,
     ChoosenCandMobComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

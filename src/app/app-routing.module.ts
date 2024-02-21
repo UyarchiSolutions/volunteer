@@ -11,6 +11,7 @@ import { InterviewsComponent } from './interviews/interviews.component';
 import { MailVerificationComponent } from './mail-verification/mail-verification.component';
 import { RatingComponent } from './rating/rating.component';
 import { ChoosenCandComponent } from './choosen-cand/choosen-cand.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+  },
+  {
+    path: 'change-password',
+    component: ChangePasswordComponent
   },
   {
     path: 'candidate',

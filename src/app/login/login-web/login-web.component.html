@@ -14,7 +14,10 @@
                 <label>Password :</label>
                 <input type="password" placeholder="Enter Password" formControlName="password"
                     [ngClass]="submitted && loginForm.get('password')?.invalid? 'active-err':'' ">
+                    <a [routerLink]="['/forgot-password']">Forgot Password?</a>
+                    
             </div>
+            
             <p *ngIf="submitted && loginForm.invalid " style="text-align: center; color: red; padding-left: 11%;"> *Fill
                 All The Required Fields </p>
             <p *ngIf="serverErr !=null " style="text-align: center; color: red; padding-left: 11%;"> {{serverErr}} </p>
