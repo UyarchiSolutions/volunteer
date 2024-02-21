@@ -8,10 +8,10 @@ import { HttpClient } from '@angular/common/http';
 export class VolunteerServiceService {
   baseurl = Env.baseAPi;
 
-  constructor(public http: HttpClient) {}
+  constructor(public http: HttpClient) { }
 
   token: any = localStorage.getItem('volunteer');
-  
+
   volunteerReg(data: any) {
     return this.http.post(this.baseurl + '/v1/volunteer', data);
   }
@@ -100,7 +100,7 @@ export class VolunteerServiceService {
   }
 
   Rating(data: any) {
-    alert("Temporary alert.");
+
     return this.http.post(
       this.baseurl + '/v1/agriEvent/candidate/review',
       data

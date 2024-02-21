@@ -291,9 +291,7 @@ export class GolivestreamComponentMobile implements OnInit, OnDestroy, DoCheck {
       this.screen_view();
     })
     this.web.media_controls_all(res._id, res.Uid).subscribe((res: any) => {
-      console.log(res, 11231234232)
-      console.log(res)
-      // alert("asda")
+
       if (res.req.allMedia) {
         this.pauseAll = true;
         this.pause_all()
@@ -324,7 +322,7 @@ export class GolivestreamComponentMobile implements OnInit, OnDestroy, DoCheck {
     if (answer) {
       this.agora.end_stream(this.id).subscribe((res: any) => {
         this.dash.feedback.next(true);
-        this.router.navigateByUrl(`/cand-rating?id=${this.id}`,{replaceUrl:true})
+        this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true })
       })
     }
   }
@@ -366,7 +364,7 @@ export class GolivestreamComponentMobile implements OnInit, OnDestroy, DoCheck {
   }
   back_button() {
     // window.history.back();
-    window.location.replace("/");
+    this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
     // this.router.navigateByUrl("/dashboard/livestream")
   }
   leave_subhost(item: any) {
@@ -427,7 +425,7 @@ export class GolivestreamComponentMobile implements OnInit, OnDestroy, DoCheck {
     this.countDown = timer(0, 1000).subscribe(() => {
       --this.counter;
       if (this.counter == 0) {
-        this.router.navigateByUrl(`/cand-rating?id=${this.id}`,{replaceUrl:true});
+        this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
       }
     });
   }

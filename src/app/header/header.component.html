@@ -28,18 +28,20 @@
             </div>
             <div class="right" *ngIf="showMenu == true ">
                 <a routerLink="/choosen-cand" routerLinkActive="active-link">
-                    Chosen candidates
-                    <span style="width: 123px; margin-right: 10px;"></span> </a>
+                    Confirm
+                    <span style="width: 68px; margin-right: 10px;"></span> </a>
                 <a routerLink="/candidate" routerLinkActive="active-link" style="margin-left: 25px;">
-                    Choose
-                    <span style="width: 43px; margin-left: 10px;"></span> </a>
+                    My Confirmation
+                    <span style="    width: 132px;margin-left: 0px;"></span> </a>
                 <a style="margin-left: 30px;" routerLink="/interview" routerLinkActive="active-link">
-                    Upcoming Streams
-                    <span style="width: 137px;"></span>
+                    My Interview
+                    <span style="width: 103px;"></span>
                 </a>
 
                 <div style="margin-left: 60px;display: flex; " class="profile">
-                    <img [src]="profImg" onError="this.onerror=null;this.src='../../assets/profileImage.png';" style="margin-right: 10px;">
+
+                    <img [src]="profImg" onError="this.onerror=null;this.src='../../assets/profileImage.png';"
+                        style="margin-right: 10px;">
                     <span style="padding-top: 21px;">{{vname}}</span>
                     <div class="show-drop">
                         <button class="active-nav" routerLink="/profile" style="padding-bottom: 5px;">

@@ -258,4 +258,14 @@ export class SocketioService {
       }
     });
   }
+
+  get_stream_on_going(): Observable<any> {
+    return new Observable<any>(observer => {
+      this.socket.on("interview_join", (data: any) => {
+        observer.next(data);
+      });
+      return () => {
+      }
+    });
+  }
 }

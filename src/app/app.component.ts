@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   constructor(
     private service: ViewoptionService,
     public loader: VolunteerServiceService
-  ) {}
+  ) { }
   ngOnInit(): void {
     if (window.innerWidth < 800) {
       this.viweOption = 'mobile';
@@ -34,4 +34,5 @@ export class AppComponent implements OnInit {
     // console.log(event.target.innerWidth);
     this.service.view_option = this.viweOption;
   }
+
 }
