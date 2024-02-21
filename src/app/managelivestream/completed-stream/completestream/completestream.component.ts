@@ -127,7 +127,7 @@ export class CompletestreamComponent implements OnInit{
   }
 
   ngOnDestroy(): void {
-    // alert("as")
+
     this.video_link = null;
   }
 }

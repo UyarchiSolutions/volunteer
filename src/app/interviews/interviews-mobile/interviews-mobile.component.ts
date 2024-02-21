@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
+import { SocketioService } from 'src/app/managelivestream/socketio.service';
 import { VolunteerServiceService } from 'src/app/volunteer-service.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { VolunteerServiceService } from 'src/app/volunteer-service.service';
   styleUrls: ['./interviews-mobile.component.css'],
 })
 export class InterviewsMobileComponent implements OnInit {
-  constructor(private api: VolunteerServiceService, private route: Router) {}
+  constructor(private api: VolunteerServiceService, private route: Router, private socket: SocketioService) { }
   currentTime: any = new Date().getTime();
   timeun: any;
   ngOnInit(): void {
@@ -18,14 +19,28 @@ export class InterviewsMobileComponent implements OnInit {
     this.timeun = timer(0, 1000).subscribe(() => {
       this.currentTime = new Date().getTime();
     });
+    this.timeun = timer(0, 1000).subscribe(() => {
+      this.currentTime = new Date().getTime();
+    });
+    this.socket.get_stream_on_going().subscribe((res: any) => {
+      console.log(res, 87665786)
+      let findIndex = this.cand.findIndex((a: any) => a.channel == res._id);
+      if (findIndex != -1) {
+        this.cand[findIndex].streamStatus_can = res.streamStatus;
+      }
+    })
   }
 
   cand: any;
+  pending: any = false;
+  pending_id: any;
   getInterviewCand() {
     this.api.loader = true;
     this.api.getInterViewCandidates().subscribe((e: any) => {
-      this.cand = e;
+      this.cand = e.candidates;
       this.api.loader = false;
+      this.pending = e.pending;
+      this.pending_id = e.pending_id;
     });
   }
 

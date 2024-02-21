@@ -291,7 +291,7 @@ export class GolivestreamComponent implements OnInit, OnDestroy, DoCheck {
     this.web.media_controls_all(res._id, res.Uid).subscribe((res: any) => {
       console.log(res, 11231234232)
       console.log(res)
-      // alert("asda")
+
       if (res.req.allMedia) {
         this.pauseAll = true;
         this.pause_all()
