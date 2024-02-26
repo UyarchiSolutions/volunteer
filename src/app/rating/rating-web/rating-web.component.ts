@@ -54,23 +54,27 @@ export class RatingWebComponent implements OnInit {
   }
 
   hrlang() {
-    let langx = this.HrForm.get('langs').value;
+    let regex = new RegExp('^ {1,}$');
+    if (this.HrForm.get('langs').value != '' && regex.test(this.HrForm.get('langs').value) == false) {
+      let langx = this.HrForm.get('langs').value;
 
-    let find = this.AddLanguages.value.findIndex(
-      (a: any) => a.lang == langx
-    );
-    if (find != -1) {
-      console.log("Already added.");
+      let find = this.AddLanguages.value.findIndex(
+        (a: any) => a.lang == langx
+      );
+      if (find != -1) {
+        console.log("Already added.");
+      }
+      else {
+        let data: any = this.fb.group({
+          lang: new FormControl(langx),
+          rating: new FormControl(null, [Validators.required]),
+        });
+        this.AddLanguages.push(data);
+      }
+      this.HrForm.get('langs').setValue(null);
+      console.log(this.AddLanguages.value);
     }
-    else {
-      let data: any = this.fb.group({
-        lang: new FormControl(langx),
-        rating: new FormControl(null, [Validators.required]),
-      });
-      this.AddLanguages.push(data);
-    }
-    this.HrForm.get('langs').setValue(null);
-    console.log(this.AddLanguages.value);
+
   }
 
   get AddLanguages() {
@@ -89,21 +93,24 @@ export class RatingWebComponent implements OnInit {
   skills1: any = [];
 
   addSkill1() {
-    let rating = this.TechReviewForms.get('skillsfron').value;
-    let find = this.AddSkills.value.findIndex(
-      (a: any) => a.skills == rating);
-    if (find != -1) {
-      console.log("Already added.");
+    let regex = new RegExp('^ {1,}$');
+    if (this.TechReviewForms.get('skillsfron').value != '' && regex.test(this.TechReviewForms.get('skillsfron').value) == false) {
+      let rating = this.TechReviewForms.get('skillsfron').value;
+      let find = this.AddSkills.value.findIndex(
+        (a: any) => a.skills == rating);
+      if (find != -1) {
+        console.log("Already added.");
+      }
+      else {
+        let data: any = this.fb.group({
+          skills: new FormControl(rating),
+          rating: new FormControl(null, [Validators.required]),
+        });
+        this.AddSkills.push(data);
+      }
+      this.TechReviewForms.get('skillsfron').setValue(null);
+      console.log(this.AddSkills.value);
     }
-    else {
-      let data: any = this.fb.group({
-        skills: new FormControl(rating),
-        rating: new FormControl(null, [Validators.required]),
-      });
-      this.AddSkills.push(data);
-    }
-    this.TechReviewForms.get('skillsfron').setValue(null);
-    console.log(this.AddSkills.value);
   }
 
   addSkill1Remove(item: any) {
@@ -218,7 +225,8 @@ export class RatingWebComponent implements OnInit {
   techSubmit: any = false;
 
   submitRating() {
-    console.log(this.TechReviewForms.value);
+    this.techSubmit = true;
+    alert(this.TechReviewForms.value);
     if (this.AddSkills.value.length == 0) {
       this.TechReviewForms.get('skillsfron').setErrors({ 'incorrect': true });
     }
@@ -232,7 +240,6 @@ export class RatingWebComponent implements OnInit {
     if (this.TechReviewForms.get('ratings').value > 5 || this.TechReviewForms.get('ratings').value < 0) {
       this.TechReviewForms.get('ratings').setErrors({ 'incorrect': true });
     }
-    this.techSubmit = true;
     if (this.TechReviewForms.valid) {
       console.log(this.TechReviewForms.value);
       let val = {
@@ -278,7 +285,6 @@ export class RatingWebComponent implements OnInit {
         values: values,
       };
       this.api.loader = true;
-      console.log("????")
       this.api.Rating(datas).subscribe(
         (res: any) => {
           this.router.navigateByUrl('/candidate');
