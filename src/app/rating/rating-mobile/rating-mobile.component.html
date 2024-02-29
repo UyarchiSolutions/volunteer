@@ -190,11 +190,10 @@
             <div class="forms">
                 <div class="rating">
                     <label for="">Rating: </label>
-                    <input type="number" (keyup)="underStatingChange($event,'ratings')" min="0" max="5"
+                    <input type="number" min="0" max="5" formControlName="ratings"
                         [ngClass]=" techSubmit && TechReviewForms.get('ratings')?.invalid?'err':'' ">
                     <span>/5</span>
                 </div>
-
             </div>
         </div>
 
@@ -243,7 +242,7 @@
         </div>
         <div class="skills-add" [formGroup]="HrForm">
             <input type="text" placeholder="Enter Language" formControlName="langs" style="width: 75%;"
-                [ngClass]="hrSubmit && HrForm.get('languages').length == 0?'err':'' ">
+                [ngClass]="hrSubmit && AddLanguages.length == 0?'err':'' ">
             <button class="add-btn" (click)="hrlang()">+ Add</button>
 
             <div class="datas" formArrayName="languages" *ngIf="AddLanguages.controls.length!=0">

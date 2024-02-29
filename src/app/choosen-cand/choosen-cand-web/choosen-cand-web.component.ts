@@ -20,6 +20,7 @@ export class ChoosenCandWebComponent implements OnInit {
     this.api.getChoosenCandidates().subscribe(
       (e: any) => {
         this.Candidates = e;
+        console.log(e);
         this.api.loader = false;
       },
       (err: any) => {

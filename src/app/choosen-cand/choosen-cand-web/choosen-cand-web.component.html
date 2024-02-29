@@ -20,7 +20,7 @@
                 <tbody>
                     <tr *ngFor="let cand of Candidates">
                         <td>{{cand.name}}</td>
-                        <td>{{"22-12-2023"}}</td>
+                        <td>{{cand.IntrestedCandidate.slotDate}} & {{cand.IntrestedCandidate.slotTime}}</td>
                         <td>{{cand.yearOfPassing}}</td>
                         <td>
                             <p style="width: 300px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">

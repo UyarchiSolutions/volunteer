@@ -44,7 +44,7 @@ export class RatingWebComponent implements OnInit {
   lang: any = [];
   language: any;
   HrForm: any = this.fb.group({
-    langs: new FormControl(''),
+    langs: new FormControl(null),
     languages: this.fb.array([], [Validators.required])
   });
 
@@ -55,7 +55,7 @@ export class RatingWebComponent implements OnInit {
 
   hrlang() {
     let regex = new RegExp('^ {1,}$');
-    if (this.HrForm.get('langs').value != '' && regex.test(this.HrForm.get('langs').value) == false) {
+    if (this.HrForm.get('langs').value !='' && this.HrForm.get('langs').value != null && regex.test(this.HrForm.get('langs').value) == false) {
       let langx = this.HrForm.get('langs').value;
 
       let find = this.AddLanguages.value.findIndex(
