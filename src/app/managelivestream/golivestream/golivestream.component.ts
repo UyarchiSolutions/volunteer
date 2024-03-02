@@ -72,6 +72,10 @@ export class GolivestreamComponent implements OnInit, OnDestroy, DoCheck {
           this.leave_host();
         }
       })
+      this.web.candidate_join(this.id).subscribe((res: any) => {
+        console.log(res,87786)
+        this.streamDetails.candidate_join = res.candidate_join;
+      })
     })
     this.web.getMessage_userCount(this.id).subscribe(msg => {
       this.participents = msg
@@ -221,7 +225,6 @@ export class GolivestreamComponent implements OnInit, OnDestroy, DoCheck {
     // })
     this.api.get_all_plans_golive(id).subscribe((res: any) => {
       if (res.token.status == 'Completed') {
-        window.close();
         this.router.navigateByUrl("/", { replaceUrl: true })
       }
       this.streampost = res;
@@ -321,7 +324,12 @@ export class GolivestreamComponent implements OnInit, OnDestroy, DoCheck {
     var answer = confirm("Are you sure you want to End this Live Streaming")
     if (answer) {
       this.agora.end_stream(this.id).subscribe((res: any) => {
-        this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
+        if (this.streamDetails.candidate_join) {
+          this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
+        }
+        else {
+          this.router.navigateByUrl(`/interview`, { replaceUrl: true });
+        }
       })
     }
 
@@ -423,7 +431,12 @@ export class GolivestreamComponent implements OnInit, OnDestroy, DoCheck {
     this.countDown = timer(0, 1000).subscribe(() => {
       --this.counter;
       if (this.counter == 0) {
-        this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
+        if (this.streamDetails.candidate_join) {
+          this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
+        }
+        else {
+          this.router.navigateByUrl(`/interview`, { replaceUrl: true });
+        }
       }
     });
   }
@@ -591,8 +604,6 @@ export class FormatTimePipe implements PipeTransform {
       );
     }
     else {
-      this.leave.leave_host(true);
-      this.router.navigateByUrl('/', { replaceUrl: true })
       return (
         ("00") +
         ":" +

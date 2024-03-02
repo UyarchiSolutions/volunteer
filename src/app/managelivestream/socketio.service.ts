@@ -268,4 +268,14 @@ export class SocketioService {
       }
     });
   }
+
+  candidate_join(channel: any): Observable<any> {
+    return new Observable<any>(observer => {
+      this.socket.on(channel + "_cantidate_join", (data: any) => {
+        observer.next(data);
+      });
+      return () => {
+      }
+    });
+  }
 }

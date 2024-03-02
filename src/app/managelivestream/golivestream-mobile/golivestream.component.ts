@@ -60,6 +60,9 @@ export class GolivestreamComponentMobile implements OnInit, OnDestroy, DoCheck {
           this.leave_host();
         }
       })
+      this.web.candidate_join(this.id).subscribe((res: any) => {
+        this.streamDetails.candidate_join = res.candidate_join;
+      })
 
     })
     console.log(this.id, 998876867867)
@@ -215,7 +218,6 @@ export class GolivestreamComponentMobile implements OnInit, OnDestroy, DoCheck {
         console.log(res)
       })
       if (res.token.status == 'Completed') {
-        window.close();
         this.router.navigateByUrl("/", { replaceUrl: true })
       }
 
@@ -322,7 +324,12 @@ export class GolivestreamComponentMobile implements OnInit, OnDestroy, DoCheck {
     if (answer) {
       this.agora.end_stream(this.id).subscribe((res: any) => {
         this.dash.feedback.next(true);
-        this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true })
+        if (this.streamDetails.candidate_join) {
+          this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
+        }
+        else {
+          this.router.navigateByUrl(`/interview`, { replaceUrl: true });
+        }
       })
     }
   }
@@ -364,8 +371,12 @@ export class GolivestreamComponentMobile implements OnInit, OnDestroy, DoCheck {
   }
   back_button() {
     // window.history.back();
-    this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
-    // this.router.navigateByUrl("/dashboard/livestream")
+    if (this.streamDetails.candidate_join) {
+      this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
+    }
+    else {
+      this.router.navigateByUrl(`/interview`, { replaceUrl: true });
+    }    // this.router.navigateByUrl("/dashboard/livestream")
   }
   leave_subhost(item: any) {
     let data = {
@@ -425,7 +436,12 @@ export class GolivestreamComponentMobile implements OnInit, OnDestroy, DoCheck {
     this.countDown = timer(0, 1000).subscribe(() => {
       --this.counter;
       if (this.counter == 0) {
-        this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
+        if (this.streamDetails.candidate_join) {
+          this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
+        }
+        else {
+          this.router.navigateByUrl(`/interview`, { replaceUrl: true });
+        }
       }
     });
   }
@@ -603,10 +619,6 @@ export class FormatTimePipe implements PipeTransform {
       );
     }
     else {
-      this.leave.leave_host(true);
-      // this.router.navigateByUrl('dashboard/livestream')
-      this.router.navigate(['/'], { replaceUrl: true })
-
       return (
         ("00") +
         ":" +
