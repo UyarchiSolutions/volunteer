@@ -10,8 +10,9 @@ import { RegisterComponent } from './register/register.component';
 import {
   RegisterMobileComponent,
   checkedForm,
+  checkedForm_obj,
 } from './register/register-mobile/register-mobile.component';
-import { RegisterWebComponent, checkedForm1 } from './register/register-web/register-web.component';
+import { RegisterWebComponent } from './register/register-web/register-web.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { VerifyOtpComponent } from './verify-otp/verify-otp.component';
 import { SetPasswordComponent } from './set-password/set-password.component';
@@ -34,7 +35,7 @@ import { InterviewsMobileComponent } from './interviews/interviews-mobile/interv
 import { InterviewsWebComponent } from './interviews/interviews-web/interviews-web.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MailVerificationComponent } from './mail-verification/mail-verification.component';
 import { MailMobileComponent } from './mail-verification/mail-mobile/mail-mobile.component';
 import { MailWebComponent } from './mail-verification/mail-web/mail-web.component';
@@ -50,6 +51,18 @@ import { ChoosenCandMobComponent } from './choosen-cand/choosen-cand-mob/choosen
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ChangePasswordWebComponent } from './change-password/change-password-web/change-password-web.component';
+import { ChangePasswordMobileComponent } from './change-password/change-password-mobile/change-password-mobile.component';
+import { LogedOutletComponent } from './outlet/loged-outlet/loged-outlet.component';
+import { AuthOutletComponent } from './outlet/auth-outlet/auth-outlet.component';
+import { LoguletOutletMobileComponent } from './outlet/loged-outlet/logulet-outlet-mobile/logulet-outlet-mobile.component';
+import { LoguletOutletWebComponent } from './outlet/loged-outlet/logulet-outlet-web/logulet-outlet-web.component';
+import { AuthOutletMobileComponent } from './outlet/auth-outlet/auth-outlet-mobile/auth-outlet-mobile.component';
+import { AuthOutletWebComponent } from './outlet/auth-outlet/auth-outlet-web/auth-outlet-web.component';
+import { EditprofileComponent } from './Editprofile/register.component';
+import { EditprofileComponentMobileComponent } from './Editprofile/editprofile-mobile/register-mobile.component';
+import { EditprofileComponentWebComponent } from './Editprofile/editprofile-web/register-web.component';
+import { HttpInterceptorService } from './http-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -80,8 +93,6 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     InterviewsComponent,
     InterviewsMobileComponent,
     InterviewsWebComponent,
-    checkedForm,
-    checkedForm1,
     MailVerificationComponent,
     MailMobileComponent,
     MailWebComponent,
@@ -94,6 +105,19 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     ChoosenCandWebComponent,
     ChoosenCandMobComponent,
     ChangePasswordComponent,
+    ChangePasswordWebComponent,
+    ChangePasswordMobileComponent,
+    LogedOutletComponent,
+    AuthOutletComponent,
+    LoguletOutletMobileComponent,
+    LoguletOutletWebComponent,
+    AuthOutletMobileComponent,
+    AuthOutletWebComponent,
+    EditprofileComponent,
+    EditprofileComponentMobileComponent,
+    EditprofileComponentWebComponent,
+    checkedForm,
+    checkedForm_obj
   ],
   imports: [
     BrowserModule,
@@ -110,7 +134,13 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
       preventDuplicates: true,
     }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

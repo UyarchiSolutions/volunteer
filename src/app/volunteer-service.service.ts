@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Env } from './env';
 import { HttpClient } from '@angular/common/http';
+import { AuthcheckService } from './auth-guard/authcheck.service';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class VolunteerServiceService {
   baseurl = Env.baseAPi;
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, private authcheck: AuthcheckService) { }
 
   token: any = localStorage.getItem('volunteer');
 
@@ -61,13 +62,7 @@ export class VolunteerServiceService {
   }
 
   getVolunteerDetails() {
-    let token: any =
-      localStorage.getItem('volunteer') == null
-        ? ''
-        : localStorage.getItem('volunteer');
-    return this.http.get(this.baseurl + '/v1/volunteer/getVolunteers/Details', {
-      headers: { auth: token },
-    });
+    return this.authcheck.userDetails;
   }
 
   getInterViewCandidates() {
@@ -107,9 +102,9 @@ export class VolunteerServiceService {
     );
   }
 
-  updateVolunteer(id: any, data: any) {
+  updateVolunteer(data: any) {
     return this.http.put(
-      this.baseurl + '/v1/volunteer/updateVolunteer/' + id,
+      this.baseurl + '/v1/volunteer/updateVolunteer',
       data
     );
   }
@@ -136,5 +131,12 @@ export class VolunteerServiceService {
     );
   }
 
-  loader: any = false;
+  get_skills(key: any) {
+    return this.http.get(this.baseurl + '/v1/employerdetail/keySkillData/' + key);
+  }
+
+  change_password(data: any) {
+    return this.http.post(this.baseurl + '/v1/volunteer/change/password', data);
+  }
+
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewoptionService } from './responsive.service';
 import { VolunteerServiceService } from './volunteer-service.service';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { AuthcheckService } from './auth-guard/authcheck.service';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +14,19 @@ export class AppComponent implements OnInit {
   viweOption: any = 'mobile';
   constructor(
     private service: ViewoptionService,
-    public loader: VolunteerServiceService
-  ) { }
+    public loader: AuthcheckService,
+    router: Router
+  ) {
+    router.events.forEach((event) => {
+      if (event instanceof NavigationStart) {
+      }
+      if (event instanceof NavigationEnd) {
+        window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+      }
+    });
+  }
+
+
   ngOnInit(): void {
     if (window.innerWidth < 800) {
       this.viweOption = 'mobile';
@@ -21,10 +34,11 @@ export class AppComponent implements OnInit {
       this.viweOption = 'lap';
     }
     this.service.view_option = this.viweOption;
-
-    this.loader.getVolunteerDetails().subscribe((e: any) => {
-    });
+    this.loader.loaderShow.subscribe((res: any) => {
+      this.loadershow = res;
+    })
   }
+  loadershow: any = false;
   onResize(event: any): void {
     if (event.target.innerWidth < 800) {
       this.viweOption = 'mobile';

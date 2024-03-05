@@ -77,15 +77,15 @@ export class VerifyOtpMobileComponent implements OnInit, OnDestroy {
     this.submitted = true;
     if (this.otpForm.valid) {
       this.submitted = false;
-      this.api.loader = true;
+      
       let data = { OTP: this.otpForm.get('OTP')?.value, id: this.id };
       this.api.VerifyOTP(data).subscribe(
         (e: any) => {
-          this.api.loader = false;
+         
           this.route.navigateByUrl('/set-password?email=' + e.email);
         },
         (err: any) => {
-          this.api.loader = false;
+         
           this.serverErr = err.error.message;
         }
       );

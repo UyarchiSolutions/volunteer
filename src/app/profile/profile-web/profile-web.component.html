@@ -1,17 +1,18 @@
 <div class="page-container">
-    <div class="header">
-        <app-header></app-header>
-    </div>
     <div class="body-container">
         <div class="edit-btn">
-            <button (click)="Edite()">
-                <svg _ngcontent-cow-c20="" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path _ngcontent-cow-c20="" d="M11.6461 0.761905L9.95302 2.45503H1.69312V14.3069H13.545V6.04698L15.2381 4.35386V15.1534C15.2381 15.378 15.1489 15.5933 14.9901 15.752C14.8314 15.9108 14.6161 16 14.3915 16H0.846561C0.622039 16 0.406713 15.9108 0.247952 15.752C0.0891909 15.5933 0 15.378 0 15.1534V1.60847C0 1.38394 0.0891909 1.16862 0.247952 1.00986C0.406713 0.851096 0.622039 0.761905 0.846561 0.761905H11.6461ZM14.8021 0L16 1.19873L8.21841 8.98032L7.02307 8.98286L7.02138 7.78328L14.8021 0Z" fill="#0a2647"></path></svg>
+            <button [routerLink]="['edit']">
+                <svg _ngcontent-cow-c20="" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path _ngcontent-cow-c20=""
+                        d="M11.6461 0.761905L9.95302 2.45503H1.69312V14.3069H13.545V6.04698L15.2381 4.35386V15.1534C15.2381 15.378 15.1489 15.5933 14.9901 15.752C14.8314 15.9108 14.6161 16 14.3915 16H0.846561C0.622039 16 0.406713 15.9108 0.247952 15.752C0.0891909 15.5933 0 15.378 0 15.1534V1.60847C0 1.38394 0.0891909 1.16862 0.247952 1.00986C0.406713 0.851096 0.622039 0.761905 0.846561 0.761905H11.6461ZM14.8021 0L16 1.19873L8.21841 8.98032L7.02307 8.98286L7.02138 7.78328L14.8021 0Z"
+                        fill="#0a2647"></path>
+                </svg>
                 Edit
             </button>
         </div>
         <div class="profile-img">
-            <img *ngIf="data.profileImage==null" src="../../assets/profileImage.png" alt="" width="126" height="126">
-            <img *ngIf="data.profileImage!=null" [src]="data.profileImage" alt="" width="126" height="126">
+            <img onerror="this.onerror=null;this.src='../../assets/profileImage.png';" [src]="data.profileImage" alt="" width="126" height="126">
         </div>
 
         <div class="profile-content">
@@ -54,8 +55,11 @@
                 </div>
                 <div class="fields" *ngIf="Role == 'Tech Volunteer'">
                     <label>Core Skills:</label>
-                    <div class="col"><p *ngFor="let skill of data.skills, let i=index" style="margin-bottom: 10px;">{{i+1}}. {{skill}}</p></div>
-                    
+                    <div class="col">
+                        <p *ngFor="let skill of data.skills, let i=index" style="margin-bottom: 10px;">{{i+1}}.
+                            {{skill}}</p>
+                    </div>
+
                 </div>
                 <div class="fields">
                     <label>Work Status :</label>

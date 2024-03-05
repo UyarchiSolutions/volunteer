@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthcheckService } from 'src/app/auth-guard/authcheck.service';
 import { VolunteerServiceService } from 'src/app/volunteer-service.service';
 @Component({
   selector: 'app-login-web',
@@ -8,17 +9,10 @@ import { VolunteerServiceService } from 'src/app/volunteer-service.service';
   styleUrls: ['./login-web.component.css'],
 })
 export class LoginWebComponent implements OnInit {
-  constructor(private route: Router, private Api: VolunteerServiceService) {}
+  constructor(private route: Router, private Api: VolunteerServiceService, private authcheck: AuthcheckService) { }
   ngOnInit(): void {
-    this.autoNavigate();
   }
-  autoNavigate() {
-    let token = localStorage.getItem('volunteer');
-    if (token) {
-      this.route.navigateByUrl('/candidate');
-    } else {
-    }
-  }
+
   signUp() {
     this.route.navigateByUrl('/register');
   }
@@ -30,22 +24,20 @@ export class LoginWebComponent implements OnInit {
 
   submitted: any = false;
   serverErr: any = null;
-    login() {
-      this.submitted = true;
-      if (this.loginForm.valid) {
-        this.Api.loader = true;
+  login() {
+    this.submitted = true;
+    if (this.loginForm.valid) {
+      this.Api.login(this.loginForm.value).subscribe(
+        (e: any) => {
+          localStorage.setItem('volunteer', e.access.token);
+          this.authcheck.get_userDetails();
+          this.route.navigateByUrl('/candidate');
+        },
+        (err: any) => {
+          this.serverErr = err.error.message;
 
-        this.Api.login(this.loginForm.value).subscribe(
-          (e: any) => {
-            localStorage.setItem('volunteer', e.access.token);
-            this.Api.loader = false;
-            this.route.navigateByUrl('/candidate');
-          },
-          (err: any) => {
-            this.serverErr = err.error.message;
-            this.Api.loader = false;
-          }
-        );
-      }
+        }
+      );
     }
+  }
 }

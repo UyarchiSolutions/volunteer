@@ -16,29 +16,29 @@ export class ChoosenCandWebComponent implements OnInit {
   Candidates: any = [];
 
   getCandidates() {
-    this.api.loader = true;
+    
     this.api.getChoosenCandidates().subscribe(
       (e: any) => {
         this.Candidates = e;
         console.log(e);
-        this.api.loader = false;
+       
       },
       (err: any) => {
-        this.api.loader = false;
+       
       }
     );
   }
 
   undChoosen(id: any) {
-    this.api.loader = true;
+    
     this.api.UndoChoosenCandidates(id).subscribe(
       (e: any) => {
         console.log(e);
-        this.api.loader = false;
+       
         this.getCandidates();
       },
       (err: any) => {
-        this.api.loader = false;
+       
       }
     );
   }

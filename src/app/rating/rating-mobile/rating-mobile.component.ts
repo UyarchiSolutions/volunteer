@@ -126,10 +126,10 @@ export class RatingMobileComponent implements OnInit {
   volunteerDetail: any = {};
 
   getVolunteersDetails() {
-    this.api.loader = true;
+    
     this.api.getVolunteerDetails().subscribe((e: any) => {
       console.log(e);
-      this.api.loader = false;
+     
       this.volunteerDetail = e;
     });
   }
@@ -281,15 +281,15 @@ export class RatingMobileComponent implements OnInit {
         values: values,
       };
       console.log(datas);
-      this.api.loader = true;
+      
       this.api.Rating(datas).subscribe(
         (res: any) => {
           this.router.navigateByUrl('/candidate');
           console.log(res);
-          this.api.loader = false;
+         
         },
         (err: any) => {
-          this.api.loader = false;
+         
         }
       );
     }

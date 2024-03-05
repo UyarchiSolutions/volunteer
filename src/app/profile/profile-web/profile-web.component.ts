@@ -8,7 +8,7 @@ import { VolunteerServiceService } from 'src/app/volunteer-service.service';
   styleUrls: ['./profile-web.component.css'],
 })
 export class ProfileWebComponent implements OnInit {
-  constructor(private api: VolunteerServiceService, private route: Router) {}
+  constructor(private api: VolunteerServiceService, private route: Router) { }
   Role: any;
   data: any;
   id: any;
@@ -19,23 +19,18 @@ export class ProfileWebComponent implements OnInit {
   userdata: any = {};
 
   getUserDetails() {
-    this.api.loader = true;
+
     this.api.getVolunteerDetails().subscribe(
       (e: any) => {
         console.log(e);
         this.Role = e.Role;
         this.id = e._id;
         this.data = e;
-        this.api.loader = false;
-      },
-      (err: any) => {
-        this.api.loader = false;
-        localStorage.removeItem('volunteer');
-        this.route.navigateByUrl('/');
+
+      }, (err: any) => {
+
       }
     );
   }
-  Edite() {
-    this.route.navigateByUrl('/register?id=' + this.id);
-  }
+
 }

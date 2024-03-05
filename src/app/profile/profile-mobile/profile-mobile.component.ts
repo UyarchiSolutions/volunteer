@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth-guard/authguard.service';
 import { VolunteerServiceService } from 'src/app/volunteer-service.service';
 
 @Component({
@@ -8,9 +9,9 @@ import { VolunteerServiceService } from 'src/app/volunteer-service.service';
   styleUrls: ['./profile-mobile.component.css'],
 })
 export class ProfileMobileComponent implements OnInit {
-  constructor(private Api: VolunteerServiceService, private route:Router) {}
+  constructor(private Api: VolunteerServiceService, private route: Router, private auth: AuthService) { }
   Role: any;
-  id:any;
+  id: any;
   data: any;
   ngOnInit(): void {
     this.getUserDetails();
@@ -26,13 +27,16 @@ export class ProfileMobileComponent implements OnInit {
         this.data = e;
       },
       (err: any) => {
-        this.Api.loader = false;
-        localStorage.removeItem('volunteer');
-        this.route.navigateByUrl('/');
+
+
       }
     );
   }
   Edite() {
     this.route.navigateByUrl('/register?id=' + this.id);
+  }
+
+  log_out() {
+    this.auth.logout();
   }
 }

@@ -1,7 +1,4 @@
 <div class="page-container" style="background-color: white; height: 100%;">
-    <div class="header">
-        <app-header></app-header>
-    </div>
     <div class="" style="width: 100%; padding: 0; margin: 0;  box-shadow: 1px 1px 2px gray;">
         <div class="container" style="width: 100%; padding: 20px 0px 0px 50px; margin: 0; padding-top: 20px;">
             <div class="row">
@@ -87,7 +84,7 @@
                 <div class="col-8"><input type="text" id="addSkills" class="input" placeholder="Enter All Skills"
                         formControlName="skillsfron" style="width: 68%;"
                         [ngClass]=" techSubmit && TechReviewForms.get('skillsfron')?.invalid?'err':'' ">
-                    <button class="add-btn" (click)="addSkill1()" style="margin-left: 15px; width: fit-content ;">+
+                    <button class="add-btn" (click)="addSkill1()" style="margin-left: 15px; width: fit-content">+
                         Add</button>
                 </div>
             </div>

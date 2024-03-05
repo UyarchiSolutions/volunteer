@@ -44,10 +44,10 @@ export class SetPasswordMobileComponent implements OnInit {
     }
     let data = { ...this.setPasswordForm.value, ...{ email: this.email } };
     if (this.setPasswordForm.valid && this.confErr == null) {
-      this.Api.loader = true;
+      
       this.Api.setpassword(data).subscribe((e: any) => {
         console.log(e);
-        this.Api.loader = false;
+       
         this.route.navigateByUrl('/');
       });
     }

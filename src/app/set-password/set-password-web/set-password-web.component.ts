@@ -42,16 +42,16 @@ export class SetPasswordWebComponent implements OnInit {
       this.confErr = null;
     }
     let data = { ...this.setPasswordForm.value, ...{ email: this.email } };
-    this.Api.loader = true;
+    
     if (this.setPasswordForm.valid && this.confErr == null) {
       this.Api.setpassword(data).subscribe(
         (e: any) => {
           console.log(e);
-          this.Api.loader = false;
+         
           this.route.navigateByUrl('/');
         },
         (err: any) => {
-          this.Api.loader = false;
+         
         }
       );
     }

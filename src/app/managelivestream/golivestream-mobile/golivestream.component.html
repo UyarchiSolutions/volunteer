@@ -90,7 +90,7 @@
                   <div class="row " style="" [ngClass]="bigscreen?'mobile-video-controls-big':'mobile-video-controls'">
                     <div class="col-12 sub-host" *ngIf="stream.remoteUsers.length!=0"
                       style="padding: 0;position: relative;">
-                      <div class="" *ngFor="let item of stream.remoteUsers ; index as i" style="padding: 0;"
+                      <div class="" *ngFor="let item of stream.remoteUsers index as i" style="padding: 0;"
                         [ngClass]="stream.remoteUsers.length==1?'full-width mobile-'+item.class:'hulf-width mobile-'+item.class"
                         class="external-video">
                         <div id="{{ 'remote-playerlist' +item.uid}}" class="ui centered medium image"

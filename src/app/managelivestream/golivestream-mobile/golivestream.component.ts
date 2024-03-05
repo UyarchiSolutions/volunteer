@@ -370,13 +370,7 @@ export class GolivestreamComponentMobile implements OnInit, OnDestroy, DoCheck {
     this.deviceId = this.stream.switch_cam(this.deviceId);
   }
   back_button() {
-    // window.history.back();
-    if (this.streamDetails.candidate_join) {
-      this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
-    }
-    else {
-      this.router.navigateByUrl(`/interview`, { replaceUrl: true });
-    }    // this.router.navigateByUrl("/dashboard/livestream")
+    this.router.navigateByUrl(`/cand-rating?id=${this.id}`, { replaceUrl: true });
   }
   leave_subhost(item: any) {
     let data = {

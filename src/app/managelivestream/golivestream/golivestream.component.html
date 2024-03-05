@@ -67,7 +67,7 @@
             </span>
           </div>
           <div class="row" style="width: 100%;height: 100%;margin:0;padding: 0;position: relative;">
-            <div class="external-video col-12 {{item.class}}" *ngFor="let item of stream.remoteUsers ; index as i"
+            <div class="external-video col-12 {{item.class}}" *ngFor="let item of stream.remoteUsers index as i"
               >
               <div id="{{ 'remote-playerlist' +item.uid}}" class="ui centered medium image"
                 style="width: 100%;height: 100%;"></div>

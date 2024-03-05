@@ -1,6 +1,6 @@
 <div class="page-container">
     <div class="page-header">
-        <p routerLink="/">
+        <p [routerLink]="['/']">
             <svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M3.6359 7.5L10 13.3336L8.18205 15L0 7.5L8.18205 0L10 1.6664L3.6359 7.5Z" fill="#0A2647" />
             </svg>
@@ -8,7 +8,7 @@
         <p class="title-txt">
             {{Role?Role:'--'}}
         </p>
-        <button (click)="Edite()">
+        <button [routerLink]="['edit']">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                     d="M6.61073 2.55667L9.44333 5.38994L2.8326 12H0V9.16674L6.61073 2.55667ZM7.55493 1.61247L8.97123 0.195508C9.09645 0.0703245 9.26626 0 9.44333 0C9.62039 0 9.79021 0.0703245 9.91543 0.195508L11.8045 2.08457C11.9297 2.2098 12 2.37961 12 2.55667C12 2.73374 11.9297 2.90355 11.8045 3.02877L10.3875 4.44507L7.55493 1.61247Z"
@@ -16,9 +16,10 @@
             </svg>
         </button>
     </div>
-    <div class="body-container">
+    <div class="body-container" *ngIf="data!=null">
         <div class="profile-img">
-            <img [src]="data.profileImage" alt="" width="126" height="126">
+            <img [src]="data.profileImage" onerror="this.onerror=null;this.src='../../assets/profileImage.png';" alt=""
+                width="126" height="126">
         </div>
 
         <div class="profile-content">
@@ -124,6 +125,11 @@
                 </div>
             </div>
 
+        </div>
+        <div class="button-groups">
+            <button class="change-password" [routerLink]="['/change-password']">Change
+                Password</button>
+            <button class="log-out" (click)="log_out()">Log Out</button>
         </div>
     </div>
 </div>

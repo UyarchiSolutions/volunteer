@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { VolunteerServiceService } from 'src/app/volunteer-service.service';
+import { AuthService } from '../auth-guard/authguard.service';
 
 @Component({
   selector: 'app-header',
@@ -9,39 +10,25 @@ import { VolunteerServiceService } from 'src/app/volunteer-service.service';
 })
 export class HeaderComponent implements OnInit {
 
-  vname!:string;
+  vname!: string;
 
-  constructor(private api: VolunteerServiceService, private route: Router) {}
+  constructor(private api: VolunteerServiceService, private route: Router, private authcheck: AuthService) { }
 
   ngOnInit(): void {
-    this.checkMenuVisible();
     this.getVolunteer();
   }
 
   name: any = localStorage.getItem('volunteername');
   profImg: any = localStorage.getItem('volunteerprofileImage');
-
+  userDetails: any;
   getVolunteer() {
     this.api.getVolunteerDetails().subscribe((e: any) => {
-      localStorage.setItem('volunteerprofileImage', e.profileImage);
-      localStorage.setItem('volunteername', e.name);
-      this.vname=e.name;
-      console.log(e)
+      this.userDetails = e; 
     });
   }
   showMenu: any = true;
-  checkMenuVisible() {
-    let token = localStorage.getItem('volunteer');
-    if (token) {
-      this.showMenu = true;
-    } else {
-      this.showMenu = false;
-    }
-  }
+
   logout() {
-    localStorage.removeItem('volunteer');
-    localStorage.removeItem('volunteerprofileImage');
-    localStorage.removeItem('volunteername');
-    this.route.navigateByUrl('/');
+    this.authcheck.logout();
   }
 }

@@ -9,6 +9,15 @@
   width: 90%;
   margin: auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  height: 100%;
+}
+
+.top-container img {
+  height: 100%;
+  width: 126px;
+}
+.top-container p{
+  margin-bottom: 0;
 }

@@ -7,6 +7,6 @@ import { ViewoptionService } from '../responsive.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  ngOnInit(): void {}
-  constructor(public view: ViewoptionService) {}
+  ngOnInit(): void { }
+  constructor(public view: ViewoptionService) { }
 }

@@ -21,6 +21,7 @@
 .bodycontent-container {
   padding-top: 10px;
   width: 100%;
+  height: 100%;
   border-bottom: 1px solid #e7e9ed;
 }
 
@@ -103,4 +104,11 @@
   font-family: "Poppins" !important;
   width: 100px !important;
   border-radius: 5px !important;
+}
+
+
+.no-condidate{
+  text-align: center;
+  margin-top: 50px;
+  color: #fd8520;
 }

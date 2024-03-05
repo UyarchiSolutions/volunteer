@@ -31,20 +31,20 @@ export class InterviewsWebComponent implements OnInit {
   pending: any = false;
   pending_id: any;
   getInterviewCand() {
-    this.api.loader = true;
+    
     this.api.getInterViewCandidates().subscribe((e: any) => {
       this.candidates = e.candidates;
-      this.api.loader = false;
+     
       this.pending = e.pending;
       this.pending_id = e.pending_id;
     });
   }
   go_live(item: any) {
     console.log(item);
-    this.api.loader = true;
+    
     this.api.go_live(item.channel).subscribe((res: any) => {
       // console.log(res)
-      this.api.loader = false;
+     
       this.route.navigateByUrl('/golive?id=' + item.channel);
     });
 

@@ -1,9 +1,11 @@
 .logo {
   padding: 20px;
 }
+
 .title {
   padding-top: 20px;
 }
+
 .title span {
   padding-left: 20px;
   font-size: 24px;
@@ -47,20 +49,22 @@
   margin-top: 45;
   margin: auto;
 }
+
 .forms {
   padding-bottom: 30px;
   width: 100%;
   margin: auto;
 }
 
-.forms > p {
+.forms>p {
   height: 10px;
   padding-left: 20px;
   font-family: "Poppins";
   color: #0a2647;
   font-weight: 600;
 }
-.forms input {
+
+.forms input:not([type="checkbox"]) {
   width: 50%;
   height: 40px;
   background: #ffffff;
@@ -138,7 +142,7 @@ select:focus {
   font-family: "Poppins";
 }
 
-.forms > span {
+.forms>span {
   display: flex;
   justify-content: flex-end;
   font-family: "Poppins";
@@ -169,6 +173,7 @@ select:focus {
   font-size: 12px;
   font-family: "Poppins", sans-serif;
 }
+
 .tabs {
   width: 24%;
   margin: auto;
@@ -235,6 +240,7 @@ select:focus {
   box-shadow: 0px 0px 4px 0px #00000040;
   margin-bottom: 10px;
 }
+
 .dropdown-option input {
   width: 21px;
   height: 19px;
@@ -242,7 +248,7 @@ select:focus {
 
 .dropdown-menu {
   width: 25% !important;
-  height: 193px !important;
+  max-height: 300px !important;
   overflow: auto;
   margin-left: 30%;
 }
@@ -262,29 +268,35 @@ select:focus {
   top: 0;
   max-height: 200px;
 }
+
 .list-option ul {
   list-style-type: none;
   padding: 0;
   width: 100%;
   margin-bottom: 0;
 }
+
 .list-option ul li {
   padding: 4px 10px;
   width: 100%;
   font-size: 12px;
   overflow: auto;
 }
+
 .list-option ul li:hover {
   background: #6a6565;
   color: white;
   cursor: pointer;
 }
-.auto-suggetion:focus-within > .list-option {
+
+.auto-suggetion:focus-within>.list-option {
   display: block !important;
 }
+
 .list-option:hover {
   display: block !important;
 }
+
 .output li {
   font-size: 12px;
   height: 20px;
@@ -304,6 +316,7 @@ select:focus {
   flex-direction: row;
   width: 40%;
 }
+
 .output ol {
   gap: 5px;
 }
@@ -321,11 +334,13 @@ select:focus {
   color: white;
   width: fit-content;
 }
+
 .output {
   display: flex;
   flex-direction: row;
   width: 95%;
 }
+
 .output ol {
   display: flex;
   gap: 5px;
@@ -358,26 +373,31 @@ select:focus {
   display: none !important;
   top: 0;
 }
+
 .list-option1 ul {
   list-style-type: none;
   padding: 0;
   width: 100%;
   margin-bottom: 0;
 }
+
 .list-option1 ul li {
   padding: 4px 10px;
   width: 100%;
   font-size: 12px;
   overflow: auto;
 }
+
 .list-option1 ul li:hover {
   background: #6a6565;
   color: white;
   cursor: pointer;
 }
-.auto-suggetion1:focus-within > .list-option1 {
+
+.auto-suggetion1:focus-within>.list-option1 {
   display: block !important;
 }
+
 .list-option1:hover {
   display: block !important;
 }
@@ -407,6 +427,7 @@ select:focus {
   cursor: pointer;
   margin-left: 10px;
 }
+
 .selected-language-name {
   height: 25px !important;
 }
@@ -417,9 +438,9 @@ select:focus {
 }
 
 input[type="checkbox"] {
-  width: 17px !important;
+
   box-shadow: 0px 0px 0px 0px !important;
-  height: 25px !important;
+
 }
 
 .err {
@@ -445,19 +466,43 @@ input[type="checkbox"] {
   width: 50%;
   margin-left: 30%;
 }
+
 .items {
   background-color: #a6a6a69e;
   padding: 4px;
   border-radius: 5px;
 }
+
 .Fields-div {
   display: flex;
 }
+
 .Fields-div p {
   width: 30%;
 }
+
 .header {
   position: sticky;
   top: 0px;
   z-index: 1000000000;
+}
+
+.dropdown-item label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+#skils-option {
+  position: absolute;
+  inset: 0px auto auto 0px;
+  margin: 0px;
+  transform: translate3d(680.5px, 627px, 0px);
+}
+
+.remove-page {
+  margin-left: 6px;
+  cursor: pointer;
 }

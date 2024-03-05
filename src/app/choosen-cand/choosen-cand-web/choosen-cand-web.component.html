@@ -1,7 +1,4 @@
 <div class="page-container">
-    <div class="header">
-        <app-header></app-header>
-    </div>
     <div class="body-container" *ngIf="Candidates.length>0">
         <div class="body-title">
             <h4>Chosen Candidates</h4>
@@ -20,14 +17,14 @@
                 <tbody>
                     <tr *ngFor="let cand of Candidates">
                         <td>{{cand.name}}</td>
-                        <td>{{cand.IntrestedCandidate.slotDate}} & {{cand.IntrestedCandidate.slotTime}}</td>
+                        <td>{{cand.DateTime|date :'dd-MM-yyyy & hh:mm a'}}</td>
                         <td>{{cand.yearOfPassing}}</td>
                         <td>
                             <p style="width: 300px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
                                 {{cand.skills}}</p>
                         </td>
                         <td>
-                            <ng-container *ngIf="role =='HR Volunteer' ">
+                            <ng-container *ngIf="role =='HR Volunteer' &&!cand.stream_approval">
                                 <p *ngIf="cand.IntrestedCandidate.hrStatus =='Approved' && cand.hrClear==false  ">
                                     {{cand.IntrestedCandidate.hrStatus =='Approved'?"Verified":"Pending" }}</p>
                                 <p *ngIf="cand.IntrestedCandidate.hrStatus =='Approved' && cand.hrClear==true  ">
@@ -35,7 +32,7 @@
                                 <p *ngIf="cand.IntrestedCandidate.hrStatus !='Approved'">
                                     {{cand.IntrestedCandidate.hrStatus !='Approved'?"Pending":"" }}</p>
                             </ng-container>
-                            <ng-container *ngIf="role !='HR Volunteer' && role !=null ">
+                            <ng-container *ngIf="role !='HR Volunteer' && role !=null && !cand.stream_approval">
                                 <p *ngIf="cand.IntrestedCandidate.status =='Approved' && cand.clear==false  ">
                                     {{cand.IntrestedCandidate.status =='Approved'?"Verified":"Pending" }}</p>
                                 <p *ngIf="cand.IntrestedCandidate.status =='Approved' && cand.clear==true  ">
@@ -44,18 +41,13 @@
                                     {{cand.IntrestedCandidate.status !='Approved'?"Pending":"" }}</p>
                             </ng-container>
 
+                            <p *ngIf="cand.stream_approval">
+                                Rejected
+                            </p>
+
                         </td>
-                        <!-- <td *ngIf="Role == 'HR Volunteer' "><button (click)="intrestCandidate(cand._id, cand.slotId)"
-                                class="int-btn" *ngIf="cand.isIdInArray == false">Choose</button>
-                            <p *ngIf="cand.isIdInArray == true " class="intrested">Interested</p>
-                        </td> -->
-                        <!-- <td *ngIf="Role == 'Tech Volunteer' "><button class="int-btn"
-                                (click)="intrestCandidate(cand._id, cand.slotId)" *ngIf="cand.techIntrest ==
-                            false">Choose</button>
-                            <p *ngIf="cand.techIntrest == true " class="intrested">Interested</p>
-                        </td> -->
                         <td>
-                            <ng-container *ngIf="role =='HR Volunteer' && role !=null ">
+                            <ng-container *ngIf="role =='HR Volunteer' && role !=null && !cand.stream_approval">
                                 <button class="undo-btn" (click)="undChoosen(cand._id)"
                                     *ngIf="cand.IntrestedCandidate.hrStatus !='Approved'">
                                     <svg width="14" height="14" viewBox="0 0 12 12" fill="none"
@@ -66,9 +58,8 @@
                                     </svg>
                                     Undo
                                 </button>
-                                <p *ngIf="cand.IntrestedCandidate.hrStatus =='Approved'">--</p>
                             </ng-container>
-                            <ng-container *ngIf="role !='HR Volunteer' && role !=null ">
+                            <ng-container *ngIf="role !='HR Volunteer' && role !=null  && !cand.stream_approval">
                                 <button class="undo-btn" (click)="undChoosen(cand._id)"
                                     *ngIf="cand.IntrestedCandidate.status !='Approved'">
                                     <svg width="14" height="14" viewBox="0 0 12 12" fill="none"
@@ -79,8 +70,8 @@
                                     </svg>
                                     Undo
                                 </button>
-                                <p *ngIf="cand.IntrestedCandidate.status =='Approved'">--</p>
                             </ng-container>
+                            <p *ngIf="cand.IntrestedCandidate.status =='Approved' || cand.stream_approval">--</p>
                         </td>
                     </tr>
                 </tbody>

@@ -34,16 +34,19 @@
   margin: auto;
   background-color: #ffff;
   box-shadow: 0px 0px 4px 0px #00000040;
-  height: 75vh;
+
   border-radius: 5px;
   overflow: auto;
+  margin-bottom: 62px;
   /* height: auto; */
 }
+
 .profile-img {
   display: flex;
   justify-content: center;
   position: relative;
 }
+
 .profile-img img {
   box-shadow: 0px 2px 8px 0px #00000040;
   border-radius: 5px;
@@ -59,6 +62,7 @@
   border-radius: 5px;
   margin-left: 43px;
 }
+
 .profile-content {
   width: 90%;
   margin: auto;
@@ -82,23 +86,27 @@
   height: 5px;
   font-size: 12px;
 }
+
 .fields {
   display: grid;
   grid-template-columns: 40% 50%;
   gap: 10px;
 }
+
 .fields label {
   color: #0a2647;
   font-family: "Poppins", sans-serif;
   font-size: 13px;
   font-weight: bold;
 }
+
 .fields p {
   color: #0a2647;
   font-family: "Poppins", sans-serif;
   font-size: 13px;
   height: 18px;
 }
+
 .lan {
   color: #0a2647;
   font-weight: bold;
@@ -109,4 +117,33 @@
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+
+.log-out {
+  width: 47%;
+  margin: 20px 3%;
+  padding: 8px;
+  border: none;
+  background: #dcd8d8;
+  color: black;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.change-password {
+  width: 47%;
+  margin: 20px 3%;
+  padding: 8px;
+  border: none;
+  background: #4949a0;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.button-groups {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
 }

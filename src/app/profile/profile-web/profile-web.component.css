@@ -3,17 +3,20 @@
   /* margin: auto; */
   background-color: #ffff;
   box-shadow: 0px 0px 4px 0px #00000040;
-  height: 85vh;
+
   border-radius: 5px;
   overflow: auto;
   margin-left: 20%;
   margin-top: 1%;
+  margin-bottom: 20px;
 }
+
 .profile-img {
   display: flex;
   justify-content: center;
   position: relative;
 }
+
 .profile-img img {
   box-shadow: 0px 2px 8px 0px #00000040;
   border-radius: 5px;
@@ -30,6 +33,7 @@
   border-radius: 5px;
   margin-left: 43px;
 }
+
 .profile-content {
   width: 90%;
   margin: auto;
@@ -53,23 +57,27 @@
   height: 5px;
   font-size: 12px;
 }
+
 .fields {
   display: grid;
   grid-template-columns: 40% 50%;
   gap: 10px;
 }
+
 .fields label {
   color: #0a2647;
   font-family: "Poppins", sans-serif;
   font-size: 13px;
   font-weight: bold;
 }
+
 .fields p {
   color: #0a2647;
   font-family: "Poppins", sans-serif;
   font-size: 13px;
   height: 18px;
 }
+
 .lan {
   color: #0a2647;
   font-weight: bold;
@@ -81,6 +89,7 @@
   bottom: 0;
   width: 100%;
 }
+
 .edit-btn {
   display: flex;
   justify-content: flex-end;

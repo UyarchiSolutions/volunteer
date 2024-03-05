@@ -1,7 +1,4 @@
 <div class="page-container">
-    <div class="header">
-        <app-header></app-header>
-    </div>
     <div class="body-container">
         <div class="body-title">
             <h4>Choose Candidates</h4>
@@ -24,22 +21,13 @@
                             <p style="width: 300px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
                                 {{cand.skills}}</p>
                         </td>
-                        <td *ngIf="Role == 'HR Volunteer' ">
-                            <ng-container *ngIf="checkSlotExistOrNot(cand.slotDate,cand.slotTime) ==-1 ">
-                                <button (click)="intrestCandidate(cand._id, cand.slotId)" class="int-btn"
-                                    *ngIf="cand.isIdInArray == false">Choose</button>
+                        <td>
+                            <button class="int-btn" (click)="intrestCandidate(cand._id, cand.slotId,cand)"
+                                *ngIf="!cand.already_choosen">Choose</button>
+                            <ng-container *ngIf="cand.already_choosen && cand.isIdInArray != true ">
+                                <button class="int-btn-disabled" type="button" (click)="clickDisable()">Choose</button>
                             </ng-container>
-                            <ng-container *ngIf="checkSlotExistOrNot(cand.slotDate,cand.slotTime) !=-1 ">
-                                <button class="int-btn-disabled" type="button" *ngIf="cand.isIdInArray == false"
-                                    (click)="clickDisable()">Choose</button>
-                            </ng-container>
-
-                            <p *ngIf="cand.isIdInArray == true " class="intrested">Chosen</p>
-                        </td>
-                        <td *ngIf="Role == 'Tech Volunteer' "><button class="int-btn"
-                                (click)="intrestCandidate(cand._id, cand.slotId)" *ngIf="cand.techIntrest ==
-                            false">Choose</button>
-                            <p *ngIf="cand.techIntrest == true " class="intrested">Chosen</p>
+                            <p style="margin-bottom: 0;" *ngIf="cand.isIdInArray == true" class="intrested">Chosen</p>
                         </td>
 
                     </tr>

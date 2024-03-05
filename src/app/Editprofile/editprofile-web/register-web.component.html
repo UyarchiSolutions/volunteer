@@ -1,0 +1,193 @@
+<div class="page-container">
+    <div class="for-body">
+
+        <h4 style="text-align: center;margin-bottom: 16px;color: #fd8520;">Edit Profile</h4>
+        <div class="forms" [formGroup]="profileForm">
+            <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+                <div class="choose-image" *ngIf="selectedFile == null ">
+                    <label for="image" style="display: flex; align-items: center; justify-content: center;"> <span
+                            style="padding-right: 5px;">
+                        </span> + Add Profile Picture</label>
+                    <input style="display: none" id="image" type="file" (change)="fileUpload($event)" />
+                </div>
+                <div class="view-ima" *ngIf="selectedFile != null">
+                    <img [src]="selectedFile" alt="" (error)="error_image($event)">
+                    <p (click)="removeFile()">
+                        <svg width="12" height="12" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8.5 8.5L13.5 13.5M13.5 8.5L8.5 13.5M21 11C21 12.3132 20.7413 13.6136 20.2388 14.8268C19.7363 16.0401 18.9997 17.1425 18.0711 18.0711C17.1425 18.9997 16.0401 19.7363 14.8268 20.2388C13.6136 20.7413 12.3132 21 11 21C9.68678 21 8.38642 20.7413 7.17317 20.2388C5.95991 19.7363 4.85752 18.9997 3.92893 18.0711C3.00035 17.1425 2.26375 16.0401 1.7612 14.8268C1.25866 13.6136 1 12.3132 1 11C1 8.34784 2.05357 5.8043 3.92893 3.92893C5.8043 2.05357 8.34784 1 11 1C13.6522 1 16.1957 2.05357 18.0711 3.92893C19.9464 5.8043 21 8.34784 21 11Z"
+                                stroke="red" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="Fields-div">
+                <p>Full Name :</p>
+                <input type="text" id="fullname" placeholder="Enter Your Full Name" formControlName="name"
+                    [class]="submittedForm && profileForm.get('name')?.invalid?'activeErr':'' ">
+            </div>
+            <div class="Fields-div">
+                <p>Email ID :</p>
+                <input type="email" id="pwd" placeholder="Enter Email ID" formControlName="email"
+                    [readOnly]="queryId != null "
+                    [class.activeErr]="submittedForm && profileForm.get('email').invalid" />
+            </div>
+            <div class="Fields-div">
+                <p>Mobile Number :</p>
+                <input type="tel" id="mobile" placeholder="Enter Your Mobile Number" formControlName="mobileNumber"
+                    [readOnly]="queryId  != null "
+                    [class.activeErr]="submittedForm && profileForm.get('mobileNumber').invalid" minlength="10"
+                    maxlength="10"
+                    onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57" />
+            </div>
+            <div class="Fields-div">
+                <p>Highest education :</p>
+                <input type="text" id="HE" placeholder="Enter Highest education" formControlName="Education"
+                    [class.activeErr]="submittedForm && profileForm.get('Education').invalid" />
+            </div>
+            <div class="Fields-div">
+                <p>Total Experience :</p>
+                <div class="sub-input">
+                    <select formControlName="experiencefrom"
+                        [class.activeErr]="submittedForm && profileForm.get('experiencefrom').invalid">
+                        <option [value]="null" hidden selected>Year</option>
+                        <option *ngFor="let year of yearsArray" value="{{year}}">{{year}}</option>
+                    </select>
+                    <select formControlName="experienceTo" style="margin-left: 6%;"
+                        [class.activeErr]="submittedForm && profileForm.get('experienceTo').invalid">
+                        <option [value]="null" hidden selected>Month</option>
+                        <option *ngFor="let month of monthsArray" value="{{month}}">{{month}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div *ngIf="tabs == 'HR Volunteer' " class="Fields-div">
+                <p>HR Experience :</p>
+                <div class="sub-input">
+                    <select formControlName="hrExperienceFrom"
+                        [class.activeErr]="submittedForm && profileForm.get('hrExperienceFrom').invalid">
+                        <option [value]="null" selected hidden>Year</option>
+                        <option *ngFor="let year of yearsArray" value="{{year}}">{{year}}</option>
+                    </select>
+                    <select formControlName="hrExperienceTo" style="margin-left: 6%;"
+                        [class.activeErr]="submittedForm && profileForm.get('hrExperienceTo').invalid">
+                        <option [value]="null" selected hidden>Month</option>
+                        <option *ngFor="let month of monthsArray" value="{{month}}">{{month}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div *ngIf="tabs == 'Tech Volunteer' " class="Fields-div">
+                <p>All Skills :</p>
+
+                <input type="text" class="multi-check" id="multi-check" data-bs-toggle="dropdown"
+                    [class.activeErr]="profileForm.get('skills')?.invalid && submittedForm?'error-message':''"
+                    (keyup)="focus_me($event)" [formControl]="search_skils" placeholder="Search Skills ...">
+                <ul class="dropdown-menu dropdown-option dropdown-option-lan" id="skils-option"
+                    onclick="event.stopPropagation()">
+                    <li *ngFor="let lang of skillsArr ">
+                        <a class="dropdown-item" style="width: 100%;"><label for="{{lang._id}}"
+                                class="lang-align"><input (change)="addSkill1($event)" type="checkbox"
+                                    value="{{lang.Skill_Title}}" name=""
+                                    [checked]="addSkills.value|checked:lang.Skill_Title" id="{{lang._id}}">
+                                {{lang.Skill_Title}}</label></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="datas" *ngIf="addSkills.valid && tabs=='Tech Volunteer'">
+                <p class="items" *ngFor="let item of addSkills.value;index as i">
+                    {{item}}
+                    <span class="remove-page" (click)="remove_index(i)">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8 16C3.5816 16 0 12.4184 0 8C0 3.5816 3.5816 0 8 0C12.4184 0 16 3.5816 16 8C16 12.4184 12.4184 16 8 16ZM8 14.4C9.69739 14.4 11.3253 13.7257 12.5255 12.5255C13.7257 11.3253 14.4 9.69739 14.4 8C14.4 6.30261 13.7257 4.67475 12.5255 3.47452C11.3253 2.27428 9.69739 1.6 8 1.6C6.30261 1.6 4.67475 2.27428 3.47452 3.47452C2.27428 4.67475 1.6 6.30261 1.6 8C1.6 9.69739 2.27428 11.3253 3.47452 12.5255C4.67475 13.7257 6.30261 14.4 8 14.4ZM8 6.8688L10.2624 4.6056L11.3944 5.7376L9.1312 8L11.3944 10.2624L10.2624 11.3944L8 9.1312L5.7376 11.3944L4.6056 10.2624L6.8688 8L4.6056 5.7376L5.7376 4.6056L8 6.8688Z"
+                                fill="#FF0000" />
+                        </svg>
+
+                    </span>
+                </p>
+
+            </div>
+
+            <div class="Fields-div">
+                <p>Work Status :</p>
+                <input type="text" id="WS" placeholder="Enter Work Status" formControlName="workStatus"
+                    [class.activeErr]="submittedForm && profileForm.get('workStatus').invalid" />
+            </div>
+
+            <div class="Fields-div">
+                <p>Current Role :</p>
+                <input type="text" id="CR" placeholder="Enter Current Role" formControlName="roleCategory"
+                    [class.activeErr]="submittedForm && profileForm.get('roleCategory').invalid" />
+            </div>
+
+            <div class="Fields-div">
+                <p>Current CTC :</p>
+                <input type="text" id="CTC" placeholder="Enter Current CTC" formControlName="currentCTC"
+                    [class.activeErr]="submittedForm && profileForm.get('currentCTC').invalid" />
+            </div>
+
+            <div class="Fields-div">
+                <p>Location :</p>
+                <input type="text" id="location" placeholder="Enter Location" formControlName="currentLocation"
+                    [class.activeErr]="submittedForm && profileForm.get('currentLocation').invalid" />
+            </div>
+
+            <div class="Fields-div">
+                <p>Interviewing Charges :</p>
+                <input type="text" id="IC" placeholder="Enter Interviewing Charges" formControlName="charges"
+                    [class.activeErr]="submittedForm && profileForm.get('charges').invalid" />
+            </div>
+
+            <div class="lang" class="Fields-div">
+                <p> Languages :</p>
+                <div style="width: 70%;">
+                    <button type="button" class=" multi-check" data-bs-toggle="dropdown" style="width: 72%;"
+                        [class.activeErr]="submittedForm && profileForm.get('language').invalid">
+                        Select
+                    </button>
+                    <ul class="dropdown-menu dropdown-option" onclick="event.stopPropagation()" style="margin: 0px;">
+                        <li *ngFor="let lang of indianLanguages "><a class="dropdown-item">
+                                <label for="{{lang}}">
+                                    <input (change)="add_form_control($event)" type="checkbox" value="{{lang}}" name=""
+                                        [checked]="dataCtrls.value|checked_obj:lang" id="{{lang}}">
+                                    {{lang}}
+                                </label>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <ng-container *ngIf="dataCtrls.controls !=null">
+                <div class="selected-language" formArrayName="language" *ngIf="dataCtrls.controls.length !=0"
+                    style="width: 45%;margin-left: 30%;">
+                    <div class="language" *ngFor="let item of dataCtrls.controls; index as i" [formGroupName]="i">
+                        <p class="selected-language-name">{{item.get('language')?.value}}<span style="cursor: pointer;"
+                                (click)="remove_controls(i)">
+                                <svg width="8" height="8" viewBox="0 0 8 8" fill="red"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 7L7 1M1 1L7 7" stroke="red" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                        </p>
+                        <div class="options">
+                            <label><input formControlName="speak" type="checkbox">Speak</label>
+                            <label><input formControlName="read" type="checkbox"> Read</label>
+                            <label><input formControlName="write" type="checkbox">Write</label>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+        </div>
+        <p class="err" *ngIf="submittedForm && profileForm.invalid"> * Fill All The Required Files </p>
+        <p class="err" *ngIf="serErr != null">{{serErr}}</p>
+        <div class="reg-btn">
+            <button (click)="submitForm()" type="submit">Submit</button>
+        </div>
+    </div>
+
+</div>

@@ -12,55 +12,83 @@ import { MailVerificationComponent } from './mail-verification/mail-verification
 import { RatingComponent } from './rating/rating.component';
 import { ChoosenCandComponent } from './choosen-cand/choosen-cand.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { AuthOutletComponent } from './outlet/auth-outlet/auth-outlet.component';
+import { LogedOutletComponent } from './outlet/loged-outlet/loged-outlet.component';
+import { EditprofileComponent } from './Editprofile/register.component';
+import { AuthService } from './auth-guard/authguard.service';
+import { NoAuthGuard } from './auth-guard/noauthguard.service';
 
 const routes: Routes = [
   {
-    path: '',
-    component: LoginComponent,
+    path: "", component: AuthOutletComponent, children: [
+      {
+        path: '',
+        component: LoginComponent,
+      },
+      {
+        path: 'register',
+        component: RegisterComponent,
+      },
+      {
+        path: 'forgot-password',
+        component: ForgotPasswordComponent,
+      },
+      {
+        path: 'verify-otp',
+        component: VerifyOtpComponent,
+      },
+      {
+        path: 'set-password',
+        component: SetPasswordComponent,
+      },
+      {
+        path: 'mail-send',
+        component: MailVerificationComponent,
+      },
+    ],
+    canActivate: [NoAuthGuard]
   },
   {
-    path: 'register',
-    component: RegisterComponent,
-  },
-  {
-    path: 'forgot-password',
-    component: ForgotPasswordComponent,
-  },
-  {
-    path: 'verify-otp',
-    component: VerifyOtpComponent,
-  },
-  {
-    path: 'set-password',
-    component: SetPasswordComponent,
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent,
-  },
-  {
-    path: 'change-password',
-    component: ChangePasswordComponent
-  },
-  {
-    path: 'candidate',
-    component: CandidateComponent,
-  },
-  {
-    path: 'interview',
-    component: InterviewsComponent,
-  },
-  {
-    path: 'mail-send',
-    component: MailVerificationComponent,
-  },
-  {
-    path: 'cand-rating',
-    component: RatingComponent,
-  },
-  {
-    path: 'choosen-cand',
-    component: ChoosenCandComponent,
+    path: "", component: LogedOutletComponent, children: [
+
+      {
+        path: 'profile',
+
+        children: [
+          { path: "", component: ProfileComponent },
+          {
+            path: 'edit',
+            component: EditprofileComponent,
+          },
+        ]
+      },
+      {
+        path: 'change-password',
+        component: ChangePasswordComponent
+      },
+      {
+        path: 'candidate',
+        component: CandidateComponent,
+      },
+      {
+        path: 'interview',
+        component: InterviewsComponent,
+      },
+      {
+        path: 'verify-otp',
+        component: VerifyOtpComponent,
+      },
+      {
+        path: 'cand-rating',
+        component: RatingComponent,
+      },
+      {
+        path: 'choosen-cand',
+        component: ChoosenCandComponent,
+      },
+
+    ],
+    canActivate: [AuthService]
   },
   {
     path: 'golive',
@@ -75,4 +103,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

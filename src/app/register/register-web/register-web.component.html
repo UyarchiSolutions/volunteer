@@ -1,7 +1,4 @@
 <div class="page-container">
-    <div class="header">
-        <app-header></app-header>
-    </div>
 
     <div class="tabs">
         <span [ngClass]="tabs == 'HR Volunteer'? 'active':'' " (click)="tab('HR Volunteer')"
@@ -18,7 +15,7 @@
                             style="padding-right: 5px;">
                         </span> + Add Profile Picture</label>
                     <input style="display: none" id="image" type="file" (change)="fileUpload($event)" />
-                </div> 
+                </div>
                 <div class="view-ima" *ngIf="selectedFile != null">
                     <img [src]="selectedFile" alt="">
                     <p (click)="removeFile()">
@@ -39,12 +36,12 @@
             </div>
             <div class="Fields-div">
                 <p>Email ID :</p>
-                <input type="email" id="pwd" placeholder="Enter Email ID" formControlName="email" [readOnly]="queryId != null "
+                <input type="email" id="pwd" placeholder="Enter Email ID" formControlName="email"
                     [class.activeErr]="submittedForm && profileForm.get('email').invalid" />
             </div>
             <div class="Fields-div">
                 <p>Mobile Number :</p>
-                <input type="tel" id="mobile" placeholder="Enter Your Mobile Number" formControlName="mobileNumber" [readOnly]="queryId  != null "
+                <input type="tel" id="mobile" placeholder="Enter Your Mobile Number" formControlName="mobileNumber"
                     [class.activeErr]="submittedForm && profileForm.get('mobileNumber').invalid" minlength="10"
                     maxlength="10"
                     onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57" />
@@ -81,7 +78,7 @@
                     <select formControlName="hrExperienceTo" style="margin-left: 6%;"
                         [class.activeErr]="submittedForm && profileForm.get('hrExperienceTo').invalid">
                         <option [value]="null" selected hidden>Month</option>
-                        <option *ngFor="let month of monthsArray"  value="{{month}}">{{month}}</option>
+                        <option *ngFor="let month of monthsArray" value="{{month}}">{{month}}</option>
                     </select>
                 </div>
             </div>
@@ -104,22 +101,36 @@
 
             <div *ngIf="tabs == 'Tech Volunteer' " class="Fields-div">
                 <p>All Skills :</p>
-                <button type="button" class="multi-check" data-bs-toggle="dropdown"
-                    [class.activeErr]="profileForm.get('skills')?.invalid && submittedForm?'error-message':''">
-                    Select Skills 
-                </button>
-                <ul class="dropdown-menu dropdown-option dropdown-option-lan" onclick="event.stopPropagation()">
-                    <li *ngFor="let lang of skillsArr "><a class="dropdown-item" style="width: 100%;"><label
-                                for="{{lang}}" class="lang-align"><input (change)="addSkill1($event)" type="checkbox" 
-                                    value="{{lang}}" name="" [checked]="addSkills.value|checked:lang"
-                                    id="{{lang}}">
-                                {{lang}}</label></a></li>
+
+                <input type="text" class="multi-check" id="multi-check" data-bs-toggle="dropdown"
+                    [class.activeErr]="profileForm.get('skills')?.invalid && submittedForm?'error-message':''"
+                    (keyup)="focus_me($event)" [formControl]="search_skils">
+                <ul class="dropdown-menu dropdown-option dropdown-option-lan" id="skils-option"
+                    onclick="event.stopPropagation()">
+                    <li *ngFor="let lang of skillsArr ">
+                        <a class="dropdown-item" style="width: 100%;"><label for="{{lang._id}}"
+                                class="lang-align"><input (change)="addSkill1($event)" type="checkbox"
+                                    value="{{lang.Skill_Title}}" name=""
+                                    [checked]="addSkills.value|checked:lang.Skill_Title" id="{{lang._id}}">
+                                {{lang.Skill_Title}}</label></a>
+                    </li>
                 </ul>
             </div>
-            <div class="datas" *ngIf="skills1.length>0 && tabs=='Tech Volunteer'" >
-                <p class="items" *ngFor="let item of addSkills.value">{{item}}</p>
+            <div class="datas" *ngIf="addSkills.valid && tabs=='Tech Volunteer'">
+                <p class="items" *ngFor="let item of addSkills.value;index as i">
+                    {{item}}
+                    <span class="remove-page" (click)="remove_index(i)">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8 16C3.5816 16 0 12.4184 0 8C0 3.5816 3.5816 0 8 0C12.4184 0 16 3.5816 16 8C16 12.4184 12.4184 16 8 16ZM8 14.4C9.69739 14.4 11.3253 13.7257 12.5255 12.5255C13.7257 11.3253 14.4 9.69739 14.4 8C14.4 6.30261 13.7257 4.67475 12.5255 3.47452C11.3253 2.27428 9.69739 1.6 8 1.6C6.30261 1.6 4.67475 2.27428 3.47452 3.47452C2.27428 4.67475 1.6 6.30261 1.6 8C1.6 9.69739 2.27428 11.3253 3.47452 12.5255C4.67475 13.7257 6.30261 14.4 8 14.4ZM8 6.8688L10.2624 4.6056L11.3944 5.7376L9.1312 8L11.3944 10.2624L10.2624 11.3944L8 9.1312L5.7376 11.3944L4.6056 10.2624L6.8688 8L4.6056 5.7376L5.7376 4.6056L8 6.8688Z"
+                                fill="#FF0000" />
+                        </svg>
+
+                    </span>
+                </p>
+
             </div>
-            
+
             <div class="Fields-div">
                 <p>Work Status :</p>
                 <input type="text" id="WS" placeholder="Enter Work Status" formControlName="workStatus"
@@ -156,12 +167,12 @@
                     <button type="button" class=" multi-check" data-bs-toggle="dropdown" style="width: 72%;"
                         [class.activeErr]="submittedForm && profileForm.get('language').invalid">
                         Select
-                    </button>  
+                    </button>
                     <ul class="dropdown-menu dropdown-option" onclick="event.stopPropagation()" style="margin: 0px;">
                         <li *ngFor="let lang of indianLanguages "><a class="dropdown-item">
                                 <label for="{{lang}}">
                                     <input (change)="add_form_control($event)" type="checkbox" value="{{lang}}" name=""
-                                        [checked]="dataCtrls.value|langchecked:lang" id="{{lang}}">
+                                        [checked]="dataCtrls.value|checked_obj:lang" id="{{lang}}">
                                     {{lang}}
                                 </label>
                             </a>
