@@ -13,12 +13,13 @@ export class SetPasswordMobileComponent implements OnInit {
     private Aroute: ActivatedRoute,
     private Api: VolunteerServiceService,
     private route: Router
-  ) {}
+  ) { }
 
   email: any = null;
   ngOnInit(): void {
     this.Aroute.queryParams.subscribe((e: any) => {
-      this.email = e.mail;
+      console.log(e)
+      this.email = e.email;
       console.log(this.email);
     });
   }
@@ -43,13 +44,18 @@ export class SetPasswordMobileComponent implements OnInit {
       this.confErr = null;
     }
     let data = { ...this.setPasswordForm.value, ...{ email: this.email } };
+
     if (this.setPasswordForm.valid && this.confErr == null) {
-      
-      this.Api.setpassword(data).subscribe((e: any) => {
-        console.log(e);
-       
-        this.route.navigateByUrl('/');
-      });
+      this.Api.setpassword(data).subscribe(
+        (e: any) => {
+          console.log(e);
+
+          this.route.navigateByUrl('/');
+        },
+        (err: any) => {
+
+        }
+      );
     }
   }
 }

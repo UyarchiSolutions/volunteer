@@ -138,5 +138,8 @@ export class VolunteerServiceService {
   change_password(data: any) {
     return this.http.post(this.baseurl + '/v1/volunteer/change/password', data);
   }
+  forget_passpwrd(data: any) {
+    return this.http.post(this.baseurl + '/v1/volunteer/forget/password', data);
+  }
 
 }

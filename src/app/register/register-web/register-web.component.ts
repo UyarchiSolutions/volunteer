@@ -65,7 +65,8 @@ export class RegisterWebComponent implements OnInit {
     this.tabs = e;
     this.profileForm.get('Role')?.setValue(e);
     if (this.tabs == 'HR Volunteer') {
-      this.profileForm.get('skills')?.setValue([]);
+      this.profileForm.get('skills')?.clear();
+      this.search_skils.reset();
       this.profileForm.get('coreExperienceFrom')?.setValue('');
       this.profileForm.get('coreExperienceTo')?.setValue('');
     } else {
@@ -100,7 +101,7 @@ export class RegisterWebComponent implements OnInit {
     skills: this.fb.array([], [Validators.required]),
     roleCategory: new FormControl('', [Validators.required]),
     Education: new FormControl('', [Validators.required]),
-    charges: new FormControl('', [Validators.required]),
+    // charges: new FormControl('', [Validators.required]),
   });
 
 
@@ -170,7 +171,7 @@ export class RegisterWebComponent implements OnInit {
   submitForm() {
     this.submittedForm = true;
     if (this.tabs == 'HR Volunteer') {
-      this.profileForm.get('skills')?.setErrors(null);
+      this.profileForm.get('skills')?.setErrors([]);
       this.profileForm.get('coreExperienceFrom')?.setErrors(null);
       this.profileForm.get('coreExperienceTo')?.setErrors(null);
 
@@ -277,18 +278,6 @@ export class RegisterWebComponent implements OnInit {
     });
   }
 
-  skils: any = new FormControl();
-  skils2: any = new FormControl();
-
-  select_skils(item: any) {
-    console.log(item);
-    let arr: any = this.profileForm.get('skills')?.value;
-    arr?.push(item.Skill_Title);
-    this.profileForm.get('skills')?.setValue(arr);
-    this.skils.reset();
-    this.skilldata = null;
-  }
-
   removeKeyskill(val: any) {
     let skills = this.profileForm.get('skills')?.value;
     let ind = skills.findIndex((e: any) => {
@@ -353,7 +342,7 @@ export class RegisterWebComponent implements OnInit {
   get addSkills() {
     return this.profileForm.get('skills') as FormArray;
   }
-  
+
   focus_me(event: any) {
     if (this.search_skils.valid) {
       this.Api.get_skills(this.search_skils.value).subscribe((res: any) => {

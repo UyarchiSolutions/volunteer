@@ -107,7 +107,7 @@ export class EditprofileComponentWebComponent implements OnInit {
 
     roleCategory: new FormControl('', [Validators.required]),
     Education: new FormControl('', [Validators.required]),
-    charges: new FormControl('', [Validators.required]),
+    // charges: new FormControl('', [Validators.required]),
   });
 
   //languages:[]=[];

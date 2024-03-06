@@ -3,11 +3,12 @@
 }
 .title {
   padding-top: 20px;
+  text-align: center;
 }
 .title span {
   padding-left: 20px;
   font-size: 24px;
-  color: #0a2647;
+  color: #fd8624;
   font-weight: 700;
   height: 0px;
   font-family: "Poppins";
@@ -25,6 +26,7 @@
 .for-body {
   max-width: 800px;
   margin: auto;
+  margin-top: 40px;
 }
 
 .for-body .forms {
@@ -34,8 +36,8 @@
 }
 
 .forms p {
-  height: 10px;
-  padding-left: 20px;
+  padding-left: 10px;
+  margin-top: 5px;
   font-family: "Poppins";
   color: #0a2647;
   font-weight: 600;
@@ -100,6 +102,6 @@
   font-weight: 600;
 }
 .active-err {
-  border: 1px solid red !important;
+  border: 2px solid red !important;
   color: red !important;
 }

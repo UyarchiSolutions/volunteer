@@ -101,7 +101,7 @@ export class EditprofileComponentMobileComponent implements OnInit {
     skills: this.fb.array([], [Validators.required]),
     roleCategory: new FormControl('', [Validators.required]),
     Education: new FormControl('', [Validators.required]),
-    charges: new FormControl('', [Validators.required]),
+    // charges: new FormControl('', [Validators.required]),
   });
 
   add_form_control(event: any) {

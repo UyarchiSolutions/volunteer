@@ -2,7 +2,7 @@
 
     <div class="body-container">
         <div class="forms-container" [formGroup]="loginForm">
-            <h4>Login Here!</h4>
+            <h4>Interviewer Login </h4>
             <div class="forms">
                 <label>Email ID :</label>
                 <input type="email" placeholder="Enter Your Email ID" formControlName="email"
@@ -21,7 +21,7 @@
             <p *ngIf="serverErr !=null " style="text-align: center; color: red; padding-left: 11%;"> {{serverErr}} </p>
 
 
-            <div class="submit-btn">
+            <div class="forms forms-btn">
                 <button (click)="login()">Login</button>
             </div>
 

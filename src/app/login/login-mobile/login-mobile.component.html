@@ -1,10 +1,7 @@
 <div class="page-container">
-    <div class="logo">
-        <img style="width: 144px;" src="../../../assets/logo.png" alt="">
-    </div>
+
     <div class="title">
-        <span>Welcome !</span>
-        <p>Sign in to access thousands of Jobs</p>
+        <h4>Interviewer Login</h4>
     </div>
 
     <div class="for-body">
@@ -18,12 +15,13 @@
                 <p>Password:</p>
                 <input type="password" id="pwd" placeholder="Enter Password" formControlName="password"
                     [ngClass]="submitted && loginForm.get('password')?.invalid? 'active-err':'' " />
-                <span style=" text-align: right; font-size: 12px;padding-top: 5px;">Forgot Password !</span>
+                <span style=" text-align: right; font-size: 12px;padding-top: 5px;"
+                    [routerLink]="['forgot-password']">Forgot Password !</span>
             </div>
         </div>
-        <p *ngIf="submitted && loginForm.invalid " style="text-align: center; color: red;"> *Fill All The Required
+        <p *ngIf="submitted && loginForm.invalid " style="text-align: left; color: red;padding-left: 10px;"> *Fill All The Required
             Fields </p>
-        <p *ngIf="serverErr !=null " style="text-align: center; color: red; padding-left: 11%;"> {{serverErr}} </p>
+        <p *ngIf="serverErr !=null " style="text-align: left; color: red; padding-left: 11%;padding-left: 10px"> {{serverErr}} </p>
 
         <div class="login-btn">
             <button (click)="login()">Log In</button>

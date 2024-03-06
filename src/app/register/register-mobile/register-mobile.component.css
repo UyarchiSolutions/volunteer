@@ -2,17 +2,18 @@
   padding: 20px;
 }
 
+
 .title {
   padding-top: 20px;
+  text-align: center;
+  color: #fd841f;
+  margin-bottom: 20px;
+
 }
 
-.title span {
-  padding-left: 20px;
-  font-size: 24px;
-  color: #0a2647;
-  font-weight: 700;
-  height: 0px;
-  font-family: "Poppins";
+.title h4 {
+  font-size: 28px;
+  font-weight: 600;
 }
 
 .view-ima {
@@ -20,8 +21,8 @@
 }
 
 .view-ima img {
-  width: 80px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
 }
 
 .view-ima p {
@@ -121,7 +122,7 @@ select:focus {
 }
 
 .login-btn {
-  width: 90%;
+  width: 100%;
   margin: auto;
   display: flex;
   justify-content: center;
@@ -130,7 +131,7 @@ select:focus {
 }
 
 .login-btn button {
-  width: 140px;
+  width: 100%;
   height: 40px;
   border: none;
   border-radius: 5px;
@@ -153,7 +154,7 @@ select:focus {
 .choose-image {
   margin: 0 !important;
   display: flex;
-  height: 100px;
+  height: 120px;
 }
 
 .choose-image label {
@@ -162,7 +163,7 @@ select:focus {
   cursor: pointer;
   border-radius: 3px;
   font-weight: normal !important;
-  width: 80px;
+  width: 120px;
   text-align: center;
   color: #b4b4b4;
   box-shadow: 0px 2px 5px 0px #0000001a;
@@ -198,16 +199,16 @@ select:focus {
 }
 
 .reg-btn {
-  width: 90%;
+  width: 100%;
   margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
+  padding: 0 8px ;
 }
 
 .reg-btn button {
-  width: 140px;
+  width: 100%;
   height: 50px;
   border: none;
   border-radius: 5px;
@@ -446,7 +447,7 @@ input[type="checkbox"] {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   margin-left: -5px;
-  width: 14%;
+  width: 100%;
   background: #0a2647;
   color: white;
 }
@@ -473,4 +474,18 @@ input[type="checkbox"] {
   display: flex;
   align-items: center;
   gap: 13px;
+}
+
+.login-link {
+  text-align: center;
+  margin: 20px 0;
+  font-family: "Poppins";
+  font-size: 15px;
+  color: #0a2647;
+  font-weight: 600;
+
+}
+
+.login-link a {
+  color: #fd841f;
 }

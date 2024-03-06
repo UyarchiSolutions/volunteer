@@ -13,23 +13,29 @@ export class ForgotPasswordWebComponent implements OnInit {
     private Aroute: ActivatedRoute,
     private Api: VolunteerServiceService,
     private route: Router
-  ) {}
+  ) { }
 
-  email: any = null;
-  
+
+
   ngOnInit(): void {
-    this.Aroute.queryParams.subscribe((e: any) => {
-      this.email = e.email;
-      console.log(this.email);
-    });
+
   }
 
   submitted: any = false;
 
-  setPasswordForm = new FormGroup({
-    password: new FormControl('', Validators.required),
-    confirmPassword: new FormControl('', Validators.required),
-  });
 
-  confErr: any = null;
+  text: any = new FormControl(null, Validators.required);
+  error: any;
+  submit() {
+    this.error = null;
+    this.submitted = true;
+    if (this.text.valid) {
+      this.submitted = false;
+      this.Api.forget_passpwrd({ text: this.text.value }).subscribe((res: any) => {
+        this.route.navigateByUrl('/verify-otp?id=' + res.id)
+      }, error => {
+        this.error = error.error.message;
+      })
+    }
+  }
 }

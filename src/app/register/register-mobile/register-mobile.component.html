@@ -1,20 +1,19 @@
 <div class="page-container">
-    <div class="logo">
-        <img style="width: 144px;" src="../../../assets/logo.png" alt="">
-    </div>
+
     <div class="title">
-        <span>Welcome !</span>
-        <p>Sign in to access thousands of Jobs</p>
+        <h4>Interviewer Registration</h4>
     </div>
 
-    <div class="tabs">
-        <span [ngClass]="tabs == 'HR Volunteer'? 'active':'' " (click)="tab('HR Volunteer')"
-            style="width: 50%;text-align: center; padding: 0px 0;">HR Volunteerm</span>
-        <span [ngClass]="tabs =='Tech Volunteer'?'active':'' " (click)="tab('Tech Volunteer')"
-            style="width: 50%; text-align: center; padding: 0px 0;">Tech Volunteer</span>
-    </div>
+
 
     <div class="for-body">
+        <div class="tabs">
+            <span [ngClass]="tabs == 'HR Volunteer'? 'active':'' " (click)="tab('HR Volunteer')"
+                style="width: 50%;text-align: center; padding: 0px 0;">HR</span>
+            <span [ngClass]="tabs =='Tech Volunteer'?'active':'' " (click)="tab('Tech Volunteer')"
+                style="width: 50%; text-align: center; padding: 0px 0;">Tech</span>
+        </div>
+
         <div class="forms" [formGroup]="profileForm">
             <div style="display: flex; justify-content: center;">
                 <div class="choose-image" *ngIf="selectedFile == null ">
@@ -201,11 +200,11 @@
                     [class.activeErr]="submittedForm && profileForm.get('currentLocation').invalid" />
             </div>
 
-            <div>
+            <!-- <div>
                 <p>Interviewing Charges :</p>
                 <input type="text" id="IC" placeholder="Enter Interviewing Charges" formControlName="charges"
                     [class.activeErr]="submittedForm && profileForm.get('charges').invalid" />
-            </div>
+            </div> -->
 
             <div class="lang">
                 <p> Languages :</p>
@@ -255,6 +254,10 @@
 
         <div class="reg-btn">
             <button (click)="submitForm()">Submit</button>
+        </div>
+
+        <div class="login-link">
+            <p>Already have an Account? <a [routerLink]="['/']">Login</a></p>
         </div>
     </div>
 
