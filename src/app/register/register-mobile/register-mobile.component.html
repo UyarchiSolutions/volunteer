@@ -136,46 +136,6 @@
                 </p>
 
             </div>
-
-            <!-- <div style="margin-top: 10px;height: auto;" *ngIf=" profileForm.get('skills')?.value.length > 0">
-                <div class="output" *ngIf="profileForm.get('skills')?.valid">
-                    <ol style=" display: flex;flex-wrap: wrap;width: 100%;height: auto;">
-                        <li *ngFor="let item of profileForm.get('skills')?.value">
-                            <p><span style="color: rgb(255 8 8);cursor: pointer;padding-right: 4px;"
-                                    (click)="removeKeyskill(item)">X</span>{{item}}</p>
-                        </li>
-                    </ol>
-                </div>
-            </div> -->
-
-            <!-- <div *ngIf="tabs == 'Tech Volunteer' ">
-                <p>Evaluation Skills :</p>
-                <input type="text" placeholder="Enter Current Skills" formControlName="currentSkillfron"
-                    style="width: 85%;" [class.activeErr]="submittedForm && profileForm.get('currentSkill').invalid" />
-                <button class="add-btn" (click)="addSkill2()">Add</button>
-            </div>
-            <div class="datas" *ngIf="skills2.length>0">
-                <p class="items" *ngFor="let item of skills2">{{item}}
-                    <span (click)="addSkill2Remove(item)"> <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M6 12C2.6862 12 0 9.3138 0 6C0 2.6862 2.6862 0 6 0C9.3138 0 12 2.6862 12 6C12 9.3138 9.3138 12 6 12ZM6 10.8C7.27304 10.8 8.49394 10.2943 9.39411 9.39411C10.2943 8.49394 10.8 7.27304 10.8 6C10.8 4.72696 10.2943 3.50606 9.39411 2.60589C8.49394 1.70571 7.27304 1.2 6 1.2C4.72696 1.2 3.50606 1.70571 2.60589 2.60589C1.70571 3.50606 1.2 4.72696 1.2 6C1.2 7.27304 1.70571 8.49394 2.60589 9.39411C3.50606 10.2943 4.72696 10.8 6 10.8ZM6 5.1516L7.6968 3.4542L8.5458 4.3032L6.8484 6L8.5458 7.6968L7.6968 8.5458L6 6.8484L4.3032 8.5458L3.4542 7.6968L5.1516 6L3.4542 4.3032L4.3032 3.4542L6 5.1516Z"
-                                fill="#FF0000" />
-                        </svg>
-                    </span>
-                </p>
-            </div> -->
-            <!-- <div style="margin-top: 10px;height: auto;" *ngIf=" profileForm.get('currentSkill')?.value.length > 0">
-                <p class="label"></p>
-                <div class="output" *ngIf="profileForm.get('currentSkill')?.valid">
-                    <ol style=" display: flex;flex-wrap: wrap;width: 100%;height: auto;">
-                        <li *ngFor="let item of profileForm.get('currentSkill')?.value">
-                            <p><span style="padding-left: 5px; color: rgb(253, 6, 6);cursor: pointer;"
-                                    (click)="removeCorekill(item)">X</span>{{item}}</p>
-                        </li>
-                    </ol>
-                </div>
-            </div> -->
             <div>
                 <p>Work Status :</p>
                 <input type="text" id="WS" placeholder="Enter Work Status" formControlName="workStatus"
@@ -200,12 +160,6 @@
                     [class.activeErr]="submittedForm && profileForm.get('currentLocation').invalid" />
             </div>
 
-            <!-- <div>
-                <p>Interviewing Charges :</p>
-                <input type="text" id="IC" placeholder="Enter Interviewing Charges" formControlName="charges"
-                    [class.activeErr]="submittedForm && profileForm.get('charges').invalid" />
-            </div> -->
-
             <div class="lang">
                 <p> Languages :</p>
                 <div>
@@ -226,7 +180,7 @@
                 </div>
             </div>
             <ng-container *ngIf="dataCtrls.controls !=null">
-                <div class="selected-language" formArrayName="language" *ngIf="dataCtrls.controls.length !=0">
+                <div class="selected-language mb-3" formArrayName="language" *ngIf="dataCtrls.controls.length !=0">
                     <div class="language" *ngFor="let item of dataCtrls.controls; index as i" [formGroupName]="i">
                         <p class="selected-language-name">{{item.get('language')?.value}} <span style="cursor: pointer;"
                                 (click)="remove_controls(i)">
@@ -238,22 +192,41 @@
                             </span>
                         </p>
                         <div class="options">
-                            <label><input formControlName="speak" type="checkbox">
+                            <label><input formControlName="speak" type="checkbox" style="height: unset;">
                                 Speak</label>
-                            <label><input formControlName="read" type="checkbox"> Read</label>
-                            <label><input formControlName="write" type="checkbox">
+                            <label><input formControlName="read" type="checkbox" style="height: unset;"> Read</label>
+                            <label><input formControlName="write" type="checkbox" style="height: unset;">
                                 Write</label>
                         </div>
                     </div>
                 </div>
             </ng-container>
+            <div>
+                <p>Resume :</p>
+                <input style="display: none;" type="file" placeholder="Enter Location" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" (change)="choose_resume($event)"
+                    id="choose-resume" />
+                <label [class.activeErr]="submittedForm && profileForm.get('resumename').invalid"
+                    class="btn btn-primary" style="width: 100%;background: white;border: none;color: black;"
+                    *ngIf="this.profileForm.get('resumename').invalid" for="choose-resume">Choose Resume</label>
+                <label *ngIf="this.profileForm.get('resumename').valid" style="width: 100%;">
+                    {{this.profileForm.get('resumename').value}}
+                    <span style="margin-left: 17px;cursor: pointer;" (click)="remove_resume()">
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8.5 8.5L13.5 13.5M13.5 8.5L8.5 13.5M21 11C21 12.3132 20.7413 13.6136 20.2388 14.8268C19.7363 16.0401 18.9997 17.1425 18.0711 18.0711C17.1425 18.9997 16.0401 19.7363 14.8268 20.2388C13.6136 20.7413 12.3132 21 11 21C9.68678 21 8.38642 20.7413 7.17317 20.2388C5.95991 19.7363 4.85752 18.9997 3.92893 18.0711C3.00035 17.1425 2.26375 16.0401 1.7612 14.8268C1.25866 13.6136 1 12.3132 1 11C1 8.34784 2.05357 5.8043 3.92893 3.92893C5.8043 2.05357 8.34784 1 11 1C13.6522 1 16.1957 2.05357 18.0711 3.92893C19.9464 5.8043 21 8.34784 21 11Z"
+                                stroke="#B73E3E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </span>
+                </label>
+            </div>
+
 
         </div>
         <p class="err" *ngIf="submittedForm && profileForm.invalid"> * Fill All The Required Files </p>
         <p class="err" *ngIf="serErr">{{serErr}} </p>
 
         <div class="reg-btn">
-            <button (click)="submitForm()">Submit</button>
+            <button (click)="open_pop()">Submit</button>
         </div>
 
         <div class="login-link">
@@ -261,4 +234,139 @@
         </div>
     </div>
 
+</div>
+
+
+
+
+
+
+
+<button type="button" id="open_now" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#open-preview"
+    style="display: none">
+    Open modal
+</button>
+
+<div class="modal fade modal-lg " aria-modal="true" id="open-preview">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-body">
+                <span data-bs-dismiss="modal" style="float: right;cursor: pointer;"><svg width="22" height="22"
+                        viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M8.5 8.5L13.5 13.5M13.5 8.5L8.5 13.5M21 11C21 12.3132 20.7413 13.6136 20.2388 14.8268C19.7363 16.0401 18.9997 17.1425 18.0711 18.0711C17.1425 18.9997 16.0401 19.7363 14.8268 20.2388C13.6136 20.7413 12.3132 21 11 21C9.68678 21 8.38642 20.7413 7.17317 20.2388C5.95991 19.7363 4.85752 18.9997 3.92893 18.0711C3.00035 17.1425 2.26375 16.0401 1.7612 14.8268C1.25866 13.6136 1 12.3132 1 11C1 8.34784 2.05357 5.8043 3.92893 3.92893C5.8043 2.05357 8.34784 1 11 1C13.6522 1 16.1957 2.05357 18.0711 3.92893C19.9464 5.8043 21 8.34784 21 11Z"
+                            stroke="#B73E3E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </span>
+                <h5 class="title-preview">Preview</h5>
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td>:</td>
+                            <td>{{profileForm.get('name').value}}</td>
+                        </tr>
+                        <tr>
+                            <td>Role</td>
+                            <td>:</td>
+                            <td>{{profileForm.get('Role').value}}</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile Number</td>
+                            <td>:</td>
+                            <td>{{profileForm.get('mobileNumber').value}}</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>:</td>
+                            <td>{{profileForm.get('email').value}}</td>
+                        </tr>
+                        <tr>
+                            <td>Experience</td>
+                            <td>:</td>
+                            <td>{{profileForm.get('experiencefrom').value}}y
+                                {{profileForm.get('experienceTo').value}}m
+                            </td>
+                        </tr>
+                        <tr *ngIf="tabs == 'HR Volunteer' ">
+                            <td>HR Experience</td>
+                            <td>:</td>
+                            <td>{{profileForm.get('hrExperienceFrom').value}}y
+                                {{profileForm.get('hrExperienceTo').value}}m</td>
+                        </tr>
+                        <tr>
+                            <td>WorkStatus</td>
+                            <td>:</td>
+                            <td>{{profileForm.get('workStatus').value}}</td>
+                        </tr>
+                        <tr>
+                            <td>CurrentCTC</td>
+                            <td>:</td>
+                            <td>{{profileForm.get('currentCTC').value}}</td>
+                        </tr>
+                        <tr>
+                            <td>Current Location</td>
+                            <td>:</td>
+                            <td>{{profileForm.get('currentLocation').value}}</td>
+                        </tr>
+                        <tr>
+                            <td>Language</td>
+                            <td>:</td>
+                            <td>
+                                <ng-container *ngIf="dataCtrls.controls !=null">
+                                    <div class="selected-language" *ngIf="dataCtrls.controls.length !=0">
+                                        <div style="margin-bottom: 23px!important;" class="language"
+                                            *ngFor="let item of dataCtrls.controls; index as i">
+                                            <p style="margin-bottom: 4px;" class="selected-language-name">
+                                                {{item.get('language')?.value}}
+                                            </p>
+                                            <div class="options">
+                                                <label><input [checked]="item.get('speak')?.value" disabled
+                                                        type="checkbox">Speak</label>
+                                                <label><input [checked]="item.get('read')?.value" disabled
+                                                        type="checkbox"> Read</label>
+                                                <label><input [checked]="item.get('write')?.value" disabled
+                                                        type="checkbox">Write</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </td>
+                        </tr>
+                        <tr *ngIf="tabs == 'Tech Volunteer' ">
+                            <td>Core Experience</td>
+                            <td>:</td>
+                            <td>{{profileForm.get('coreExperienceFrom').value}}y
+                                {{profileForm.get('coreExperienceTo').value}}m </td>
+                        </tr>
+                        <tr *ngIf="tabs == 'Tech Volunteer' ">
+                            <td>Skills</td>
+                            <td>:</td>
+                            <td>{{profileForm.get('skills').value}}</td>
+                        </tr>
+                        <tr>
+                            <td>Role Category</td>
+                            <td>:</td>
+                            <td>{{profileForm.get('roleCategory').value}}</td>
+                        </tr>
+                        <tr>
+                            <td>Education</td>
+                            <td>:</td>
+                            <td>{{profileForm.get('Education').value}}</td>
+                        </tr>
+                        <tr>
+                            <td>Resume</td>
+                            <td>:</td>
+                            <td>{{profileForm.get('resumename').value}}</td>
+                        </tr>
+
+                </table>
+                <p class="err" *ngIf="serErr != null">{{serErr}}</p>
+                <div class="reg-btn">
+                    <button (click)="submitForm()">Submit</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>

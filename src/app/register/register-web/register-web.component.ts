@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, Pipe, PipeTransform, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, Pipe, PipeTransform, ViewChild } from '@angular/core';
 import {
   FormControl,
   FormArray,
@@ -14,7 +14,7 @@ import { VolunteerServiceService } from 'src/app/volunteer-service.service';
   templateUrl: './register-web.component.html',
   styleUrls: ['./register-web.component.css'],
 })
-export class RegisterWebComponent implements OnInit {
+export class RegisterWebComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private Api: VolunteerServiceService,
@@ -101,6 +101,7 @@ export class RegisterWebComponent implements OnInit {
     skills: this.fb.array([], [Validators.required]),
     roleCategory: new FormControl('', [Validators.required]),
     Education: new FormControl('', [Validators.required]),
+    resumename: new FormControl('', [Validators.required]),
     // charges: new FormControl('', [Validators.required]),
   });
 
@@ -169,79 +170,6 @@ export class RegisterWebComponent implements OnInit {
   serErr: any = null;
 
   submitForm() {
-    this.submittedForm = true;
-    if (this.tabs == 'HR Volunteer') {
-      this.profileForm.get('skills')?.setErrors([]);
-      this.profileForm.get('coreExperienceFrom')?.setErrors(null);
-      this.profileForm.get('coreExperienceTo')?.setErrors(null);
-
-      let experiencefrom = this.profileForm.get('experiencefrom')
-      let experienceTo = this.profileForm.get('experienceTo')
-      let coreExperienceFrom = this.profileForm.get('hrExperienceFrom')
-      let coreExperienceTo = this.profileForm.get('hrExperienceTo')
-      if (experiencefrom.value != null && coreExperienceFrom.valid != null && experienceTo.valid != null && coreExperienceTo.valid != null) {
-        experiencefrom = parseInt(experiencefrom.value);
-        experienceTo = parseInt(experienceTo.value);
-
-        coreExperienceFrom = parseInt(coreExperienceFrom.value);
-        coreExperienceTo = parseInt(coreExperienceTo.value);
-        let coremonth = (coreExperienceTo * 100) / 1200;
-        let coretotal = coreExperienceFrom + coremonth;
-
-        let totalmonth = (experienceTo * 100) / 1200;
-        let totalexp = experiencefrom + totalmonth;
-        console.log(coretotal, totalexp)
-        if (coretotal > totalexp) {
-          this.profileForm.get('experiencefrom').setErrors({ 'incorrect': true })
-          this.profileForm.get('experienceTo').setErrors({ 'incorrect': true })
-          this.profileForm.get('hrExperienceFrom').setErrors({ 'incorrect': true })
-          this.profileForm.get('hrExperienceTo').setErrors({ 'incorrect': true })
-        }
-        else {
-          this.profileForm.get('experiencefrom').setErrors(null)
-          this.profileForm.get('experienceTo').setErrors(null)
-          this.profileForm.get('hrExperienceFrom').setErrors(null)
-          this.profileForm.get('hrExperienceTo').setErrors(null)
-        }
-      }
-
-
-
-    }
-    else {
-      this.profileForm.get('hrExperienceFrom').setErrors(null);
-      this.profileForm.get('hrExperienceTo').setErrors(null);
-
-      let experiencefrom = this.profileForm.get('experiencefrom')
-      let coreExperienceFrom = this.profileForm.get('coreExperienceFrom')
-      let experienceTo = this.profileForm.get('experienceTo')
-      let coreExperienceTo = this.profileForm.get('coreExperienceTo')
-      if (experiencefrom.value != null && coreExperienceFrom.valid != null && experienceTo.valid != null && coreExperienceTo.valid != null) {
-        experiencefrom = parseInt(experiencefrom.value);
-        experienceTo = parseInt(experienceTo.value);
-
-        coreExperienceFrom = parseInt(coreExperienceFrom.value);
-        coreExperienceTo = parseInt(coreExperienceTo.value);
-        let coremonth = (coreExperienceTo * 100) / 1200;
-        let coretotal = coreExperienceFrom + coremonth;
-
-        let totalmonth = (experienceTo * 100) / 1200;
-        let totalexp = experiencefrom + totalmonth;
-        console.log(coretotal, totalexp)
-        if (coretotal > totalexp) {
-          this.profileForm.get('experiencefrom').setErrors({ 'incorrect': true })
-          this.profileForm.get('experienceTo').setErrors({ 'incorrect': true })
-          this.profileForm.get('coreExperienceFrom').setErrors({ 'incorrect': true })
-          this.profileForm.get('coreExperienceTo').setErrors({ 'incorrect': true })
-        }
-        else {
-          this.profileForm.get('experiencefrom').setErrors(null)
-          this.profileForm.get('experienceTo').setErrors(null)
-          this.profileForm.get('coreExperienceFrom').setErrors(null)
-          this.profileForm.get('coreExperienceTo').setErrors(null)
-        }
-      }
-    }
 
     if (this.profileForm.valid) {
       this.Api.volunteerReg(this.profileForm.value).subscribe(
@@ -251,13 +179,35 @@ export class RegisterWebComponent implements OnInit {
           }
           this.route.navigateByUrl('/mail-send');
           this.submittedForm = false;
+          document.getElementById('close_popup')?.click()
         },
         (err: any) => {
           this.serErr = err.error.message;
         }
       );
     }
+  }
 
+  resume: any;
+  choose_resume(event: any) {
+    if (event.target.files != null)
+      if (event.target.files.length != 0) {
+        const reader = new FileReader();
+        this.resume = event.target.files[0];
+        console.log(this.resume)
+        this.profileForm.get('resumename').setValue(this.resume.name)
+      }
+      else {
+        this.profileForm.get('resumename').setValue(null)
+      }
+    else {
+      this.profileForm.get('resumename').setValue(null)
+    }
+
+  }
+  remove_resume() {
+    this.profileForm.get('resumename').setValue(null)
+    this.resume = null
   }
 
   skilldata: any;
@@ -332,6 +282,7 @@ export class RegisterWebComponent implements OnInit {
   fileUploadtoServer(id: any) {
     const formdata = new FormData();
     formdata.append('image', this.fileName);
+    formdata.append('resume', this.resume);
     this.Api.uploadImage(id, formdata).subscribe((e: any) => {
       console.log(e);
     });
@@ -359,6 +310,97 @@ export class RegisterWebComponent implements OnInit {
 
   }
   search_skils: any = new FormControl(null)
+
+
+  open_pop() {
+
+    // this.fileUploadtoServer('a4f979f1-705d-45ed-b105-4dd5393fd8bb');
+
+
+    this.submittedForm = true;
+    if (this.tabs == 'HR Volunteer') {
+      this.profileForm.get('skills')?.setErrors(null);
+      this.profileForm.get('coreExperienceFrom')?.setErrors(null);
+      this.profileForm.get('coreExperienceTo')?.setErrors(null);
+
+      let experiencefrom = this.profileForm.get('experiencefrom')
+      let experienceTo = this.profileForm.get('experienceTo')
+      let coreExperienceFrom = this.profileForm.get('hrExperienceFrom')
+      let coreExperienceTo = this.profileForm.get('hrExperienceTo')
+      if (experiencefrom.value != null && coreExperienceFrom.valid != null && experienceTo.valid != null && coreExperienceTo.valid != null) {
+        experiencefrom = parseInt(experiencefrom.value);
+        experienceTo = parseInt(experienceTo.value);
+
+        coreExperienceFrom = parseInt(coreExperienceFrom.value);
+        coreExperienceTo = parseInt(coreExperienceTo.value);
+        let coremonth = (coreExperienceTo * 100) / 1200;
+        let coretotal = coreExperienceFrom + coremonth;
+
+        let totalmonth = (experienceTo * 100) / 1200;
+        let totalexp = experiencefrom + totalmonth;
+        console.log(coretotal, totalexp)
+        if (coretotal > totalexp) {
+          this.profileForm.get('experiencefrom').setErrors({ 'incorrect': true })
+          this.profileForm.get('experienceTo').setErrors({ 'incorrect': true })
+          this.profileForm.get('hrExperienceFrom').setErrors({ 'incorrect': true })
+          this.profileForm.get('hrExperienceTo').setErrors({ 'incorrect': true })
+        }
+        else {
+          this.profileForm.get('experiencefrom').setErrors(null)
+          this.profileForm.get('experienceTo').setErrors(null)
+          this.profileForm.get('hrExperienceFrom').setErrors(null)
+          this.profileForm.get('hrExperienceTo').setErrors(null)
+        }
+      }
+
+
+
+    }
+    else {
+      this.profileForm.get('hrExperienceFrom').setErrors(null);
+      this.profileForm.get('hrExperienceTo').setErrors(null);
+
+      let experiencefrom = this.profileForm.get('experiencefrom')
+      let coreExperienceFrom = this.profileForm.get('coreExperienceFrom')
+      let experienceTo = this.profileForm.get('experienceTo')
+      let coreExperienceTo = this.profileForm.get('coreExperienceTo')
+      if (experiencefrom.value != null && coreExperienceFrom.valid != null && experienceTo.valid != null && coreExperienceTo.valid != null) {
+        experiencefrom = parseInt(experiencefrom.value);
+        experienceTo = parseInt(experienceTo.value);
+
+        coreExperienceFrom = parseInt(coreExperienceFrom.value);
+        coreExperienceTo = parseInt(coreExperienceTo.value);
+        let coremonth = (coreExperienceTo * 100) / 1200;
+        let coretotal = coreExperienceFrom + coremonth;
+
+        let totalmonth = (experienceTo * 100) / 1200;
+        let totalexp = experiencefrom + totalmonth;
+        console.log(coretotal, totalexp)
+        if (coretotal > totalexp) {
+          this.profileForm.get('experiencefrom').setErrors({ 'incorrect': true })
+          this.profileForm.get('experienceTo').setErrors({ 'incorrect': true })
+          this.profileForm.get('coreExperienceFrom').setErrors({ 'incorrect': true })
+          this.profileForm.get('coreExperienceTo').setErrors({ 'incorrect': true })
+        }
+        else {
+          this.profileForm.get('experiencefrom').setErrors(null)
+          this.profileForm.get('experienceTo').setErrors(null)
+          this.profileForm.get('coreExperienceFrom').setErrors(null)
+          this.profileForm.get('coreExperienceTo').setErrors(null)
+        }
+      }
+    }
+
+    if (this.profileForm.valid) {
+      setTimeout(() => {
+        document.getElementById('open_now')?.click();
+      }, 100)
+    }
+  }
+
+  ngOnDestroy(): void {
+    document.getElementById('close_popup')?.click()
+  }
 }
 
 @Pipe({

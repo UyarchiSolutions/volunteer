@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if (window.innerWidth < 800) {
+    if (window.innerWidth < 1100) {
       this.viweOption = 'mobile';
     } else {
       this.viweOption = 'lap';
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
   }
   loadershow: any = false;
   onResize(event: any): void {
-    if (event.target.innerWidth < 800) {
+    if (event.target.innerWidth < 1100) {
       this.viweOption = 'mobile';
     } else {
       this.viweOption = 'lap';

@@ -9,9 +9,7 @@ import { Env } from '../env';
 export class SocketioService {
 
   private socket: Socket;
-  private url = Env.baseAPi; // your server local path
-  // private url = "http://localhost:3000"; // your server local path
-
+  private url = Env.baseAPi;
   constructor() {
     this.socket = io(this.url, { transports: ['websocket', 'polling', 'flashsocket'] });
   }

@@ -73,7 +73,7 @@
   border: none;
   padding-left: 10px;
   font-family: "Poppins";
-  margin-bottom: 10px !important;
+  margin-bottom: 17px !important;
 }
 
 .multi-check {
@@ -525,4 +525,17 @@ input[type="checkbox"] {
 .login-link a {
   color: #fd841f;
 
+}
+
+.title-preview{
+  text-align: center;
+  color: #fd841f;
+  font-size: 25px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.reg-btn-preview{
+  display: flex;
+  justify-content: space-around;
 }
