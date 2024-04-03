@@ -12,7 +12,8 @@
             </button>
         </div>
         <div class="profile-img">
-            <img onerror="this.onerror=null;this.src='../../assets/profileImage.png';" [src]="data.profileImage" alt="" width="126" height="126">
+            <img onerror="this.onerror=null;this.src='../../assets/profileImage.png';" [src]="data.profileImage" alt=""
+                width="126" height="126">
         </div>
 
         <div class="profile-content">
@@ -71,7 +72,12 @@
                 </div>
                 <div class="fields">
                     <label>Current CTC :</label>
-                    <p>{{data.currentCTC?data.currentCTC:'--'}}</p>
+                    <p>
+                        {{data.currentCTC.lacs !=null && data.currentCTC.lacs !=0
+                        ?data.currentCTC.lacs+' lakhs ':''}}
+                        {{data.currentCTC.thousand !=null && data.currentCTC.thousand !=0
+                        ?data.currentCTC.thousand+' thousand ':''}}
+                    </p>
                 </div>
                 <div class="fields">
                     <label>Interviewing Charges :</label>

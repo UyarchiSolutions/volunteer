@@ -77,9 +77,7 @@
                 </div>
                 <div class="four">
                     <p>{{cand.skills}}</p>
-
-
-                    <p *ngIf="Role == 'HR Volunteer' ">
+                    <p>
 
                         <button class="int-btn" (click)="intrestCandidate(cand._id, cand.slotId)"
                             *ngIf="!cand.already_choosen">Choose</button>

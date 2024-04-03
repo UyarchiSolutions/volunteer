@@ -19,7 +19,6 @@ export class InterviewsWebComponent implements OnInit {
       this.currentTime = new Date().getTime();
     });
     this.socket.get_stream_on_going().subscribe((res: any) => {
-      console.log(res, 87665786)
       let findIndex = this.candidates.findIndex((a: any) => a.channel == res._id);
       if (findIndex != -1) {
         this.candidates[findIndex].streamStatus_can = res.streamStatus;

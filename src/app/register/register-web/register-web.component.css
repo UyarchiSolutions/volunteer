@@ -27,7 +27,8 @@
 .view-ima p {
   position: absolute;
   top: -9px;
-  left: 71px;
+  right: 0;
+  cursor: pointer;
 }
 
 .title p {
@@ -461,7 +462,8 @@ input[type="checkbox"] {
 .datas {
   display: flex;
 }
-.datas label{
+
+.datas label {
   width: 40%;
 }
 
@@ -527,7 +529,7 @@ input[type="checkbox"] {
 
 }
 
-.title-preview{
+.title-preview {
   text-align: center;
   color: #fd841f;
   font-size: 25px;
@@ -535,7 +537,7 @@ input[type="checkbox"] {
   margin-bottom: 20px;
 }
 
-.reg-btn-preview{
+.reg-btn-preview {
   display: flex;
   justify-content: space-around;
 }

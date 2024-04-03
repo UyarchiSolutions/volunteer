@@ -38,7 +38,6 @@ export class AuthcheckService {
 
   loaderShow = new BehaviorSubject<any>(false)
   change_header(type: any) {
-    // console.log(type, 2321312)
     this.loaderShow.next(type)
   }
 

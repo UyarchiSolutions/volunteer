@@ -17,6 +17,7 @@ import { LogedOutletComponent } from './outlet/loged-outlet/loged-outlet.compone
 import { EditprofileComponent } from './Editprofile/register.component';
 import { AuthService } from './auth-guard/authguard.service';
 import { NoAuthGuard } from './auth-guard/noauthguard.service';
+import { VideoUploadComponent } from './videoupload/video-upload/video-upload.component';
 
 const routes: Routes = [
   {
@@ -73,6 +74,10 @@ const routes: Routes = [
       {
         path: 'interview',
         component: InterviewsComponent,
+      },
+      {
+        path: 'upload/:id',
+        component: VideoUploadComponent,
       },
       {
         path: 'verify-otp',

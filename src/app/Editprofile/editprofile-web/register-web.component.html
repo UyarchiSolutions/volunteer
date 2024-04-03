@@ -111,10 +111,18 @@
 
             </div>
 
-            <div class="Fields-div">
+            <div class="Fields-div ">
                 <p>Work Status :</p>
-                <input type="text" id="WS" placeholder="Enter Work Status" formControlName="workStatus"
-                    [class.activeErr]="submittedForm && profileForm.get('workStatus').invalid" />
+                <div class="sub-input" style="width: 50%;">
+                    <select formControlName="workStatus" style="width: 100%;"
+                        [class.activeErr]="submittedForm && profileForm.get('workStatus').invalid">
+                        <option [ngValue]="null" disabled>Select</option>
+                        <option value="Currently Working">Currently Working</option>
+                        <option value="Not Working">Not Working</option>
+                        <option value="Under Notice Period">Under Notice Period</option>
+                        <option value="Free lancer">Free lancer</option>
+                    </select>
+                </div>
             </div>
 
             <div class="Fields-div">
@@ -123,12 +131,22 @@
                     [class.activeErr]="submittedForm && profileForm.get('roleCategory').invalid" />
             </div>
 
-            <div class="Fields-div">
+            <div class="Fields-div" formGroupName="currentCTC">
                 <p>Current CTC :</p>
-                <input type="text" id="CTC" placeholder="Enter Current CTC" formControlName="currentCTC"
-                    [class.activeErr]="submittedForm && profileForm.get('currentCTC').invalid" />
-            </div>
+                <div class="row" style="width: 50%;margin: 0;">
+                    <div class="col" style="padding-left: 0;">
+                        <input style="width: 100%;" type="text" id="CTC" placeholder="Enter lakhs"
+                            formControlName="lacs"
+                            [class.activeErr]="submittedForm && profileForm.get('currentCTC.lacs').invalid ||submittedForm&& profileForm.get('currentCTC').invalid&& profileForm.get('currentCTC.lacs').valid" />
+                    </div>
+                    <div class="col" style="padding: 0;">
+                        <input type="text" style="width: 100%;" id="CTC" placeholder="Enter Thousand"
+                            formControlName="thousand"
+                            [class.activeErr]="submittedForm && profileForm.get('currentCTC.thousand').invalid ||submittedForm&& profileForm.get('currentCTC').invalid && profileForm.get('currentCTC.thousand').valid" />
+                    </div>
 
+                </div>
+            </div>
             <div class="Fields-div">
                 <p>Location :</p>
                 <input type="text" id="location" placeholder="Enter Location" formControlName="currentLocation"

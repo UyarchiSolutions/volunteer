@@ -2,6 +2,7 @@
 
     <div class="title">
         <h4>Interviewer Registration</h4>
+
     </div>
 
 
@@ -138,8 +139,16 @@
             </div>
             <div>
                 <p>Work Status :</p>
-                <input type="text" id="WS" placeholder="Enter Work Status" formControlName="workStatus"
-                    [class.activeErr]="submittedForm && profileForm.get('workStatus').invalid" />
+                <div class="sub-input">
+                    <select formControlName="workStatus" style="width: 100%;"
+                        [class.activeErr]="submittedForm && profileForm.get('workStatus').invalid">
+                        <option [ngValue]="null" disabled> Select</option>
+                        <option value="Currently Working">Currently Working</option>
+                        <option value="Not Working">Not Working</option>
+                        <option value="Under Notice Period">Under Notice Period</option>
+                        <option value="Free lancer">Free lancer</option>
+                    </select>
+                </div>
             </div>
 
             <div>
@@ -147,11 +156,20 @@
                 <input type="text" id="CR" placeholder="Enter Current Role" formControlName="roleCategory"
                     [class.activeErr]="submittedForm && profileForm.get('roleCategory').invalid" />
             </div>
-
-            <div>
+            <div formGroupName="currentCTC">
                 <p>Current CTC :</p>
-                <input type="text" id="CTC" placeholder="Enter Current CTC" formControlName="currentCTC"
-                    [class.activeErr]="submittedForm && profileForm.get('currentCTC').invalid" />
+                <div class="row">
+                    <div class="col-6">
+                        <input type="text" id="CTC" placeholder="Enter lakhs" formControlName="lacs"
+                            [class.activeErr]="submittedForm && profileForm.get('currentCTC.lacs').invalid ||submittedForm&& profileForm.get('currentCTC').invalid&& profileForm.get('currentCTC.lacs').valid"
+                            maxlength="3" />
+                    </div>
+                    <div class="col-6">
+                        <input type="text" id="CTC" placeholder="Enter thousand" formControlName="thousand"
+                            maxlength="2"
+                            [class.activeErr]="submittedForm && profileForm.get('currentCTC.thousand').invalid ||submittedForm&& profileForm.get('currentCTC').invalid && profileForm.get('currentCTC.thousand').valid" />
+                    </div>
+                </div>
             </div>
 
             <div>
@@ -203,7 +221,7 @@
             </ng-container>
             <div>
                 <p>Resume :</p>
-                <input style="display: none;" type="file" placeholder="Enter Location" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" (change)="choose_resume($event)"
+                <input style="display: none;" type="file" placeholder="Enter Location" (change)="choose_resume($event)"
                     id="choose-resume" />
                 <label [class.activeErr]="submittedForm && profileForm.get('resumename').invalid"
                     class="btn btn-primary" style="width: 100%;background: white;border: none;color: black;"
@@ -222,9 +240,10 @@
 
 
         </div>
+        <p class="err" *ngIf="profileForm.get('resumename').errors?.invalidFileType">
+            ({{profileForm.get('resumename').errors?.invalidFileType.value}}) File Type Not Allowd</p>
         <p class="err" *ngIf="submittedForm && profileForm.invalid"> * Fill All The Required Files </p>
         <p class="err" *ngIf="serErr">{{serErr}} </p>
-
         <div class="reg-btn">
             <button (click)="open_pop()">Submit</button>
         </div>
@@ -251,6 +270,7 @@
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-body">
+                <button style="display: none;" data-bs-dismiss="modal" id="popup_close">close</button>
                 <span data-bs-dismiss="modal" style="float: right;cursor: pointer;"><svg width="22" height="22"
                         viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -302,7 +322,13 @@
                         <tr>
                             <td>CurrentCTC</td>
                             <td>:</td>
-                            <td>{{profileForm.get('currentCTC').value}}</td>
+                            <td>
+                                {{profileForm.get('currentCTC.lacs').value !=null
+                                ?profileForm.get('currentCTC.lacs').value+'lakhs ':''}}
+                                {{profileForm.get('currentCTC.thousand').value !=null
+                                ?profileForm.get('currentCTC.thousand').value+'thousand ':''}}
+
+                            </td>
                         </tr>
                         <tr>
                             <td>Current Location</td>

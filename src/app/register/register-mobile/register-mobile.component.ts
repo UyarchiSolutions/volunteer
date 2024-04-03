@@ -7,6 +7,8 @@ import {
   FormGroup,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { atLeastOneRequired } from 'src/app/validators/ctc-validators';
+import { fileTypeValidator } from 'src/app/validators/file-validators.component';
 import { VolunteerServiceService } from 'src/app/volunteer-service.service';
 
 @Component({
@@ -83,7 +85,7 @@ export class RegisterMobileComponent implements OnInit, OnDestroy {
   profileForm: any = this.fb.group({
     name: new FormControl('', [Validators.required]),
     Role: new FormControl('HR Volunteer', [Validators.required]),
-    mobileNumber: new FormControl('', [Validators.required]),
+    mobileNumber: new FormControl('', [Validators.required, Validators.pattern('^[6-9]{1}[0-9]{9}$')]),
     email: new FormControl('', [
       Validators.required,
       Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
@@ -92,8 +94,12 @@ export class RegisterMobileComponent implements OnInit, OnDestroy {
     experienceTo: new FormControl(null, [Validators.required]),
     hrExperienceFrom: new FormControl(null, [Validators.required]),
     hrExperienceTo: new FormControl(null, [Validators.required]),
-    workStatus: new FormControl('', [Validators.required]),
-    currentCTC: new FormControl('', [Validators.required]),
+    workStatus: new FormControl(null, [Validators.required]),
+    // currentCTC: new FormControl('', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+    currentCTC: this.fb.group({
+      lacs: new FormControl(null, [Validators.maxLength(3), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      thousand: new FormControl(null, [Validators.maxLength(2), Validators.pattern(/^-?(0|[1-9]\d*)?$/)])
+    }, { validator: atLeastOneRequired }),
     currentLocation: new FormControl('', [Validators.required]),
     language: this.fb.array([], [Validators.required]),
     coreExperienceFrom: new FormControl(null, [Validators.required]),
@@ -101,9 +107,10 @@ export class RegisterMobileComponent implements OnInit, OnDestroy {
     skills: this.fb.array([], [Validators.required]),
     roleCategory: new FormControl('', [Validators.required]),
     Education: new FormControl('', [Validators.required]),
-    resumename: new FormControl('', [Validators.required]),
-    // charges: new FormControl('', [Validators.required]),
+    resumename: ['', [Validators.required, fileTypeValidator(['.ppt', '.docx', '.pptx', '.pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])]] // Apply your custom validator
   });
+
+
 
 
   add_form_control(event: any) {
@@ -177,9 +184,9 @@ export class RegisterMobileComponent implements OnInit, OnDestroy {
           if (this.fileName != '') {
             this.fileUploadtoServer(e._id);
           }
-          this.route.navigateByUrl('/mail-send');
           this.submittedForm = false;
-          document.getElementById('close_popup')?.click()
+          document.getElementById('popup_close')?.click()
+          this.route.navigateByUrl('/mail-send');
         },
         (err: any) => {
           this.serErr = err.error.message;
@@ -190,6 +197,7 @@ export class RegisterMobileComponent implements OnInit, OnDestroy {
 
   resume: any;
   choose_resume(event: any) {
+    console.log(event.target.files)
     if (event.target.files != null)
       if (event.target.files.length != 0) {
         const reader = new FileReader();
@@ -315,7 +323,7 @@ export class RegisterMobileComponent implements OnInit, OnDestroy {
   open_pop() {
 
     // this.fileUploadtoServer('a4f979f1-705d-45ed-b105-4dd5393fd8bb');
-
+    console.log(this.profileForm.value)
 
     this.submittedForm = true;
     if (this.tabs == 'HR Volunteer') {

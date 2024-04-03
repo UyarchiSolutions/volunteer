@@ -18,7 +18,8 @@
                     <label for="image" style="display: flex; align-items: center; justify-content: center;"> <span
                             style="padding-right: 5px;">
                         </span> + Add Profile Picture</label>
-                    <input style="display: none" id="image" type="file" (change)="fileUpload($event)" />
+                    <input style="display: none" id="image" type="file" (change)="fileUpload($event)"
+                        accept="image/png, image/jpg, image/jpeg" capture />
                 </div>
                 <div class="view-ima" *ngIf="selectedFile != null">
                     <img [src]="selectedFile" alt="">
@@ -138,22 +139,40 @@
                 </div>
             </div>
 
-            <div class="Fields-div">
+            <div class="Fields-div ">
                 <p>Work Status :</p>
-                <input type="text" id="WS" placeholder="Enter Work Status" formControlName="workStatus"
-                    [class.activeErr]="submittedForm && profileForm.get('workStatus').invalid" />
+                <div class="sub-input">
+                    <select formControlName="workStatus" style="width: 100%;"
+                        [class.activeErr]="submittedForm && profileForm.get('workStatus').invalid">
+                        <option [ngValue]="null" disabled>Select</option>
+                        <option value="Currently Working">Currently Working</option>
+                        <option value="Not Working">Not Working</option>
+                        <option value="Under Notice Period">Under Notice Period</option>
+                        <option value="Free lancer">Free lancer</option>
+                    </select>
+                </div>
             </div>
-
             <div class="Fields-div">
                 <p>Current Role :</p>
                 <input type="text" id="CR" placeholder="Enter Current Role" formControlName="roleCategory"
                     [class.activeErr]="submittedForm && profileForm.get('roleCategory').invalid" />
             </div>
 
-            <div class="Fields-div">
+            <div class="Fields-div" formGroupName="currentCTC">
                 <p>Current CTC :</p>
-                <input type="text" id="CTC" placeholder="Enter Current CTC" formControlName="currentCTC"
-                    [class.activeErr]="submittedForm && profileForm.get('currentCTC').invalid" />
+                <div class="row" style="width: 60%;margin: 0;">
+                    <div class="col" style="padding-left: 0;">
+                        <input style="width: 100%;" type="text" id="CTC" placeholder="Enter lakhs"
+                            formControlName="lacs"
+                            [class.activeErr]="submittedForm && profileForm.get('currentCTC.lacs').invalid ||submittedForm&& profileForm.get('currentCTC').invalid&& profileForm.get('currentCTC.lacs').valid" />
+                    </div>
+                    <div class="col" style="padding: 0;">
+                        <input type="text" style="width: 100%;" id="CTC" placeholder="Enter Thousand"
+                            formControlName="thousand"
+                            [class.activeErr]="submittedForm && profileForm.get('currentCTC.thousand').invalid ||submittedForm&& profileForm.get('currentCTC').invalid && profileForm.get('currentCTC.thousand').valid" />
+                    </div>
+
+                </div>
             </div>
 
             <div class="Fields-div">
@@ -187,32 +206,37 @@
                     </ul>
                 </div>
             </div>
-            <ng-container *ngIf="dataCtrls.controls !=null">
-                <div class="selected-language" formArrayName="language" *ngIf="dataCtrls.controls.length !=0"
-                    style="width: 45%;margin-left: 30%;margin-bottom: 20px;">
-                    <div class="language" *ngFor="let item of dataCtrls.controls; index as i" [formGroupName]="i">
-                        <p class="selected-language-name">{{item.get('language')?.value}}<span style="cursor: pointer;"
-                                (click)="remove_controls(i)">
-                                <svg width="8" height="8" viewBox="0 0 8 8" fill="red"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 7L7 1M1 1L7 7" stroke="red" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </span>
-                        </p>
-                        <div class="options">
-                            <label><input formControlName="speak" type="checkbox">Speak</label>
-                            <label><input formControlName="read" type="checkbox"> Read</label>
-                            <label><input formControlName="write" type="checkbox">Write</label>
+            <div class="lang" class="Fields-div">
+                <p for=""></p>
+                <ng-container *ngIf="dataCtrls.controls !=null">
+                    <div style="width: 60%;margin-bottom: 20px;" class="selected-language " formArrayName="language"
+                        *ngIf="dataCtrls.controls.length !=0">
+                        <div class="language" *ngFor="let item of dataCtrls.controls; index as i" [formGroupName]="i">
+                            <p class="selected-language-name" style="margin-bottom: 5px;">
+                                {{item.get('language')?.value}}<span style="cursor: pointer;"
+                                    (click)="remove_controls(i)">
+                                    <svg width="8" height="8" viewBox="0 0 8 8" fill="red"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 7L7 1M1 1L7 7" stroke="red" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </p>
+                            <div class="options mb-3">
+                                <label><input formControlName="speak" type="checkbox">Speak</label>
+                                <label><input formControlName="read" type="checkbox"> Read</label>
+                                <label><input formControlName="write" type="checkbox">Write</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </ng-container>
+                </ng-container>
+            </div>
 
             <div class="Fields-div ">
                 <p>Resume :</p>
                 <input style="display: none;" type="file" placeholder="Enter Location" (change)="choose_resume($event)"
-                    id="choose-resume" accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf" />
+                    id="choose-resume" capture
+                    accept=".ppt,.pptx,.pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
                 <label [class.activeErr]="submittedForm && profileForm.get('resumename').invalid"
                     class="btn btn-primary" style="width: 60%;background: white;border: none;color: black;"
                     *ngIf="this.profileForm.get('resumename').invalid" for="choose-resume">Choose Resume</label>
@@ -251,6 +275,7 @@
     <div class="modal-dialog ">
         <div class="modal-content">
             <div class="modal-body">
+                <button style="display: none;" data-bs-dismiss="modal" id="popup_close">close</button>
                 <span data-bs-dismiss="modal" style="float: right;cursor: pointer;"><svg width="22" height="22"
                         viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -302,7 +327,12 @@
                         <tr>
                             <td>CurrentCTC</td>
                             <td>:</td>
-                            <td>{{profileForm.get('currentCTC').value}}</td>
+                            <td>
+                                {{profileForm.get('currentCTC.lacs').value !=null
+                                ?profileForm.get('currentCTC.lacs').value+' lakhs':''}}
+                                {{profileForm.get('currentCTC.thousand').value !=null
+                                ?profileForm.get('currentCTC.thousand').value+' thousand':''}}
+                            </td>
                         </tr>
                         <tr>
                             <td>Current Location</td>

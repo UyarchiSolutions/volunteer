@@ -1,0 +1,123 @@
+.profile-details {
+    max-width: 900px;
+    margin: auto;
+    padding: 0px;
+}
+
+.profile-details .title {
+    text-align: center;
+    color: #fd841f;
+    font-weight: 600;
+}
+
+.flex-align {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.basic-card {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.image {
+    width: 143px;
+    height: 143px;
+    overflow: hidden;
+    box-shadow: 0 0 7px 0px #c6c2c2;
+    border-radius: 8px;
+    position: relative;
+}
+
+.basic-card .info-1 p svg,
+.basic-card .info-2 p svg {
+    margin-right: 5px;
+}
+
+.edit-icon {
+    cursor: pointer;
+}
+
+.basic-card .image a {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+    z-index: 100;
+
+}
+
+.basic-card .image a label {
+    cursor: pointer;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+
+/* popup */
+.popup-container {
+    background-color: white;
+    min-width: 500px;
+    max-width: 800px;
+    padding: 10px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.popup {
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+}
+
+
+.popup-container::-webkit-scrollbar {
+    display: none;
+}
+
+.error-msg {
+    color: red;
+    text-align: right;
+    margin-top: -10px;
+    font-size: 12px !important;
+}
+
+.popup-close {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    position: fixed;
+    z-index: 0.5;
+}
+
+.popup-container video {
+    width: 100%;
+    height: 100%;
+}
+
+.close-icon {
+    position: absolute;
+    right: -22px;
+    color: red;
+    border-radius: 50%;
+    top: -28px;
+    font-size: 25px;
+    z-index: 10000;
+    cursor: pointer;
+}

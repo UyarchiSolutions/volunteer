@@ -3,7 +3,7 @@
 
         <div class="body-container" *ngIf="candidates.length>0">
             <div class="body-title">
-                <h4>Upcoming Streams</h4>
+                <h4>My Interviews</h4>
             </div>
             <div class="table-container">
                 <table>
@@ -58,9 +58,19 @@
                                 </button>
                                 <span
                                     *ngIf="cand.endTime < currentTime && cand.streamStatus =='Joined' &&cand.rating !='Rated' && !cand.candidate_join  || cand.streamStatus_can=='Completed' && cand.streamStatus =='Joined'&&cand.rating !='Rated'&& !cand.candidate_join ">
-                                Candidate Not Joined
+                                    Candidate Not Joined
                                 </span>
-                                <span *ngIf="cand.rating =='Rated'">Rated</span>
+                                <!-- <span *ngIf="cand.rating =='Rated'">Rated</span><br> -->
+                                <a *ngIf="cand.rating =='Rated' && cand.hr_Video_upload !='Approved'&& cand.Role =='HR Volunteer'"
+                                    [routerLink]="['/upload/'+cand.slotId]">Video Upload</a>
+                                <span
+                                    *ngIf="cand.rating =='Rated' &&( cand.tech_Video_upload !='Approved' ||cand.hr_Video_upload =='Approved' )">
+                                    Approved
+                                </span>
+
+                                <a *ngIf="cand.rating =='Rated' && cand.tech_Video_upload !='Approved'&& cand.Role =='Tech Volunteer'"
+                                    [routerLink]="['/upload/'+cand.slotId]">Video Upload</a>
+
                             </td>
                         </tr>
                     </tbody>

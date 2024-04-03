@@ -7,6 +7,8 @@ import {
   FormGroup,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { atLeastOneRequired } from 'src/app/validators/ctc-validators';
+import { fileTypeValidator } from 'src/app/validators/file-validators.component';
 import { VolunteerServiceService } from 'src/app/volunteer-service.service';
 
 @Component({
@@ -83,7 +85,7 @@ export class RegisterWebComponent implements OnInit, OnDestroy {
   profileForm: any = this.fb.group({
     name: new FormControl('', [Validators.required]),
     Role: new FormControl('HR Volunteer', [Validators.required]),
-    mobileNumber: new FormControl('', [Validators.required]),
+    mobileNumber: new FormControl('', [Validators.required, Validators.pattern('^[6-9]{1}[0-9]{9}$')]),
     email: new FormControl('', [
       Validators.required,
       Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
@@ -92,8 +94,12 @@ export class RegisterWebComponent implements OnInit, OnDestroy {
     experienceTo: new FormControl(null, [Validators.required]),
     hrExperienceFrom: new FormControl(null, [Validators.required]),
     hrExperienceTo: new FormControl(null, [Validators.required]),
-    workStatus: new FormControl('', [Validators.required]),
-    currentCTC: new FormControl('', [Validators.required]),
+    workStatus: new FormControl(null, [Validators.required]),
+    // currentCTC: new FormControl('', [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+    currentCTC: this.fb.group({
+      lacs: new FormControl(null, [Validators.maxLength(3), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      thousand: new FormControl(null, [Validators.maxLength(2), Validators.pattern(/^-?(0|[1-9]\d*)?$/)])
+    }, { validator: atLeastOneRequired }),
     currentLocation: new FormControl('', [Validators.required]),
     language: this.fb.array([], [Validators.required]),
     coreExperienceFrom: new FormControl(null, [Validators.required]),
@@ -101,7 +107,7 @@ export class RegisterWebComponent implements OnInit, OnDestroy {
     skills: this.fb.array([], [Validators.required]),
     roleCategory: new FormControl('', [Validators.required]),
     Education: new FormControl('', [Validators.required]),
-    resumename: new FormControl('', [Validators.required]),
+    resumename: ['', [Validators.required, fileTypeValidator(['.ppt', '.docx', '.pptx', '.pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])]] // Apply your custom validator
     // charges: new FormControl('', [Validators.required]),
   });
 
@@ -153,13 +159,24 @@ export class RegisterWebComponent implements OnInit, OnDestroy {
   fileName: any = '';
   selectedFile: any = null;
   fileUpload(e: any) {
-    const reader = new FileReader();
-    this.fileName = e.target.files[0];
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onload = (_event) => {
-      this.selectedFile = reader.result;
-      console.log(this.selectedFile);
-    };
+    if (e.target.files.length != 0) {
+      if (e.target.files[0].type == 'image/png' || e.target.files[0].type == 'image/jpg' || e.target.files[0].type == 'image/jpeg') {
+        const reader = new FileReader();
+        this.fileName = e.target.files[0];
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = (_event) => {
+          this.selectedFile = reader.result;
+        };
+      }
+      else {
+        this.fileName = null;
+        this.selectedFile = null;
+      }
+    }
+    else {
+      this.fileName = null;
+      this.selectedFile = null;
+    }
   }
 
   removeFile() {
@@ -177,9 +194,9 @@ export class RegisterWebComponent implements OnInit, OnDestroy {
           if (this.fileName != '') {
             this.fileUploadtoServer(e._id);
           }
-          this.route.navigateByUrl('/mail-send');
           this.submittedForm = false;
-          document.getElementById('close_popup')?.click()
+          document.getElementById('popup_close')?.click()
+          this.route.navigateByUrl('/mail-send');
         },
         (err: any) => {
           this.serErr = err.error.message;

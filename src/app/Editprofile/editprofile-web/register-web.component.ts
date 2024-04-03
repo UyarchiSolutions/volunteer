@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthcheckService } from 'src/app/auth-guard/authcheck.service';
+import { atLeastOneRequired } from 'src/app/validators/ctc-validators';
 import { VolunteerServiceService } from 'src/app/volunteer-service.service';
 
 @Component({
@@ -96,15 +97,17 @@ export class EditprofileComponentWebComponent implements OnInit {
     experienceTo: new FormControl('', [Validators.required]),
     hrExperienceFrom: new FormControl('', [Validators.required]),
     hrExperienceTo: new FormControl('', [Validators.required]),
-    workStatus: new FormControl('', [Validators.required]),
-    currentCTC: new FormControl('', [Validators.required]),
+    workStatus: new FormControl(null, [Validators.required]),
+    // currentCTC: new FormControl('', [Validators.required]),
+    currentCTC: this.fb.group({
+      lacs: new FormControl(null, [Validators.maxLength(3), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      thousand: new FormControl(null, [Validators.maxLength(2), Validators.pattern(/^-?(0|[1-9]\d*)?$/)])
+    }, { validator: atLeastOneRequired }),
     currentLocation: new FormControl('', [Validators.required]),
     language: this.fb.array([], [Validators.required]),
     coreExperienceFrom: new FormControl('', [Validators.required]),
     coreExperienceTo: new FormControl('', [Validators.required]),
-
     skills: this.fb.array([], [Validators.required]),
-
     roleCategory: new FormControl('', [Validators.required]),
     Education: new FormControl('', [Validators.required]),
     // charges: new FormControl('', [Validators.required]),

@@ -63,6 +63,9 @@ import { EditprofileComponent } from './Editprofile/register.component';
 import { EditprofileComponentMobileComponent } from './Editprofile/editprofile-mobile/register-mobile.component';
 import { EditprofileComponentWebComponent } from './Editprofile/editprofile-web/register-web.component';
 import { HttpInterceptorService } from './http-interceptor.service';
+import { VideoUploadComponent } from './videoupload/video-upload/video-upload.component';
+import { VideoUploadWebComponent } from './videoupload/video-upload/video-upload-web/video-upload-web.component';
+import { VideoUploadMobileComponent } from './videoupload/video-upload/video-upload-mobile/video-upload-mobile.component';
 
 @NgModule({
   declarations: [
@@ -117,7 +120,10 @@ import { HttpInterceptorService } from './http-interceptor.service';
     EditprofileComponentMobileComponent,
     EditprofileComponentWebComponent,
     checkedForm,
-    checkedForm_obj
+    checkedForm_obj,
+    VideoUploadComponent,
+    VideoUploadWebComponent,
+    VideoUploadMobileComponent
   ],
   imports: [
     BrowserModule,

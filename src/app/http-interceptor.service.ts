@@ -24,7 +24,8 @@ export class HttpInterceptorService implements HttpInterceptor {
       headers: request.headers.set('auth', token),
     });
     let head: any = request.headers.get('loader')
-    if (head != 'false' && !request.reportProgress) {
+    console.log(head,request.reportProgress)
+    if (head != 'false' ) {
       if (!this.showloader) {
         setTimeout(() => {
           this.authcheck.change_header(true)

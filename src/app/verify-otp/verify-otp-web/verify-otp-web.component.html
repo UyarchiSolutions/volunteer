@@ -10,10 +10,6 @@
             <p class="error" *ngIf="counter == 0" (click)="resendOtp()">
                 Resend!</p>
             <p class="error" *ngIf="counter>0">{{counter | otpTimer}}</p>
-            <p class="error" *ngIf="submitted && otpForm.invalid "
-                style="text-align: center; color: red; padding-left: 11%;">
-                Enter OTP
-            </p>
             <p class="error"> {{serverErr}} </p>
             <div class="submit-btn">
                 <button (click)="OTPSubmit()">Verify OTP</button>
